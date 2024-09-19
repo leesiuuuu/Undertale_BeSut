@@ -1,0 +1,255 @@
+fileFormatVersion: 2
+guid: 5705a3ca3d9c41842b86142251fd72a3
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 64
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cat-Sheet3_15
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 93
+        width: 81
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4756b3e829d1cb242bffb1ca40a21f44
+      internalID: -288336936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat-Sheet3_16
+      rect:
+        serializedVersion: 2
+        x: 1009
+        y: 93
+        width: 81
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e920fb8e037a1542b9e4dd2830f488c
+      internalID: -953194650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat-Sheet3_25
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 57
+        width: 81
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90b5549519548224b93a841b8dbc0293
+      internalID: 493739803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cat-Sheet3_29
+      rect:
+        serializedVersion: 2
+        x: 925
+        y: 21
+        width: 81
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 657b5e59ecb86be4fb559b853ec9603b
+      internalID: 2110831936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Cat-Sheet3_0: -1776019325
+      Cat-Sheet3_1: 1004333918
+      Cat-Sheet3_10: -156860847
+      Cat-Sheet3_11: 166633822
+      Cat-Sheet3_12: -1279717643
+      Cat-Sheet3_13: 405346095
+      Cat-Sheet3_14: 8421378
+      Cat-Sheet3_15: -288336936
+      Cat-Sheet3_16: -953194650
+      Cat-Sheet3_17: 1988360008
+      Cat-Sheet3_18: 1338582581
+      Cat-Sheet3_19: 2083507378
+      Cat-Sheet3_2: 914266132
+      Cat-Sheet3_20: 2099581815
+      Cat-Sheet3_21: 714405832
+      Cat-Sheet3_22: 998636671
+      Cat-Sheet3_23: -627501870
+      Cat-Sheet3_24: 1424044051
+      Cat-Sheet3_25: 493739803
+      Cat-Sheet3_26: 1437887808
+      Cat-Sheet3_27: -938089563
+      Cat-Sheet3_28: -446623808
+      Cat-Sheet3_29: 2110831936
+      Cat-Sheet3_3: 2014670148
+      Cat-Sheet3_30: 1603204288
+      Cat-Sheet3_31: 1445197472
+      Cat-Sheet3_32: -516593982
+      Cat-Sheet3_33: -386059899
+      Cat-Sheet3_34: -1037178112
+      Cat-Sheet3_35: 1680222455
+      Cat-Sheet3_36: 1942714177
+      Cat-Sheet3_37: -600675893
+      Cat-Sheet3_38: -171430466
+      Cat-Sheet3_39: -439702859
+      Cat-Sheet3_4: -352092479
+      Cat-Sheet3_40: -1698384300
+      Cat-Sheet3_41: -2039953332
+      Cat-Sheet3_42: 1141852471
+      Cat-Sheet3_43: -1597884497
+      Cat-Sheet3_5: 294065770
+      Cat-Sheet3_6: 2089161698
+      Cat-Sheet3_7: 410733238
+      Cat-Sheet3_8: 559610739
+      Cat-Sheet3_9: -903858342
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
