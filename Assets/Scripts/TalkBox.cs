@@ -9,13 +9,14 @@ public class TalkBox : MonoBehaviour
     public float talkWaitTime;
     public float Delay;
     public TMP_Text TMPtext;
+    public AudioClip Log;
     void Start()
     {
         StartCoroutine(TalkStart(dialogue, talkWaitTime, Delay));
     }
-    public void Talk(float DelayTime)
+    public void Talk(float DelayTime, string dialogue1)
     {
-        StartCoroutine(TalkStart(dialogue, talkWaitTime, DelayTime));
+        StartCoroutine(TalkStart(dialogue1, talkWaitTime, DelayTime));
     }
     IEnumerator TalkStart(string dialogue, float talkWaitTime, float Delay = 0f)
     {
@@ -25,6 +26,7 @@ public class TalkBox : MonoBehaviour
         for(int i = 0; i < dialogue.Length; i++)
         {
             TMPtext.text += dialogue[i];
+            SoundManager.instance.SFXPlay("Log", Log);
             yield return new WaitForSeconds(talkWaitTime);
         }
         StateManager.instance.Acting = true;
