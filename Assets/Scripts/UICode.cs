@@ -1,7 +1,6 @@
-using JetBrains.Annotations;
-using System;
 using System.Net;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -38,6 +37,14 @@ public class UICode : MonoBehaviour
     public GameObject Heart;
     public GameObject TalkBalloon;
     public BossTalkCode TalkBalloonText;
+    [Header("WScripts")]
+    public TextBoxToFightBox T1;
+    public TextBoxToFightBox T2;
+    public HeartMove HM;
+    [Header("Attack Sprite")]
+    public GameObject AttackBar;
+    public GameObject Slide;
+    public GameObject DistanceChecker;
 
     private Vector3 HeartPos;
     //UI 하트 위치
@@ -45,6 +52,8 @@ public class UICode : MonoBehaviour
     private Vector3 ActBtnPos = new Vector3(-2.28f, -4.23f, 0f);
     private Vector3 ItemBtnPos = new Vector3(0.86f, -4.23f, 0f);
     private Vector3 MercyBtnPos = new Vector3(4.07f, -4.23f, 0f);
+    //전투 하트 위치
+    private Vector3 HeartMidPos = new Vector3(0f, -1.35f, 0f);
     //아이템 및 상호작용 선택 하트 위치
     private Vector3[ , ] ListPos = new Vector3[2, 4];
     private int i = 0, j = 0;
@@ -52,11 +61,20 @@ public class UICode : MonoBehaviour
     private bool isActDialogue = false;
     //보스 대화 클릭 횟수
     private int zClick = 0;
+    //슬리이더 끝 위치
+    private Vector3 SlideEndPos = new Vector3(5.39f, -1.49f, 432.4628f);
+    //슬라이더 시작 위치
+    private Vector3 SlideStartPos = new Vector3(-5.39f, -1.49f, 432.4628f);
     //한번만 작동할 bool
     private bool Once = false;
     private bool isBossDialogue = false;
     void Start()
     {
+        T1.enabled = false;
+        T2.enabled = false;
+        HM.enabled = false;
+        AttackBar.SetActive(false);
+        Slide.SetActive(false);
         //배열 초기화
         ListPos[0, 0] = new Vector3(-4.55f, -0.71f, 0f);
         ListPos[1, 0] = new Vector3(-0.18f, -0.71f, 0f);
@@ -74,7 +92,6 @@ public class UICode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Heart.transform.position = HeartPos;
         if (StateManager.instance.Acting)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -95,6 +112,11 @@ public class UICode : MonoBehaviour
                 Ttext.text = "";
                 Ttext.text = "      * 네이트 코릴";
                 HeartPos = ListPos[0, 0];
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    StateManager.instance._Fighting = false;
+                    StartAttack();
+                }
             }
             else if (StateManager.instance._Acting)
             {
@@ -108,18 +130,31 @@ public class UICode : MonoBehaviour
                 {
                     isActDialogue = true;
                     SoundManager.instance.SFXPlay("Selete", SeleteSound);
-                    if(HeartPos == ListPos[0, 0])
+                    if (HeartPos == ListPos[0, 0])
                     {
                         Heart.SetActive(false);
                         Ttext.text = "";
                         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 네이트 코릴에게\n  야옹거렸다.");
                     }
-                    else if(HeartPos == ListPos[1, 0])
+                    else if (HeartPos == ListPos[1, 0])
                     {
                         Heart.SetActive(false);
                         Ttext.text = "";
                         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 네이트 코릴에게\n  쌍욕을 박았다.");
                     }
+                    else if (HeartPos == ListPos[0, 1])
+                    {
+                        Heart.SetActive(false);
+                        Ttext.text = "";
+                        Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 네이트 코릴에게\n  항복한다고 말했다.");
+                    }
+                    else if (HeartPos == ListPos[1, 1])
+                    {
+                        Heart.SetActive(false);
+                        Ttext.text = "";
+                        Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 네이트 코릴에게\n  아무것도 기억이 안난다고 말했다.");
+                    }
+                    StateManager.instance._Acting = false;
                 }
             }
         }
@@ -152,7 +187,8 @@ public class UICode : MonoBehaviour
             Invoke("StartFightTurn", 0.5f);
         }
         //보스 전투 및 말하기 코드
-        if (StateManager.instance.Fighting)
+        if (!StateManager.instance.Fighting) Heart.transform.position = HeartPos;
+        else
         {
             if (!Once)
             {
@@ -162,7 +198,7 @@ public class UICode : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.Z) && isBossDialogue)
             {
-                if(HeartPos == ListPos[0, 0])
+                if(HeartPos == ListPos[0, 0] && !StateManager.instance.Talking)
                 {
                     ++zClick;
                     switch (zClick)
@@ -183,7 +219,7 @@ public class UICode : MonoBehaviour
                             break;
                     }
                 }
-                else if(HeartPos == ListPos[1, 0])
+                else if(HeartPos == ListPos[1, 0] && !StateManager.instance.Talking)
                 {
                     ++zClick;
                     switch (zClick)
@@ -208,9 +244,51 @@ public class UICode : MonoBehaviour
                             break;
                     }
                 }
+                else if(HeartPos == ListPos[0, 1] && !StateManager.instance.Talking)
+                {
+                    ++zClick;
+                    switch (zClick)
+                    {
+                        case 1:
+                            Ttext.text = "";
+                            TalkBalloon.SetActive(true);
+                            TalkBalloonText.Talk(0.2f, "이제와서 항복하겠다고?");
+                            break;
+                        case 2:
+                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                            TalkBalloonText.Talk(0.2f, "너무 늦었어.");
+                            break;
+                        case 3:
+                            TalkBalloon.SetActive(false);
+                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                            isBossDialogue = false;
+                            break;
+                    }
+                }
+                else if (HeartPos == ListPos[1, 1] && !StateManager.instance.Talking)
+                {
+                    ++zClick;
+                    switch (StateManager.instance.NoLieStack)
+                    {
+                        case 0:
+                            DialogueAdder("뭐..?", "아무것도 기억이 안나..?", "미친 척 해봤자 나한테는 소용없어.");
+                            break;
+                        case 1:
+                            DialogueAdder("...거짓말 하지 마.", "계속 기억이 안난다고 시치미 때봤자 안통해.", "얌전히 사라져.");
+                            break;
+                    }
+                }
             }
             if (!isBossDialogue)
             {
+                T1.enabled = true;
+                if (!T2.enabled)
+                {
+                    T2.enabled = true;
+                    Heart.transform.position = HeartMidPos;
+                }
+                Heart.SetActive(true);
+                HM.enabled = true;
                 //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
             }
         }
@@ -326,5 +404,38 @@ public class UICode : MonoBehaviour
     void StartFightTurn()
     {
         StateManager.instance.Fighting = true;
+    }
+    void DialogueAdder(string log1, string log2 = "", string log3 = "")
+    {
+        switch (zClick)
+            {
+                case 1:
+                    Ttext.text = "";
+                    TalkBalloon.SetActive(true);
+                    TalkBalloonText.Talk(0.2f, log1);
+                    break;
+                case 2:
+                    TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                    TalkBalloonText.Talk(0.2f, log2);
+                    break;
+                case 3:
+                    TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                    TalkBalloonText.Talk(0.2f, log3);
+                    break;
+                case 4:
+                    TalkBalloon.SetActive(false);
+                    TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                    StateManager.instance.NoLieStack++;
+                    isBossDialogue = false;
+                    break;
+            }
+    }
+    void StartAttack()
+    {
+        Heart.SetActive(false);
+        AttackBar.SetActive(true);
+        Slide.SetActive(true);
+        Slide.transform.position = SlideStartPos;
+        //공격 바 움직임 코드 넣어 시불세꺠이ㅑ
     }
 }

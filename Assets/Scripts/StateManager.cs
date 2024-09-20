@@ -11,6 +11,9 @@ public class StateManager : MonoBehaviour
     public bool _Acting = false;
     public bool _Iteming = false;
     public bool _Mercying = false;
+    [Header("BossState")]
+    public bool Talking = false;
+    public int NoLieStack = 0;
     void Awake()
     {
         if(instance == null)

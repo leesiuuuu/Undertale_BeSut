@@ -9,7 +9,7 @@ public class ScaleMOve : MonoBehaviour
     private float TimeElapsed = 0f; //진행 시간
     void Start()
     {
-
+        
     }
 
     void Update()
