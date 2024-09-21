@@ -5,14 +5,14 @@ using TMPro;
 
 public class TalkBox : MonoBehaviour
 {
-    public string dialogue;
+    private string dialogue;
     public float talkWaitTime;
     public float Delay;
     public TMP_Text TMPtext;
     public AudioClip Log;
     void Start()
     {
-        StartCoroutine(TalkStart(dialogue, talkWaitTime, Delay));
+        Talk(Delay, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount + 1, dialogue));
     }
     public void Talk(float DelayTime, string dialogue1)
     {

@@ -374,8 +374,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0.26, z: 0}
   m_LocalScale: {x: 0.9, y: 0.9, z: 0.9}
   m_ConstrainProportionsScale: 1
-  m_Children:
-  - {fileID: 2030273068}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &160051312
@@ -1054,6 +1053,7 @@ MonoBehaviour:
   _Mercying: 0
   Talking: 0
   NoLieStack: 0
+  TurnCount: 0
 --- !u!4 &429638836
 Transform:
   m_ObjectHideFlags: 0
@@ -2372,7 +2372,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 
+  m_text: "      * \uC790\uC5F0\uC0B0\uCEE4\uD53C      * \uB9C8\uBC95 \uB864\uCF00\uC774\uD06C\n     
+    * \uB9C8\uBC95 \uC18C\uB2E4       * \uB9C8\uBC95 \uC18C\uB2E4\n      * \uB9C8\uBC95\uC18C\uB2E4       
+    * \uD2B9\uC81C \uCF00-\uC774\uD06C\n\tp1"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 08a885c6adaa5f345bb3797217fb0fd0, type: 2}
   m_sharedMaterial: {fileID: 2655367951620145834, guid: 08a885c6adaa5f345bb3797217fb0fd0, type: 2}
@@ -2461,8 +2463,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b36da875f448a64f855698c69dceb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dialogue: "* \uB2F9\uC2E0\uC740 \uC5B4\uB518\uAC00 \uC2F8\uD55C \uAE30\uBD84\uC744
-    \uB290\uAF08\uB2E4."
   talkWaitTime: 0.04
   Delay: 0.5
   TMPtext: {fileID: 1677406523}
@@ -2548,7 +2548,7 @@ Transform:
   m_GameObject: {fileID: 1706545559}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.35, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.1, y: 2.1, z: 2.1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -2826,13 +2826,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1954835026}
+  - component: {fileID: 1954835027}
   m_Layer: 0
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1954835026
 Transform:
   m_ObjectHideFlags: 0
@@ -2850,6 +2851,27 @@ Transform:
   - {fileID: 259953715}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!95 &1954835027
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1954835025}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a12efa3b5d84f0548af7c75df91b0d91, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2030273067
 GameObject:
   m_ObjectHideFlags: 0
@@ -2875,11 +2897,11 @@ Transform:
   m_GameObject: {fileID: 2030273067}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.97, z: 0}
-  m_LocalScale: {x: 1.1111112, y: 1.1111112, z: 1.1111112}
+  m_LocalPosition: {x: 0, y: -1.513, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 123357260}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2077749597
 GameObject:
@@ -2953,6 +2975,7 @@ MonoBehaviour:
   AttackBar: {fileID: 123357258}
   Slide: {fileID: 1954835025}
   DistanceChecker: {fileID: 2030273067}
+  SpecialDialogue: '* ............'
 --- !u!1 &2111430935
 GameObject:
   m_ObjectHideFlags: 0
@@ -3149,3 +3172,4 @@ SceneRoots:
   - {fileID: 36608981}
   - {fileID: 160051314}
   - {fileID: 1706545561}
+  - {fileID: 2030273068}

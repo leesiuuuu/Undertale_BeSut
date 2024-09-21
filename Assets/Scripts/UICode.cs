@@ -1,7 +1,9 @@
+using System.Collections;
 using System.Net;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -45,6 +47,14 @@ public class UICode : MonoBehaviour
     public GameObject AttackBar;
     public GameObject Slide;
     public GameObject DistanceChecker;
+    [Header("TurnDialogue")]
+    public string SpecialDialogue;
+
+    //출력 대사
+    private string Dialogue;
+
+    //공격 슬라이더 Blink 애니메이션
+    private Animator SliderAniamtor;
 
     private Vector3 HeartPos;
     //UI 하트 위치
@@ -59,17 +69,22 @@ public class UICode : MonoBehaviour
     private int i = 0, j = 0;
     //현재 Act 상황 메시지 출력 중인지 확인
     private bool isActDialogue = false;
+    //현재 Item 상황 메시지 출력 중인지 확인
+    private bool isItemDialogue = false;
     //보스 대화 클릭 횟수
     private int zClick = 0;
     //슬리이더 끝 위치
     private Vector3 SlideEndPos = new Vector3(5.39f, -1.49f, 432.4628f);
     //슬라이더 시작 위치
     private Vector3 SlideStartPos = new Vector3(-5.39f, -1.49f, 432.4628f);
+    //Attack 선택 시 공격 중 판별 bool
+    private bool AttackSliding = false;
     //한번만 작동할 bool
     private bool Once = false;
     private bool isBossDialogue = false;
     void Start()
     {
+        SliderAniamtor = Slide.GetComponent<Animator>();
         T1.enabled = false;
         T2.enabled = false;
         HM.enabled = false;
@@ -80,6 +95,8 @@ public class UICode : MonoBehaviour
         ListPos[1, 0] = new Vector3(-0.18f, -0.71f, 0f);
         ListPos[0, 1] = new Vector3(-4.55f, -1.11f, 0f);
         ListPos[1, 1] = new Vector3(-0.18f, -1.11f, 0f);
+        ListPos[0, 2] = new Vector3(-4.55f, -1.61f, 0f);
+        ListPos[1, 2] = new Vector3(-0.18f, -1.61f, 0f);
 
         FightBtn.sprite = SeleteFight;
         Fight = true;
@@ -87,11 +104,14 @@ public class UICode : MonoBehaviour
         HeartPos = FightBtnPos;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+
+        StateManager.instance.TurnCount++;
     }
 
     // Update is called once per frame
     void Update()
     {
+        //UI 키 이동 코드
         if (StateManager.instance.Acting)
         {
             if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -105,7 +125,8 @@ public class UICode : MonoBehaviour
                 StateChangeRight();
             }
         }
-        else if(StateManager.instance.Starting)
+        //UI 선택 시 Text 변경 코드
+        else if(StateManager.instance.Starting && !AttackSliding)
         {
             if (StateManager.instance._Fighting)
             {
@@ -114,8 +135,7 @@ public class UICode : MonoBehaviour
                 HeartPos = ListPos[0, 0];
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    StateManager.instance._Fighting = false;
-                    StartAttack();
+                    StartCoroutine(ActAttacking());
                 }
             }
             else if (StateManager.instance._Acting)
@@ -157,6 +177,15 @@ public class UICode : MonoBehaviour
                     StateManager.instance._Acting = false;
                 }
             }
+            else if (StateManager.instance._Iteming)
+            {
+                if (!isItemDialogue)
+                {
+                    Ttext.text = "";
+                    Ttext.text = "      * 자연산커피      * 마법 롤케이크\r\n      * 마법 소다       * 마법 소다\r\n      * 마법소다        * 특제 케-이크\r\n\tp1";
+                    InteractiveSelete_Item();
+                }
+            }
         }
         //확인 코드
         if (Input.GetKeyDown(KeyCode.Z) && StateManager.instance.Acting && !StateManager.instance.Starting)
@@ -167,7 +196,7 @@ public class UICode : MonoBehaviour
             SoundManager.instance.SFXPlay("Selete", SeleteSound);
         }
         //취소 코드
-        if (Input.GetKeyDown(KeyCode.X) && !StateManager.instance.Acting && StateManager.instance.Starting)
+        if (Input.GetKeyDown(KeyCode.X) && !StateManager.instance.Acting && StateManager.instance.Starting && !AttackSliding)
         {
             StateManager.instance.Acting = true;
             StateManager.instance.Starting = false;
@@ -176,7 +205,7 @@ public class UICode : MonoBehaviour
             i = 0;
             j = 0;
             Ttext.text = "";
-            Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 어딘가 싸한 기분을 느꼈다.");
+            Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
             SoundManager.instance.SFXPlay("Move", MoveSound);
         }
         //보스 전투 턴 넘어가는 코드
@@ -186,8 +215,9 @@ public class UICode : MonoBehaviour
             StateManager.instance.Acting = false;
             Invoke("StartFightTurn", 0.5f);
         }
-        //보스 전투 및 말하기 코드
+        //하트 오브젝트 위치 지속적으로 확인
         if (!StateManager.instance.Fighting) Heart.transform.position = HeartPos;
+        //보스 전투 및 말하기 코드
         else
         {
             if (!Once)
@@ -227,17 +257,9 @@ public class UICode : MonoBehaviour
                         case 1:
                             Ttext.text = "";
                             TalkBalloon.SetActive(true);
-                            TalkBalloonText.Talk(0.2f, "하하... 그럴 줄 알았어.");
+                            TalkBalloonText.Talk(0.2f, "......");
                             break;
                         case 2:
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            TalkBalloonText.Talk(0.2f, "그 정도로 싫다는 거지?");
-                            break;
-                        case 3:
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            TalkBalloonText.Talk(0.2f, "그럼 나도 죽일 기세로 공격하겠어.");
-                            break;
-                        case 4:
                             TalkBalloon.SetActive(false);
                             TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
                             isBossDialogue = false;
@@ -401,6 +423,28 @@ public class UICode : MonoBehaviour
         }
         HeartPos = ListPos[i, j];
     }
+    void InteractiveSelete_Item()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+        {
+            if (j >= 0 && j < 2) j++;
+            else j = 0;
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow))
+        {
+            if (j > 0 && j < 3) j--;
+            else j = 2;
+        }
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        {
+            if (i == 0) i++;
+        }
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        {
+            if (i == 1) i--;
+        }
+        HeartPos = ListPos[i, j];
+    }
     void StartFightTurn()
     {
         StateManager.instance.Fighting = true;
@@ -430,12 +474,46 @@ public class UICode : MonoBehaviour
                     break;
             }
     }
-    void StartAttack()
+    private IEnumerator ActAttacking()
     {
+        bool Stop = false;
         Heart.SetActive(false);
         AttackBar.SetActive(true);
         Slide.SetActive(true);
+        AttackSliding = true;
         Slide.transform.position = SlideStartPos;
-        //공격 바 움직임 코드 넣어 시불세꺠이ㅑ
+        while (Slide.transform.position.x < SlideEndPos.x && !Stop)
+        {
+            Slide.transform.Translate(Vector3.right * 5 * Time.deltaTime);
+            yield return null;
+            if (Input.GetKeyDown(KeyCode.Z))
+            {
+                SliderAniamtor.SetBool("Blink", true);
+                Stop = true;
+                Debug.Log(DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x));
+            }
+        }
+        if (Stop)
+        {
+
+        }
+        else
+        {
+            Slide.transform.position = SlideEndPos;
+            Heart.SetActive(true);
+            HeartPos = FightBtnPos;
+            AttackBar.SetActive(false);
+            Slide.SetActive(false);
+            AttackSliding = false;
+            StateManager.instance._Fighting = false;
+            StateManager.instance.Starting = false;
+            StopAttack();
+        }
+
+    }
+    void StopAttack()
+    {
+        Ttext.text = "";
+        Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
     }
 }
