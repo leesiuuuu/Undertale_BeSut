@@ -1,11 +1,8 @@
 using System.Collections;
-using System.Net;
+using System.Collections.Generic;
 using TMPro;
 using Unity.VisualScripting;
-using UnityEditor;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class UICode : MonoBehaviour
@@ -39,7 +36,7 @@ public class UICode : MonoBehaviour
     public GameObject Heart;
     public GameObject TalkBalloon;
     public BossTalkCode TalkBalloonText;
-    [Header("WScripts")]
+    [Header("Scripts")]
     public TextBoxToFightBox T1;
     public TextBoxToFightBox T2;
     public HeartMove HM;
@@ -49,12 +46,25 @@ public class UICode : MonoBehaviour
     public GameObject DistanceChecker;
     [Header("TurnDialogue")]
     public string SpecialDialogue;
+    [Header("ItemList")]
+    public List<string> ItemList = new List<string>();
+    public GameObject ItemAndActText;
+    public int Page = 1;
+    const int MAX_PAGE = 2;
+    public bool PageAdd = false;
+    [Header("Act")]
+    public List<string> ActList = new List<string>();
 
     //출력 대사
     private string Dialogue;
 
     //공격 슬라이더 Blink 애니메이션
     private Animator SliderAniamtor;
+
+    //Item창에서 이전 선택 위치
+    private Vector3 Before;
+    private int Bf_i;
+    private int Bf_j;
 
     private Vector3 HeartPos;
     //UI 하트 위치
@@ -65,7 +75,9 @@ public class UICode : MonoBehaviour
     //전투 하트 위치
     private Vector3 HeartMidPos = new Vector3(0f, -1.35f, 0f);
     //아이템 및 상호작용 선택 하트 위치
-    private Vector3[ , ] ListPos = new Vector3[2, 4];
+    private Vector3[ , ] ListPos = new Vector3[2, 3];
+    //아이템 요소 있는지 없는지 확인
+    private bool[ , ] ListELement = new bool[2, 3];
     private int i = 0, j = 0;
     //현재 Act 상황 메시지 출력 중인지 확인
     private bool isActDialogue = false;
@@ -84,6 +96,28 @@ public class UICode : MonoBehaviour
     private bool isBossDialogue = false;
     void Start()
     {
+        //리스트 요소 추가
+        ItemList.Add("자연산 커피");
+        ItemList.Add("마법 롤케이크");
+        ItemList.Add("마법 소다");
+        ItemList.Add("마법 소다");
+        ItemList.Add("마법 소다");
+        /*
+        ItemList.Add("뮤즈 룰스");
+        ItemList.Add("뮤즈 룰스");
+        ItemList.Add("뮤즈 룰스");
+        ItemList.Add("특제 케-이크");*/
+
+        //Act 리스트 요소 추가
+        ActList.Add("야옹거리기");
+        ActList.Add("욕하기");
+        ActList.Add("항복하기");
+        ActList.Add("모르는 척 하기");
+        ActList.Add("");
+        ActList.Add("");
+        
+        ItemAndActText.SetActive(false);
+
         SliderAniamtor = Slide.GetComponent<Animator>();
         T1.enabled = false;
         T2.enabled = false;
@@ -91,12 +125,12 @@ public class UICode : MonoBehaviour
         AttackBar.SetActive(false);
         Slide.SetActive(false);
         //배열 초기화
-        ListPos[0, 0] = new Vector3(-4.55f, -0.71f, 0f);
-        ListPos[1, 0] = new Vector3(-0.18f, -0.71f, 0f);
-        ListPos[0, 1] = new Vector3(-4.55f, -1.11f, 0f);
-        ListPos[1, 1] = new Vector3(-0.18f, -1.11f, 0f);
-        ListPos[0, 2] = new Vector3(-4.55f, -1.61f, 0f);
-        ListPos[1, 2] = new Vector3(-0.18f, -1.61f, 0f);
+        ListPos[0, 0] = new Vector3(-4.81f, -0.748f, 0f);
+        ListPos[1, 0] = new Vector3(0.08f, -0.748f, 0f);
+        ListPos[0, 1] = new Vector3(-4.81f, -1.28f, 0f);
+        ListPos[1, 1] = new Vector3(0.08f, -1.28f, 0f);
+        ListPos[0, 2] = new Vector3(-4.81f, -1.875f, 0f);
+        ListPos[1, 2] = new Vector3(0.08f, -1.875f, 0f);
 
         FightBtn.sprite = SeleteFight;
         Fight = true;
@@ -135,6 +169,8 @@ public class UICode : MonoBehaviour
                 HeartPos = ListPos[0, 0];
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
+                    ImageChanger(FightBtn, NormalFight);
+                    SoundManager.instance.SFXPlay("Selete", SeleteSound);
                     StartCoroutine(ActAttacking());
                 }
             }
@@ -143,13 +179,21 @@ public class UICode : MonoBehaviour
                 if (!isActDialogue)
                 {
                     Ttext.text = "";
-                    Ttext.text = "      * 야옹거리기      * 욕하기\n      * 항복하기        * 모르는 척 하기";
+                    ItemAndActText.SetActive(true);
+                    for(int i = 0; i < 6; i++)
+                    {
+
+                        GameObject.Find("Element" + (i + 1)).GetComponent<TMP_Text>().text = "";
+                        GameObject.Find("Element" + (i + 1)).GetComponent<TMP_Text>().text = string.IsNullOrEmpty(ActList[i]) ? "" : "* " + ActList[i];
+                    }
                     InteractiveSelete();
                 }
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
                     isActDialogue = true;
+                    ImageChanger(ActBtn, NormalAct);
                     SoundManager.instance.SFXPlay("Selete", SeleteSound);
+                    ItemAndActText.SetActive(false);
                     if (HeartPos == ListPos[0, 0])
                     {
                         Heart.SetActive(false);
@@ -182,7 +226,49 @@ public class UICode : MonoBehaviour
                 if (!isItemDialogue)
                 {
                     Ttext.text = "";
-                    Ttext.text = "      * 자연산커피      * 마법 롤케이크\r\n      * 마법 소다       * 마법 소다\r\n      * 마법소다        * 특제 케-이크\r\n\tp1";
+                    ItemAndActText.SetActive(true);
+                    if(ItemList.Count > 6)
+                    {
+                        PageAdd = true;
+                    }
+                    while(ItemList.Count < 6)
+                    {
+                        ItemList.Add("");
+                    }
+                    //아이템 출력 코드
+                    for(int n = 0; n < 6; n++)
+                    {
+                        if (string.IsNullOrEmpty(ItemList[n]))
+                        {
+                            //아이템이 비어있을 시 조건 설정
+                            switch (n)
+                            {
+                                case 0:
+                                    ListELement[0, 0] = true;
+                                    break;
+                                case 1:
+                                    ListELement[1, 0] = true;
+                                    break;
+                                case 2:
+                                    ListELement[0, 1] = true;
+                                    break;
+                                case 3:
+                                    ListELement[1, 1] = true;
+                                    break;
+                                case 4:
+                                    ListELement[0, 2] = true;
+                                    break;
+                                case 5:
+                                    ListELement[1, 2] = true;
+                                    break;
+                            }
+                            GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "";
+                        }
+                        else
+                        {
+                            GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "* " + ItemList[n];
+                        }
+                    } 
                     InteractiveSelete_Item();
                 }
             }
@@ -205,6 +291,7 @@ public class UICode : MonoBehaviour
             i = 0;
             j = 0;
             Ttext.text = "";
+            ItemAndActText.SetActive(false);
             Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
             SoundManager.instance.SFXPlay("Move", MoveSound);
         }
@@ -428,12 +515,10 @@ public class UICode : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             if (j >= 0 && j < 2) j++;
-            else j = 0;
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             if (j > 0 && j < 3) j--;
-            else j = 2;
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -443,7 +528,19 @@ public class UICode : MonoBehaviour
         {
             if (i == 1) i--;
         }
-        HeartPos = ListPos[i, j];
+        Debug.Log("ListElement[" + i + ", " + j + "] = " + ListELement[i, j]);
+        if (ListELement[i, j])
+        {
+            HeartPos = Before;
+            i = Bf_i; j = Bf_j;
+        }
+        else
+        {
+            HeartPos = ListPos[i, j];
+            Before = ListPos[i, j];
+            Bf_i = i;
+            Bf_j = j;
+        }
     }
     void StartFightTurn()
     {
@@ -495,7 +592,7 @@ public class UICode : MonoBehaviour
         }
         if (Stop)
         {
-
+            //공격 후 데미지 UI 생성 및 전투 창 넘어가기
         }
         else
         {
