@@ -438,16 +438,19 @@ public class UICode : MonoBehaviour
         {
             if (isItemDialogue)
             {
-                Ttext.text = "";
-                T1.enabled = true;
-                if (!T2.enabled)
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    T2.enabled = true;
-                    Heart.transform.position = HeartMidPos;
+                    Ttext.text = "";
+                    T1.enabled = true;
+                    if (!T2.enabled)
+                    {
+                        T2.enabled = true;
+                        Heart.transform.position = HeartMidPos;
+                    }
+                    Heart.SetActive(true);
+                    HM.enabled = true;
+                    //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
                 }
-                Heart.SetActive(true);
-                HM.enabled = true;
-                //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
             }
             else if(isActDialogue)
             {
