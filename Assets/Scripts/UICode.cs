@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -40,6 +40,7 @@ public class UICode : MonoBehaviour
     public TextBoxToFightBox T1;
     public TextBoxToFightBox T2;
     public HeartMove HM;
+    public ItemUse IU;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -63,8 +64,19 @@ public class UICode : MonoBehaviour
 
     //Item창에서 이전 선택 위치
     private Vector3 Before;
+    private int BeforeItemLocate;
     private int Bf_i;
     private int Bf_j;
+
+    /// <summary>
+    /// 두 번째 페이지 비어있는 요소 상태
+    /// 1 : 1 ~ 2개의 요소 있음
+    /// 2 : 3 ~ 4개의 요소 있음
+    /// 3 : 5 ~ 6개의 요소 있음
+    /// </summary>
+    private int SecPage_Element = 0;
+
+    private int ItemLocate = 0;
 
     private Vector3 HeartPos;
     //UI 하트 위치
@@ -83,6 +95,8 @@ public class UICode : MonoBehaviour
     private bool isActDialogue = false;
     //현재 Item 상황 메시지 출력 중인지 확인
     private bool isItemDialogue = false;
+    //현재 Mercy 상황 메시지 출력 중인지 확인
+    private bool isMercyDialogue = false;
     //보스 대화 클릭 횟수
     private int zClick = 0;
     //슬리이더 끝 위치
@@ -102,11 +116,10 @@ public class UICode : MonoBehaviour
         ItemList.Add("마법 소다");
         ItemList.Add("마법 소다");
         ItemList.Add("마법 소다");
-        /*
         ItemList.Add("뮤즈 룰스");
         ItemList.Add("뮤즈 룰스");
         ItemList.Add("뮤즈 룰스");
-        ItemList.Add("특제 케-이크");*/
+        ItemList.Add("특제 케-이크");
 
         //Act 리스트 요소 추가
         ActList.Add("야옹거리기");
@@ -182,7 +195,6 @@ public class UICode : MonoBehaviour
                     ItemAndActText.SetActive(true);
                     for(int i = 0; i < 6; i++)
                     {
-
                         GameObject.Find("Element" + (i + 1)).GetComponent<TMP_Text>().text = "";
                         GameObject.Find("Element" + (i + 1)).GetComponent<TMP_Text>().text = string.IsNullOrEmpty(ActList[i]) ? "" : "* " + ActList[i];
                     }
@@ -230,46 +242,161 @@ public class UICode : MonoBehaviour
                     if(ItemList.Count > 6)
                     {
                         PageAdd = true;
+                        while(ItemList.Count < 12)
+                        {
+                            ItemList.Add("");
+                        }
                     }
                     while(ItemList.Count < 6)
                     {
                         ItemList.Add("");
                     }
-                    //아이템 출력 코드
-                    for(int n = 0; n < 6; n++)
+                    //페이지 내에 있는 아이템 출력
+                    if(Page == 1)
                     {
-                        if (string.IsNullOrEmpty(ItemList[n]))
+                        for (int n = 0; n < 6; n++)
                         {
-                            //아이템이 비어있을 시 조건 설정
-                            switch (n)
+                            if (string.IsNullOrEmpty(ItemList[n]))
                             {
-                                case 0:
-                                    ListELement[0, 0] = true;
-                                    break;
-                                case 1:
-                                    ListELement[1, 0] = true;
-                                    break;
-                                case 2:
-                                    ListELement[0, 1] = true;
-                                    break;
-                                case 3:
-                                    ListELement[1, 1] = true;
-                                    break;
-                                case 4:
-                                    ListELement[0, 2] = true;
-                                    break;
-                                case 5:
-                                    ListELement[1, 2] = true;
-                                    break;
+                                //아이템이 비어있을 시 조건 설정
+                                switch (n)
+                                {
+                                    case 0:
+                                        ListELement[0, 0] = true;
+                                        break;
+                                    case 1:
+                                        ListELement[1, 0] = true;
+                                        break;
+                                    case 2:
+                                        ListELement[0, 1] = true;
+                                        break;
+                                    case 3:
+                                        ListELement[1, 1] = true;
+                                        break;
+                                    case 4:
+                                        ListELement[0, 2] = true;
+                                        break;
+                                    case 5:
+                                        ListELement[1, 2] = true;
+                                        break;
+                                }
+                                GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "";
                             }
-                            GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "";
+                            else
+                            {
+                                //비어있지 않는 요소는 false로 바꾸기
+                                switch (n)
+                                {
+                                    case 0:
+                                        ListELement[0, 0] = false;
+                                        break;
+                                    case 1:
+                                        ListELement[1, 0] = false;
+                                        break;
+                                    case 2:
+                                        ListELement[0, 1] = false;
+                                        break;
+                                    case 3:
+                                        ListELement[1, 1] = false;
+                                        break;
+                                    case 4:
+                                        ListELement[0, 2] = false;
+                                        break;
+                                    case 5:
+                                        ListELement[1, 2] = false;
+                                        break;
+                                }
+                                GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "* " + ItemList[n];
+                            }
                         }
-                        else
+                    }
+                    else
+                    {
+                        for (int e = 6; e < 12; e++)
                         {
-                            GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "* " + ItemList[n];
+                            if (string.IsNullOrEmpty(ItemList[e]))
+                            {
+                                //아이템이 비어있을 시 조건 설정
+                                switch (e)
+                                {
+                                    case 6:
+                                        ListELement[0, 0] = true;
+                                        break;
+                                    case 7:
+                                        ListELement[1, 0] = true;
+                                        break;
+                                    case 8:
+                                        ListELement[0, 1] = true;
+                                        break;
+                                    case 9:
+                                        ListELement[1, 1] = true;
+                                        break;
+                                    case 10:
+                                        ListELement[0, 2] = true;
+                                        break;
+                                    case 11:
+                                        ListELement[1, 2] = true;
+                                        break;
+                                }
+                                GameObject.Find("Element" + (e - 5)).GetComponent<TMP_Text>().text = "";
+                            }
+                            else
+                            {                                //비어있지 않는 요소는 false로 바꾸기
+                                switch (e)
+                                {
+                                    case 6:
+                                        ListELement[0, 0] = false;
+                                        break;
+                                    case 7:
+                                        ListELement[1, 0] = false;
+                                        break;
+                                    case 8:
+                                        ListELement[0, 1] = false;
+                                        break;
+                                    case 9:
+                                        ListELement[1, 1] = false;
+                                        break;
+                                    case 10:
+                                        ListELement[0, 2] = false;
+                                        break;
+                                    case 11:
+                                        ListELement[1, 2] = false;
+                                        break;
+                                }
+                                GameObject.Find("Element" + (e - 5)).GetComponent<TMP_Text>().text = "* " + ItemList[e];
+                            }
                         }
-                    } 
+                    }
+
                     InteractiveSelete_Item();
+                }
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    isItemDialogue = true;
+                    ImageChanger(ItemBtn, NormalItem);
+                    SoundManager.instance.SFXPlay("Selete", SeleteSound);
+                    IU.ItemUsed(Ttext, ItemAndActText, ItemList, ItemList[ItemLocate], Heart, ItemLocate);
+                    StateManager.instance._Iteming = false;
+                }
+            }
+            else if (StateManager.instance._Mercying)
+            {
+                if (!isMercyDialogue)
+                {
+                    Ttext.text = "";
+                    Ttext.text = "      * 살려주기";
+                    HeartPos = ListPos[0, 0];
+                }
+                if (Input.GetKeyDown(KeyCode.Z))
+                {
+                    ImageChanger(MercyBtn, NormalMercy);
+                    SoundManager.instance.SFXPlay("Selete", SeleteSound);
+                    Heart.SetActive(false);
+                    Ttext.text = "";
+                    isMercyDialogue = true;
+                    StateManager.instance.Acting = false;
+                    StateManager.instance.Fighting = true;
+                    StateManager.instance._Mercying = false;
                 }
             }
         }
@@ -288,6 +415,8 @@ public class UICode : MonoBehaviour
             StateManager.instance.Starting = false;
             ActState(false);
             ActCancel();
+            Page = 1;
+            PageAdd = false;
             i = 0;
             j = 0;
             Ttext.text = "";
@@ -307,89 +436,9 @@ public class UICode : MonoBehaviour
         //보스 전투 및 말하기 코드
         else
         {
-            if (!Once)
+            if (isItemDialogue)
             {
-                zClick = 0;
-                Once = true;
-                isBossDialogue = true;
-            }
-            if (Input.GetKeyDown(KeyCode.Z) && isBossDialogue)
-            {
-                if(HeartPos == ListPos[0, 0] && !StateManager.instance.Talking)
-                {
-                    ++zClick;
-                    switch (zClick)
-                    {
-                        case 1:
-                            Ttext.text = "";
-                            TalkBalloon.SetActive(true);
-                            TalkBalloonText.Talk(0.2f, "....지금 뭐하는 거지?");
-                            break;
-                        case 2:
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            TalkBalloonText.Talk(0.2f, "나랑 장난하자는 건가?");
-                            break;
-                        case 3:
-                            TalkBalloon.SetActive(false);
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            isBossDialogue = false;
-                            break;
-                    }
-                }
-                else if(HeartPos == ListPos[1, 0] && !StateManager.instance.Talking)
-                {
-                    ++zClick;
-                    switch (zClick)
-                    {
-                        case 1:
-                            Ttext.text = "";
-                            TalkBalloon.SetActive(true);
-                            TalkBalloonText.Talk(0.2f, "......");
-                            break;
-                        case 2:
-                            TalkBalloon.SetActive(false);
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            isBossDialogue = false;
-                            break;
-                    }
-                }
-                else if(HeartPos == ListPos[0, 1] && !StateManager.instance.Talking)
-                {
-                    ++zClick;
-                    switch (zClick)
-                    {
-                        case 1:
-                            Ttext.text = "";
-                            TalkBalloon.SetActive(true);
-                            TalkBalloonText.Talk(0.2f, "이제와서 항복하겠다고?");
-                            break;
-                        case 2:
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            TalkBalloonText.Talk(0.2f, "너무 늦었어.");
-                            break;
-                        case 3:
-                            TalkBalloon.SetActive(false);
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            isBossDialogue = false;
-                            break;
-                    }
-                }
-                else if (HeartPos == ListPos[1, 1] && !StateManager.instance.Talking)
-                {
-                    ++zClick;
-                    switch (StateManager.instance.NoLieStack)
-                    {
-                        case 0:
-                            DialogueAdder("뭐..?", "아무것도 기억이 안나..?", "미친 척 해봤자 나한테는 소용없어.");
-                            break;
-                        case 1:
-                            DialogueAdder("...거짓말 하지 마.", "계속 기억이 안난다고 시치미 때봤자 안통해.", "얌전히 사라져.");
-                            break;
-                    }
-                }
-            }
-            if (!isBossDialogue)
-            {
+                Ttext.text = "";
                 T1.enabled = true;
                 if (!T2.enabled)
                 {
@@ -399,6 +448,144 @@ public class UICode : MonoBehaviour
                 Heart.SetActive(true);
                 HM.enabled = true;
                 //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
+            }
+            else if(isActDialogue)
+            {
+                if (!Once)
+                {
+                    zClick = 0;
+                    Once = true;
+                    isBossDialogue = true;
+                }
+                if (Input.GetKeyDown(KeyCode.Z) && isBossDialogue)
+                {
+                    if (HeartPos == ListPos[0, 0] && !StateManager.instance.Talking)
+                    {
+                        ++zClick;
+                        switch (zClick)
+                        {
+                            case 1:
+                                Ttext.text = "";
+                                TalkBalloon.SetActive(true);
+                                TalkBalloonText.Talk(0.2f, "....지금 뭐하는 거지?");
+                                break;
+                            case 2:
+                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                                TalkBalloonText.Talk(0.2f, "나랑 장난하자는 건가?");
+                                break;
+                            case 3:
+                                TalkBalloon.SetActive(false);
+                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                                isBossDialogue = false;
+                                break;
+                        }
+                    }
+                    else if (HeartPos == ListPos[1, 0] && !StateManager.instance.Talking)
+                    {
+                        ++zClick;
+                        switch (zClick)
+                        {
+                            case 1:
+                                Ttext.text = "";
+                                TalkBalloon.SetActive(true);
+                                TalkBalloonText.Talk(0.2f, "......");
+                                break;
+                            case 2:
+                                TalkBalloon.SetActive(false);
+                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                                isBossDialogue = false;
+                                break;
+                        }
+                    }
+                    else if (HeartPos == ListPos[0, 1] && !StateManager.instance.Talking)
+                    {
+                        ++zClick;
+                        switch (zClick)
+                        {
+                            case 1:
+                                Ttext.text = "";
+                                TalkBalloon.SetActive(true);
+                                TalkBalloonText.Talk(0.2f, "이제와서 항복하겠다고?");
+                                break;
+                            case 2:
+                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                                TalkBalloonText.Talk(0.2f, "너무 늦었어.");
+                                break;
+                            case 3:
+                                TalkBalloon.SetActive(false);
+                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                                isBossDialogue = false;
+                                break;
+                        }
+                    }
+                    else if (HeartPos == ListPos[1, 1] && !StateManager.instance.Talking)
+                    {
+                        ++zClick;
+                        switch (StateManager.instance.NoLieStack)
+                        {
+                            case 0:
+                                DialogueAdder("뭐..?", "아무것도 기억이 안나..?", "미친 척 해봤자 나한테는 소용없어.");
+                                break;
+                            case 1:
+                                DialogueAdder("...거짓말 하지 마.", "계속 기억이 안난다고 시치미 때봤자 안통해.", "얌전히 사라져.");
+                                break;
+                        }
+                    }
+                }
+                if (!isBossDialogue)
+                {
+                    T1.enabled = true;
+                    if (!T2.enabled)
+                    {
+                        T2.enabled = true;
+                        Heart.transform.position = HeartMidPos;
+                    }
+                    Heart.SetActive(true);
+                    HM.enabled = true;
+                    //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
+                }
+            }
+            else if (isMercyDialogue)
+            {
+                if (!Once)
+                {
+                    zClick = 0;
+                    Once = true;
+                    isBossDialogue = true;
+                }
+                if (Input.GetKeyDown(KeyCode.Z) && isBossDialogue)
+                {
+                    ++zClick;
+                    switch (zClick)
+                    {
+                        case 1:
+                            Ttext.text = "";
+                            TalkBalloon.SetActive(true);
+                            TalkBalloonText.Talk(0.2f, "이제와서 살려주겠다고?");
+                            break;
+                        case 2:
+                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                            TalkBalloonText.Talk(0.2f, "자비는 없다.");
+                            break;
+                        case 3:
+                            TalkBalloon.SetActive(false);
+                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+                            isBossDialogue = false;
+                            break;
+                    }
+                }
+                if (!isBossDialogue)
+                {
+                    T1.enabled = true;
+                    if (!T2.enabled)
+                    {
+                        T2.enabled = true;
+                        Heart.transform.position = HeartMidPos;
+                    }
+                    Heart.SetActive(true);
+                    HM.enabled = true;
+                    //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
+                }
             }
         }
     }
@@ -514,30 +701,121 @@ public class UICode : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (j >= 0 && j < 2) j++;
+            if (j >= 0 && j < 2)
+            {
+                j++;
+                ItemLocate += 2;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (j > 0 && j < 3) j--;
+            if (j > 0 && j < 3)
+            {
+                j--;
+                ItemLocate -= 2;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
         {
-            if (i == 0) i++;
+            //페이지 넘어갈 시 요소 변경 가능하게 해줌
+            if (PageAdd)
+            {
+                if (Page == 1 && i == 1)
+                {
+                    //현재 비어있는 요소 갯수 저장
+                    switch (ItemList.FindAll(x => x == "").Count)
+                    {
+                        case 5: case 4:
+                            SecPage_Element = 1;
+                            break;
+                        case 3: case 2:
+                            SecPage_Element = 2;
+                            break;
+                        case 1: case 0:
+                            SecPage_Element = 3;
+                            break;        
+                    }
+                    Page = 2;
+                    i = 0;
+                    ItemLocate += 5;
+                    //비어있는 요소에 따른 UI 반응
+                    switch (SecPage_Element)
+                    {
+                        case 1:
+                            if(j == 2 || j == 1)
+                            {
+                                j = 0;
+                                ItemLocate = 6;
+                            }
+                            break;
+                        case 2:
+                            if(j == 2)
+                            {
+                                j = 1;
+                                ItemLocate = 8;
+                            }
+                            break;
+                        case 3:
+                            break;
+                    }
+                }
+                else
+                {
+                    if (i == 0)
+                    {
+                        i++;
+                        ItemLocate += 1;
+                    }
+                }
+            }
+            else
+            {
+                if (i == 0) i++;
+            }
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            if (i == 1) i--;
+            //페이지 넘어갈 시 요소 변경 가능하게 해줌
+            if (PageAdd)
+            {
+                if (Page == 2 && i == 0)
+                {
+                    Page = 1;
+                    i = 1;
+                    ItemLocate -= 5;
+                }
+                else
+                {
+                    if (i == 1)
+                    {
+                        i--;
+                        ItemLocate -= 1;
+                    }
+                }
+            }
+            else
+            {
+                if (i == 1) i--;
+            }
         }
-        Debug.Log("ListElement[" + i + ", " + j + "] = " + ListELement[i, j]);
         if (ListELement[i, j])
         {
-            HeartPos = Before;
-            i = Bf_i; j = Bf_j;
+            if(Page == 1)
+            {
+                
+            }
+            else
+            {
+                HeartPos = Before;
+                ItemLocate = BeforeItemLocate;
+                i = Bf_i; j = Bf_j;
+            }
         }
         else
         {
             HeartPos = ListPos[i, j];
             Before = ListPos[i, j];
+            BeforeItemLocate = ItemLocate;
             Bf_i = i;
             Bf_j = j;
         }
@@ -581,7 +859,7 @@ public class UICode : MonoBehaviour
         Slide.transform.position = SlideStartPos;
         while (Slide.transform.position.x < SlideEndPos.x && !Stop)
         {
-            Slide.transform.Translate(Vector3.right * 5 * Time.deltaTime);
+            Slide.transform.Translate(Vector3.right * 7 * Time.deltaTime);
             yield return null;
             if (Input.GetKeyDown(KeyCode.Z))
             {
@@ -612,5 +890,12 @@ public class UICode : MonoBehaviour
     {
         Ttext.text = "";
         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
+    }
+    //보스 턴 끝날 시 초기화
+    void MyTurnBack()
+    {
+        isActDialogue = false;
+        isItemDialogue = false;
+        Once = false;
     }
 }
