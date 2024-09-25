@@ -13,11 +13,14 @@ public class AttackPattern2 : AttackPattern2M
     protected int dir;
     private float time;
     public float EndTime;
-    public float Speed;
+    public float constant;
+    private float Speed;
     private Vector3 direction;
     private void Start()
     {
         dir = Random.Range(0, 4);
+        Speed = Random.Range(25, 40);
+        EndTime = constant / Speed;
         Posinit(gameObject, dir);
         
     }
@@ -50,6 +53,9 @@ public class AttackPattern2 : AttackPattern2M
 
         if (time < ttime)
             transform.position += direction * 0.001f * Speed;
-        else Destroy(gameObject);
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

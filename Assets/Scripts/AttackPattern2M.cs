@@ -3,6 +3,7 @@ using UnityEngine;
 public class AttackPattern2M : MonoBehaviour
 {
     public GameObject AttackObject;
+    public UICode UC;
 
     protected int CopyedCount = 0;
 
@@ -22,9 +23,17 @@ public class AttackPattern2M : MonoBehaviour
     }
     private void Update()
     {
-        if (!GameObject.FindWithTag("AttackSprite") && CopyedCount != 10)
+        if (!GameObject.FindWithTag("AttackSprite") && CopyedCount <= 6)
         {
-            GameObject clone = Instantiate(AttackObject);
+            ++CopyedCount;
+            if (CopyedCount > 6)
+            {
+                UC.MyTurnBack();
+            }
+            else
+            {
+                GameObject clone = Instantiate(AttackObject);
+            }
         }
     }
 }

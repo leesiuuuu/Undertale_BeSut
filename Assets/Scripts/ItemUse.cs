@@ -33,6 +33,7 @@ public class ItemUse : MonoBehaviour
         }
         string ItemLog = "* 당신은 " + ItemName + "을(를) 사용했다!\n  HP가 " + HPPercetage +"만큼 증가했다!";
         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, ItemLog);
+        PlayerManager.instance.HP += HPPercetage;
         ItemList.RemoveAt(index);
     }
 }

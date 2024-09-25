@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO.IsolatedStorage;
 using TMPro;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class UICode : MonoBehaviour
@@ -39,6 +41,8 @@ public class UICode : MonoBehaviour
     [Header("Scripts")]
     public TextBoxToFightBox T1;
     public TextBoxToFightBox T2;
+    public TextBoxToFightBox1 T_1;
+    public TextBoxToFightBox1 T_2;
     public HeartMove HM;
     public ItemUse IU;
     public AttackPattern2M AtkPtn2M;
@@ -135,6 +139,8 @@ public class UICode : MonoBehaviour
         SliderAniamtor = Slide.GetComponent<Animator>();
         T1.enabled = false;
         T2.enabled = false;
+        T_1.enabled = false;
+        T_2.enabled = false;
         HM.enabled = false;
         AttackBar.SetActive(false);
         Slide.SetActive(false);
@@ -443,6 +449,8 @@ public class UICode : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Z))
                 {
                     Ttext.text = "";
+                    T_1.enabled = false;
+                    T_2.enabled = false;
                     T1.enabled = true;
                     if (!T2.enabled)
                     {
@@ -539,6 +547,8 @@ public class UICode : MonoBehaviour
                 }
                 if (!isBossDialogue)
                 {
+                    T_1.enabled = false;
+                    T_2.enabled = false;
                     T1.enabled = true;
                     if (!T2.enabled)
                     {
@@ -581,6 +591,8 @@ public class UICode : MonoBehaviour
                 }
                 if (!isBossDialogue)
                 {
+                    T_1.enabled = false;
+                    T_2.enabled = false;
                     T1.enabled = true;
                     if (!T2.enabled)
                     {
@@ -897,11 +909,22 @@ public class UICode : MonoBehaviour
         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
     }
     //보스 턴 끝날 시 초기화
-    void MyTurnBack()
+    public void MyTurnBack()
     {
+        //턴 변경 시 버튼 선택 안되고 중복 선택 되는 오류 생김
+        AtkPtn2M.enabled = false;
         isActDialogue = false;
         isItemDialogue = false;
+        isMercyDialogue = false;
+        HM.enabled = false;
         Once = false;
-        StateManager.instance.TurnCount++;
+        StateManager.instance.Fighting = false;
+        ++StateManager.instance.TurnCount;
+        T_1.enabled = true;
+        T_2.enabled = true;
+        Ttext.gameObject.SetActive(true);
+        Ttext.gameObject.GetComponent<TalkBox>().Talk(0.5f, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
+        ImageChanger(FightBtn, SeleteFight);
+        HeartPos = FightBtnPos;
     }
 }

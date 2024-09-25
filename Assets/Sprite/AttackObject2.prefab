@@ -99,8 +99,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackObject: {fileID: 0}
+  UC: {fileID: 0}
   EndTime: 2
-  Speed: 30
+  constant: 50
 --- !u!68 &8157434062957543185
 EdgeCollider2D:
   m_ObjectHideFlags: 0

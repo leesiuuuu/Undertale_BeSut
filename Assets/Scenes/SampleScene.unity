@@ -1525,6 +1525,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   AttackObject: {fileID: 1334566506059042031, guid: 63020bf3da9de0e44b6c48bd9e185448, type: 3}
+  UC: {fileID: 2077749599}
 --- !u!4 &566701204
 Transform:
   m_ObjectHideFlags: 0
@@ -1808,6 +1809,7 @@ GameObject:
   - component: {fileID: 789038929}
   - component: {fileID: 789038930}
   - component: {fileID: 789038931}
+  - component: {fileID: 789038932}
   m_Layer: 0
   m_Name: TextBox_Main
   m_TagString: Untagged
@@ -1958,6 +1960,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 165f1a445fd376b49b72bda3ef9f8824, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &789038932
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789038926}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e98d5986f103c409de5fa4eb274cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartScale: {x: 3.48, y: 2.3549, z: 0}
+  EndScale: {x: 11.1032, y: 2.3549, z: 0}
+  Duration: 0.5
 --- !u!1 &822540179
 GameObject:
   m_ObjectHideFlags: 0
@@ -2325,6 +2342,7 @@ GameObject:
   - component: {fileID: 1110874582}
   - component: {fileID: 1110874583}
   - component: {fileID: 1110874584}
+  - component: {fileID: 1110874585}
   m_Layer: 0
   m_Name: TextBoxBG
   m_TagString: Untagged
@@ -2417,6 +2435,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartScale: {x: 11.32574, y: 2.545104, z: 1.08077}
   EndScale: {x: 3.7, y: 2.545104, z: 1.08077}
+  Duration: 0.5
+--- !u!114 &1110874585
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1110874581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e98d5986f103c409de5fa4eb274cda, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartScale: {x: 3.7, y: 2.545104, z: 0}
+  EndScale: {x: 11.32574, y: 2.545104, z: 0}
   Duration: 0.5
 --- !u!1 &1110988468
 GameObject:
@@ -3975,6 +4008,8 @@ MonoBehaviour:
   TalkBalloonText: {fileID: 1534476194}
   T1: {fileID: 789038929}
   T2: {fileID: 1110874584}
+  T_1: {fileID: 789038932}
+  T_2: {fileID: 1110874585}
   HM: {fileID: 1706545562}
   IU: {fileID: 1435277734}
   AtkPtn2M: {fileID: 566701203}
