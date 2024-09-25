@@ -41,6 +41,7 @@ public class UICode : MonoBehaviour
     public TextBoxToFightBox T2;
     public HeartMove HM;
     public ItemUse IU;
+    public AttackPattern2M AtkPtn2M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -148,6 +149,7 @@ public class UICode : MonoBehaviour
         FightBtn.sprite = SeleteFight;
         Fight = true;
         Heart.SetActive(true);
+        AtkPtn2M.enabled = false;
         HeartPos = FightBtnPos;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -449,7 +451,7 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
+                    AtkPtn2M.enabled = true;
                 }
             }
             else if(isActDialogue)
@@ -545,7 +547,7 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
+                    AtkPtn2M.enabled = true;
                 }
             }
             else if (isMercyDialogue)
@@ -587,7 +589,7 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    //보스 패턴 코드(아마 다른 코드에서 진행될 듯)
+                    AtkPtn2M.enabled = true;
                 }
             }
         }
@@ -900,5 +902,6 @@ public class UICode : MonoBehaviour
         isActDialogue = false;
         isItemDialogue = false;
         Once = false;
+        StateManager.instance.TurnCount++;
     }
 }
