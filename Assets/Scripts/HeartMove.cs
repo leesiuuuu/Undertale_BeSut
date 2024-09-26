@@ -1,13 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
 using TreeEditor;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class HeartMove : MonoBehaviour
 {
     private Vector3 MoveVelocity;
     public float MoveSpeed;
+    public AudioClip HurtClip;
     private bool isInvin = false;
+    private Animator animator;
+    private void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
     void Update()
     {
         MoveVelocity = Vector3.zero;
@@ -22,7 +29,9 @@ public class HeartMove : MonoBehaviour
         if (cols.gameObject.CompareTag("AttackSprite") && !isInvin)
         {
             PlayerManager.instance.HP -= 8;
+            SoundManager.instance.SFXPlay("Hurt", HurtClip);
             isInvin = true;
+            animator.SetBool("Hurted", true);
             Debug.Log(PlayerManager.instance.HP);
             Invoke("ReturnInvin", 0.7f);
         }
@@ -30,5 +39,6 @@ public class HeartMove : MonoBehaviour
     void ReturnInvin()
     {
         isInvin = false;
+        animator.SetBool("Hurted", false);
     }
 }

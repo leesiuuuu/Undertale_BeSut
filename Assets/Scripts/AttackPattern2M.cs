@@ -28,6 +28,7 @@ public class AttackPattern2M : MonoBehaviour
             ++CopyedCount;
             if (CopyedCount > 6)
             {
+                StateManager.instance.Fighting = false;
                 UC.MyTurnBack();
             }
             else

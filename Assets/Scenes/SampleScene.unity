@@ -3516,6 +3516,7 @@ GameObject:
   - component: {fileID: 1706545562}
   - component: {fileID: 1706545564}
   - component: {fileID: 1706545563}
+  - component: {fileID: 1706545565}
   m_Layer: 0
   m_Name: Heart
   m_TagString: Untagged
@@ -3603,6 +3604,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 4.5
+  HurtClip: {fileID: 8300000, guid: 5087a3f6539980f4b9c0c4d726e4cefb, type: 3}
 --- !u!50 &1706545563
 Rigidbody2D:
   serializedVersion: 4
@@ -3675,6 +3677,27 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.140625, y: 0.140625}
   m_EdgeRadius: 0
+--- !u!95 &1706545565
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706545559}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c6ce468e3dcac2941a3b8e8f92c9e8b7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1748648247
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,3 @@
-using UnityEditor;
-using UnityEditor.DeviceSimulation;
 using UnityEngine;
 
 public class AttackPattern2 : AttackPattern2M
@@ -14,12 +12,11 @@ public class AttackPattern2 : AttackPattern2M
     private float time;
     public float EndTime;
     public float constant;
-    private float Speed;
+    public float Speed;
     private Vector3 direction;
     private void Start()
     {
         dir = Random.Range(0, 4);
-        Speed = Random.Range(25, 40);
         EndTime = constant / Speed;
         Posinit(gameObject, dir);
         
