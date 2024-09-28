@@ -11,13 +11,12 @@ public class AttackPattern2 : AttackPattern2M
     protected int dir;
     private float time;
     public float EndTime;
-    public float constant;
     public float Speed;
     private Vector3 direction;
     private void Start()
     {
+        direction = Vector3.zero;
         dir = Random.Range(0, 4);
-        EndTime = constant / Speed;
         Posinit(gameObject, dir);
         
     }

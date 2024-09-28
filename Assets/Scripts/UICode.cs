@@ -1,10 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.IO.IsolatedStorage;
 using TMPro;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
-using UnityEngine.TextCore.Text;
 using UnityEngine.UI;
 
 public class UICode : MonoBehaviour
@@ -60,6 +57,8 @@ public class UICode : MonoBehaviour
     public bool PageAdd = false;
     [Header("Act")]
     public List<string> ActList = new List<string>();
+    [Header("Effect")]
+    public GameObject AttackEffect;
 
     //출력 대사
     private string Dialogue;
@@ -80,6 +79,8 @@ public class UICode : MonoBehaviour
     /// 3 : 5 ~ 6개의 요소 있음
     /// </summary>
     private int SecPage_Element = 0;
+
+    private int Damage;
 
     private int ItemLocate = 0;
 
@@ -144,6 +145,7 @@ public class UICode : MonoBehaviour
         HM.enabled = false;
         AttackBar.SetActive(false);
         Slide.SetActive(false);
+        AttackEffect.SetActive(false);
         //배열 초기화
         ListPos[0, 0] = new Vector3(-4.81f, -0.748f, 0f);
         ListPos[1, 0] = new Vector3(0.08f, -0.748f, 0f);
@@ -603,7 +605,7 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    AtkPtn2M.enabled = true;
+                    PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount);
                 }
             }
         }
@@ -884,12 +886,15 @@ public class UICode : MonoBehaviour
             {
                 SliderAniamtor.SetBool("Blink", true);
                 Stop = true;
-                Debug.Log(DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x));
+                Damage = DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x);
             }
         }
         if (Stop)
         {
             //공격 후 데미지 UI 생성 및 전투 창 넘어가기
+            AttackEffect.SetActive(true);
+            Invoke("DeleteEffect", 0.5f);
+            AttackUIAppear(Damage);
         }
         else
         {
@@ -930,5 +935,13 @@ public class UICode : MonoBehaviour
         Mercy = false;
         ImageChanger(FightBtn, SeleteFight);
         HeartPos = FightBtnPos;
+    }
+    void DeleteEffect()
+    {
+        AttackEffect.SetActive(false);
+    }
+    void AttackUIAppear(int Damage)
+    {
+
     }
 }

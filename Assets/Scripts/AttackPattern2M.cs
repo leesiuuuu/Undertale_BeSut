@@ -6,11 +6,17 @@ public class AttackPattern2M : MonoBehaviour
     public UICode UC;
 
     protected int CopyedCount = 0;
+    private int MAX_COPY_COUNT;
 
     protected Vector3 leftPoint = new Vector3(9.4f, -2.99f, 0f);
     protected Vector3 rightPoint = new Vector3(-9.17f, 0.5f, 0f);
     protected Vector3 downPoint = new Vector3(1.8f, 6f, 0f);
     protected Vector3 upPoint = new Vector3(-1.71f, -6.21f, 0f);
+    private void OnEnable()
+    {
+        MAX_COPY_COUNT = (int)Random.Range(6, 10);
+        Debug.Log(CopyedCount);
+    }
     protected void Posinit(GameObject go, int Num)
     {
         switch (Num)
@@ -23,10 +29,10 @@ public class AttackPattern2M : MonoBehaviour
     }
     private void Update()
     {
-        if (!GameObject.FindWithTag("AttackSprite") && CopyedCount <= 6)
+        if (!GameObject.FindWithTag("AttackSprite") && CopyedCount <= MAX_COPY_COUNT)
         {
             ++CopyedCount;
-            if (CopyedCount > 6)
+            if (CopyedCount > MAX_COPY_COUNT)
             {
                 StateManager.instance.Fighting = false;
                 UC.MyTurnBack();
