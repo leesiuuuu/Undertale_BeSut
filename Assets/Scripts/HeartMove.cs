@@ -1,7 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TreeEditor;
-using Unity.VisualScripting;
+using TMPro;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class HeartMove : MonoBehaviour
@@ -30,6 +28,7 @@ public class HeartMove : MonoBehaviour
         {
             PlayerManager.instance.HP -= 8;
             SoundManager.instance.SFXPlay("Hurt", HurtClip);
+            PlayerManager.instance.HPChanged();
             isInvin = true;
             animator.SetBool("Hurted", true);
             Debug.Log(PlayerManager.instance.HP);

@@ -8,17 +8,21 @@ public class AttackPattern2 : AttackPattern2M
     /// 2 = 위
     /// 3 = 아래
     /// </summary>
+    
     protected int dir;
     private float time;
     public float EndTime;
+    //빌드 할 때와 디버깅 할 때와 속도가 약 3~4배 차이남.
+    //ex) 40 -> 150
     public float Speed;
     private Vector3 direction;
     private void Start()
     {
         direction = Vector3.zero;
         dir = Random.Range(0, 4);
+        ReturnRandomValue(dir);
+        RotateInit();
         Posinit(gameObject, dir);
-        
     }
     private void Update()
     {
@@ -35,14 +39,17 @@ public class AttackPattern2 : AttackPattern2M
                 break;
             case 1:
                 MoveObject.transform.rotation = Quaternion.Euler(0, 0, 180);
+                //Arrow1.transform.rotation = Quaternion.Euler(0, 0, 180);
                 direction = Vector3.right;
                 break;
             case 2:
                 MoveObject.transform.rotation = Quaternion.Euler(0, 0, -90);
+                //Arrow1.transform.rotation = Quaternion.Euler(0, 0, -90);
                 direction = Vector3.up;
                 break;
             case 3:
                 MoveObject.transform.rotation = Quaternion.Euler(0, 0, 90);
+                //Arrow1.transform.rotation = Quaternion.Euler(0, 0, 90);
                 direction = Vector3.down;
                 break;
         }

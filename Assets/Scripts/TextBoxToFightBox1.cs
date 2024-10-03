@@ -9,6 +9,10 @@ public class TextBoxToFightBox1 : MonoBehaviour
     public float Duration; //기간
 
     private float TimeElapsed = 0f; //진행 시간
+    private void OnEnable()
+    {
+        TimeElapsed = 0f;
+    }
 
     void Update()
     {

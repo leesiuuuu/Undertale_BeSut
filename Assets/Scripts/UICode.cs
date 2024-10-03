@@ -29,6 +29,8 @@ public class UICode : MonoBehaviour
     [Header("Sound")]
     public AudioClip MoveSound;
     public AudioClip SeleteSound;
+    public AudioClip AttackSound;
+    public AudioClip DamagedSound;
     [Header("Text")]
     public TMP_Text Ttext;
     [Header("Sprite")]
@@ -43,6 +45,7 @@ public class UICode : MonoBehaviour
     public HeartMove HM;
     public ItemUse IU;
     public AttackPattern2M AtkPtn2M;
+    public AttackPattern3M AtkPtn3M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -114,6 +117,7 @@ public class UICode : MonoBehaviour
     //한번만 작동할 bool
     private bool Once = false;
     private bool isBossDialogue = false;
+    private bool isCountStarted = false;
     void Start()
     {
         //리스트 요소 추가
@@ -159,7 +163,6 @@ public class UICode : MonoBehaviour
         Heart.SetActive(true);
         AtkPtn2M.enabled = false;
         HeartPos = FightBtnPos;
-        Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
 
         StateManager.instance.TurnCount++;
@@ -194,6 +197,7 @@ public class UICode : MonoBehaviour
                 {
                     ImageChanger(FightBtn, NormalFight);
                     SoundManager.instance.SFXPlay("Selete", SeleteSound);
+                    Ttext.text = "";
                     StartCoroutine(ActAttacking());
                 }
             }
@@ -462,7 +466,7 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    AtkPtn2M.enabled = true;
+                    StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
                 }
             }
             else if(isActDialogue)
@@ -560,7 +564,11 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    AtkPtn2M.enabled = true;
+                    if (!isCountStarted)
+                    {
+                        StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
+                        isCountStarted = true;
+                    }
                 }
             }
             else if (isMercyDialogue)
@@ -605,7 +613,11 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount);
+                    if (!isCountStarted)
+                    {
+                        StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
+                        isCountStarted = true;
+                    }
                 }
             }
         }
@@ -872,6 +884,7 @@ public class UICode : MonoBehaviour
     }
     private IEnumerator ActAttacking()
     {
+        Damage = 0;
         bool Stop = false;
         Heart.SetActive(false);
         AttackBar.SetActive(true);
@@ -887,14 +900,19 @@ public class UICode : MonoBehaviour
                 SliderAniamtor.SetBool("Blink", true);
                 Stop = true;
                 Damage = DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x);
+                Debug.Log(Damage);
             }
         }
         if (Stop)
         {
             //공격 후 데미지 UI 생성 및 전투 창 넘어가기
             AttackEffect.SetActive(true);
-            Invoke("DeleteEffect", 0.5f);
-            AttackUIAppear(Damage);
+            SoundManager.instance.SFXPlay("Attack", AttackSound);
+            Invoke("DeleteEffect", 0.6f);
+            yield return new WaitForSeconds(0.9f);
+            Invoke("FightAndAttack", 0.7f);
+            yield return null;
+            Stop = false;
         }
         else
         {
@@ -903,12 +921,12 @@ public class UICode : MonoBehaviour
             HeartPos = FightBtnPos;
             AttackBar.SetActive(false);
             Slide.SetActive(false);
+            ImageChanger(FightBtn, SeleteFight);
             AttackSliding = false;
             StateManager.instance._Fighting = false;
             StateManager.instance.Starting = false;
             StopAttack();
         }
-
     }
     void StopAttack()
     {
@@ -919,12 +937,16 @@ public class UICode : MonoBehaviour
     public void MyTurnBack()
     {
         AtkPtn2M.enabled = false;
+        AtkPtn3M.enabled = false;
         isActDialogue = false;
         isItemDialogue = false;
         isMercyDialogue = false;
         HM.enabled = false;
         Once = false;
+        isCountStarted = false;
         ++StateManager.instance.TurnCount;
+        T1.enabled = false;
+        T2.enabled = false;
         T_1.enabled = true;
         T_2.enabled = true;
         Ttext.gameObject.SetActive(true);
@@ -939,9 +961,33 @@ public class UICode : MonoBehaviour
     void DeleteEffect()
     {
         AttackEffect.SetActive(false);
+        SliderAniamtor.SetBool("Blink", false);
+        AttackUIAppear(Damage);
     }
     void AttackUIAppear(int Damage)
     {
-
+        BossManager.instance.BossHPChanged(Damage);
+        SoundManager.instance.SFXPlay("Damaged", DamagedSound);
+    }
+    void FightAndAttack()
+    {
+        AttackBar.SetActive(false);
+        AttackSliding = false;
+        Slide.SetActive(false);
+        StateManager.instance._Fighting = false;
+        StateManager.instance.Starting = false;
+        StateManager.instance.Fighting = true;
+        Ttext.text = "";
+        T_1.enabled = false;
+        T_2.enabled = false;
+        T1.enabled = true;
+        if (!T2.enabled)
+        {
+            T2.enabled = true;
+            Heart.transform.position = HeartMidPos;
+        }
+        Heart.SetActive(true);
+        HM.enabled = true;
+        StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
     }
 }
