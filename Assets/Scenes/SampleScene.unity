@@ -1711,6 +1711,7 @@ GameObject:
   - component: {fileID: 566701204}
   - component: {fileID: 566701203}
   - component: {fileID: 566701205}
+  - component: {fileID: 566701206}
   m_Layer: 0
   m_Name: PatternChecnker
   m_TagString: Untagged
@@ -1759,12 +1760,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3942c38f2cf4ab14fa715ba31f54ce63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BoxRange: {x: 4.83, y: 3.2}
+  BoxRange: {x: 2.69, y: 1.77}
   Damager: {fileID: 4354811480786773564, guid: e6d9a6a8e316c794e8c34383241676ba, type: 3}
   Delay: 0.2
+  repeatCount: 4
   AC: {fileID: 8300000, guid: 4f2f54e8e37d6f6479854da85fdc5475, type: 3}
-  AC2: {fileID: 8300000, guid: fa8a15e5c32ef1d41aa0ddcc370b5c8d, type: 3}
   AC3: {fileID: 8300000, guid: 296693222a656244190726d8820dc908, type: 3}
+  UC: {fileID: 2077749599}
+--- !u!114 &566701206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566701202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5782b70fe4c72c244abdeff1c85897fa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Box1Range: {x: 13.37, y: 0.77}
+  Pos1: {x: 0, y: 5.56, z: 0}
+  Box2Range: {x: 13.41, y: 0.77}
+  Pos2: {x: 0, y: -5.51, z: 0}
+  Duration: 8
+  Damager: {fileID: 4221207430557407648, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
   UC: {fileID: 2077749599}
 --- !u!1 &625849683
 GameObject:
@@ -1922,6 +1942,7 @@ MonoBehaviour:
   PatternCount: 1
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
+  AtkPtn1M: {fileID: 566701206}
   Arrow: {fileID: 1983057795}
 --- !u!4 &737269436
 Transform:
@@ -2194,7 +2215,7 @@ BoxCollider2D:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_ForceSendLayers:
     serializedVersion: 2
@@ -3865,7 +3886,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogue: 
-  talkWaitTime: 0.04
+  talkWaitTime: 0.05
   Delay: 0
   TMPtext: {fileID: 1534476192}
   BossTalk: {fileID: 8300000, guid: 61ddaf7b2e599c147b126e83b06c1d4b, type: 3}
@@ -4713,6 +4734,7 @@ MonoBehaviour:
   IU: {fileID: 1435277734}
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
+  AtkPtn1M: {fileID: 566701206}
   AttackBar: {fileID: 123357258}
   Slide: {fileID: 1954835025}
   DistanceChecker: {fileID: 2030273067}

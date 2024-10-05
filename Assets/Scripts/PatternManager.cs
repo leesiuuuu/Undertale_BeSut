@@ -9,6 +9,7 @@ public class PatternManager : MonoBehaviour
     [Header("AtkPtn2 Attributes")]
     public AttackPattern2M AtkPtn2M;
     public AttackPattern3M AtkPtn3M;
+    public AttackPattern1M AtkPtn1M;
     public GameObject Arrow;
     private void Awake()
     {
@@ -35,15 +36,11 @@ public class PatternManager : MonoBehaviour
                 AtkPtn3M.enabled = true;
                 break;
             case 3:
-                //번째 패턴 코드 활성화
+                AtkPtn1M.enabled = true;
                 break;
             /// ......
         }
         PatternCount++;
         yield return null;
-    }
-    public async Task SeqPatternStart1(int TurnCount)
-    {
-
     }
 }

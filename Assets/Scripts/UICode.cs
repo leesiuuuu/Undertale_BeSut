@@ -42,10 +42,13 @@ public class UICode : MonoBehaviour
     public TextBoxToFightBox T2;
     public TextBoxToFightBox1 T_1;
     public TextBoxToFightBox1 T_2;
+    [Space(20f)]
     public HeartMove HM;
     public ItemUse IU;
+    [Space(20f)]
     public AttackPattern2M AtkPtn2M;
     public AttackPattern3M AtkPtn3M;
+    public AttackPattern1M AtkPtn1M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -549,6 +552,12 @@ public class UICode : MonoBehaviour
                             case 1:
                                 DialogueAdder("...거짓말 하지 마.", "계속 기억이 안난다고 시치미 때봤자 안통해.", "얌전히 사라져.");
                                 break;
+                            case 2:
+                                DialogueAdder("진심이냐?", "만약 정말로 기억이 안난다면...", "......아니, 아니야. 그럴리가 없지.");
+                                break;
+                            case 3:
+                                DialogueAdder("아무것도 기억이 안나..?", "정말로?", "반항하지 않는 걸 보면 맞는것 같기도 한데....");
+                                break;
                         }
                     }
                 }
@@ -936,8 +945,20 @@ public class UICode : MonoBehaviour
     //보스 턴 끝날 시 초기화
     public void MyTurnBack()
     {
-        AtkPtn2M.enabled = false;
-        AtkPtn3M.enabled = false;
+        i = 0;
+        j = 0;
+        switch (StateManager.instance.TurnCount)
+        {
+            case 1:
+                AtkPtn2M.enabled = false;
+                break;
+            case 2:
+                AtkPtn3M.enabled = false;
+                break;
+            case 3:
+                AtkPtn1M.enabled = false;
+                break;
+        }
         isActDialogue = false;
         isItemDialogue = false;
         isMercyDialogue = false;

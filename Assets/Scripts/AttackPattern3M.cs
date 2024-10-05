@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class AttackPattern3M : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class AttackPattern3M : MonoBehaviour
     private GameObject Damager;
     [SerializeField]
     private float Delay;
+    [SerializeField]
+    private int repeatCount;
 
     public AudioClip AC;
     public AudioClip AC3;
@@ -30,7 +33,7 @@ public class AttackPattern3M : MonoBehaviour
         {
             isAllCreated = false;
             yield return new WaitForSeconds(0.7f);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < repeatCount; i++)
             {
                 yield return new WaitForSeconds(Delay);
                 float BoxX = Random.Range((BoxRange.x / 2) * -1, BoxRange.x / 2);
