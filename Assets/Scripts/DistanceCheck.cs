@@ -9,7 +9,7 @@ public class DistanceCheck : MonoBehaviour
     }
     public static int DamageReturn(int Distance)
     {
-        if (Distance < 0.2 && Distance > -0.2) return Random.Range(148, 160);
-        return (int)(10f / Distance);
+        if (Distance < 0.2 && Distance > -0.2) return Random.Range(50, 89);
+        return (int)(40f / Distance);
     }
 }

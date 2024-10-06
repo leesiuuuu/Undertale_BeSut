@@ -123,71 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1001 &339383455
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2348912244486327959, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: Power
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 2348912244486327959, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 943184723}
-    - target: {fileID: 4221207430557407648, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_Name
-      value: AttakcSprite123
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 3.32
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 6.7
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.018725367
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8628608093514406892, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
 --- !u!1 &943184718
 GameObject:
   m_ObjectHideFlags: 0
@@ -293,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MoveSpeed: 3
-  HurtClip: {fileID: 0}
+  HurtClip: {fileID: 8300000, guid: 5087a3f6539980f4b9c0c4d726e4cefb, type: 3}
 --- !u!212 &943184722
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -459,4 +394,3 @@ SceneRoots:
   m_Roots:
   - {fileID: 2014713423}
   - {fileID: 943184723}
-  - {fileID: 339383455}

@@ -11,7 +11,6 @@ public class BossMove : MonoBehaviour
     {
         StartPosition = transform.position;
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -28,16 +27,6 @@ public class BossMove : MonoBehaviour
             EndPosition = StartPosition;
             StartPosition = transform.position;
         }
-    }
-    float easeOutQuad(float x) {
-        return 1f - (1f - x) * (1f - x);
-    }
-    float easeInQuad(float x) {
-        return x* x;
-    }
-    float Linear(float x)
-    {
-        return x;
     }
     float easeInOutSine(float x) {
         return -(Mathf.Cos(Mathf.PI* x) - 1) / 2;

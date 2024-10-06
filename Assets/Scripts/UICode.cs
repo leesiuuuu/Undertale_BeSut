@@ -927,7 +927,7 @@ public class UICode : MonoBehaviour
             //공격 후 데미지 UI 생성 및 전투 창 넘어가기
             AttackEffect.SetActive(true);
             SoundManager.instance.SFXPlay("Attack", AttackSound);
-            Invoke("DeleteEffect", 0.6f);
+            Invoke("DeleteEffect", 0.8f);
             yield return new WaitForSeconds(0.9f);
             Invoke("FightAndAttack", 0.7f);
             yield return null;
@@ -1000,8 +1000,8 @@ public class UICode : MonoBehaviour
     }
     void AttackUIAppear(int Damage)
     {
-        BossManager.instance.BossHPChanged(Damage);
         SoundManager.instance.SFXPlay("Damaged", DamagedSound);
+        BossManager.instance.BossHPChanged(Damage);
     }
     void FightAndAttack()
     {
