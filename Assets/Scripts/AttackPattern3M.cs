@@ -38,7 +38,7 @@ public class AttackPattern3M : MonoBehaviour
                 yield return new WaitForSeconds(Delay);
                 float BoxX = Random.Range((BoxRange.x / 2) * -1, BoxRange.x / 2);
                 float BoxY = Random.Range((BoxRange.y / 2) * -1, BoxRange.y / 2);
-                Vector3 RandomPosition = new Vector3(BoxX, BoxY, 0);
+                Vector3 RandomPosition = transform.position + new Vector3(BoxX, BoxY, 0);
                 SoundManager.instance.SFXPlay("Create", AC);
                 Instantiate(Damager, RandomPosition, Quaternion.identity);
             }

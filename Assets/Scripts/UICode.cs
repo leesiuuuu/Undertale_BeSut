@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -256,7 +257,8 @@ public class UICode : MonoBehaviour
                 {
                     Ttext.text = "";
                     ItemAndActText.SetActive(true);
-                    if(ItemList.Count > 6)
+                    int Sum = ItemList.FindAll(n => n != "").Count();
+                    if(Sum > 6)
                     {
                         PageAdd = true;
                         while(ItemList.Count < 12)
@@ -775,7 +777,7 @@ public class UICode : MonoBehaviour
                             break;
                         case 1: case 0:
                             SecPage_Element = 3;
-                            break;        
+                            break;
                     }
                     Page = 2;
                     i = 0;
@@ -784,14 +786,14 @@ public class UICode : MonoBehaviour
                     switch (SecPage_Element)
                     {
                         case 1:
-                            if(j == 2 || j == 1)
+                            if (j == 2 || j == 1)
                             {
                                 j = 0;
                                 ItemLocate = 6;
                             }
                             break;
                         case 2:
-                            if(j == 2)
+                            if (j == 2)
                             {
                                 j = 1;
                                 ItemLocate = 8;
@@ -812,7 +814,11 @@ public class UICode : MonoBehaviour
             }
             else
             {
-                if (i == 0) i++;
+                if (i == 0)
+                {
+                    i++;
+                    ItemLocate += 1;
+                }
             }
         }
         else if (Input.GetKeyDown(KeyCode.LeftArrow))
@@ -837,7 +843,11 @@ public class UICode : MonoBehaviour
             }
             else
             {
-                if (i == 1) i--;
+                if (i == 1)
+                {
+                    i--;
+                    ItemLocate -= 1;
+                }
             }
         }
         if (ListELement[i, j])
@@ -945,6 +955,9 @@ public class UICode : MonoBehaviour
     //보스 턴 끝날 시 초기화
     public void MyTurnBack()
     {
+        ItemLocate = 0;
+        Page = 1;
+        PageAdd = false;
         i = 0;
         j = 0;
         switch (StateManager.instance.TurnCount)

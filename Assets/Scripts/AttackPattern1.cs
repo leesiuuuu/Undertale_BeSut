@@ -5,11 +5,13 @@ public class AttackPattern1 : MonoBehaviour
     public int rotateSpeed;
     public Transform target;
     public float Power;
+    public AudioClip Fire;
     private float DelayTime;
     private bool isRotate = false;
     private Vector2 direction1;
     private Rigidbody2D rb;
     private bool once = false;
+    private bool ONnce1 = false;
 
     private void Start()
     {
@@ -33,6 +35,12 @@ public class AttackPattern1 : MonoBehaviour
         }
         if (isRotate)
         {
+            rb.gravityScale = 0;
+            if (!ONnce1)
+            {
+                SoundManager.instance.SFXPlay("Fire", Fire);
+                ONnce1 = true;
+            }
             rb.AddForce(direction1 * Power, ForceMode2D.Impulse);
         }
     }
