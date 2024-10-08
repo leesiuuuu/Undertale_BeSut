@@ -10,6 +10,8 @@ public class PatternManager : MonoBehaviour
     public AttackPattern2M AtkPtn2M;
     public AttackPattern3M AtkPtn3M;
     public AttackPattern1M AtkPtn1M;
+    public AttackPattern4M AtkPtn4M;
+
     public GameObject Arrow;
     private void Awake()
     {
@@ -38,7 +40,9 @@ public class PatternManager : MonoBehaviour
             case 3:
                 AtkPtn1M.enabled = true;
                 break;
-            /// ......
+            case 4:
+                AtkPtn4M.enabled = true;
+                break;
         }
         PatternCount++;
         yield return null;

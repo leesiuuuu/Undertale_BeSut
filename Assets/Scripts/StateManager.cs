@@ -45,7 +45,7 @@ public class StateManager : MonoBehaviour
                 Dialogue = "* 당신은 왜 자신이 여기에 있는지 생각했다.";
                 break;
             case 5:
-                Dialogue = "* 당신은 자신의 몸에 핏자국이 있다는걸 보았다.";
+                Dialogue = "* 당신은 자신의 몸에 핏자국이 있다는걸 \n  보았다.";
                 break;
             case 6:
                 Dialogue = "* 당신은 앞에 있는 고양이를 쓰다듬고 싶다는 생각을 했다.";

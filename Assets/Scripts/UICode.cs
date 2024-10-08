@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -50,6 +52,7 @@ public class UICode : MonoBehaviour
     public AttackPattern2M AtkPtn2M;
     public AttackPattern3M AtkPtn3M;
     public AttackPattern1M AtkPtn1M;
+    public AttackPattern4M AtkPtn4M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -122,6 +125,23 @@ public class UICode : MonoBehaviour
     private bool Once = false;
     private bool isBossDialogue = false;
     private bool isCountStarted = false;
+    //각 행동 횟수별 보스 대화 로그 변경
+    private int isMercyCheck = 0;
+    private int isAct1Check = 0;
+    private int isAct2Check = 0;
+    private int isAct3Check = 0;
+    private int isAct4Check = 0;
+    /// <summary>
+    /// Meow = 야옹거리기
+    /// Surnen = 항복하기
+    /// Swear = 쌍욕
+    /// IDK = 모름
+    /// IDK_out = 모름(불살에서 노멀로 넘어갈 때)
+    /// Mercy = 자비
+    /// </summary>
+    private string LastState;
+    //첫번쨰 턴에서 모르는 척 하기를 했을 때 켜짐
+    private bool FirstTurnAct = false;
     void Start()
     {
         //리스트 요소 추가
@@ -201,6 +221,7 @@ public class UICode : MonoBehaviour
                 {
                     ImageChanger(FightBtn, NormalFight);
                     SoundManager.instance.SFXPlay("Selete", SeleteSound);
+                    FirstTurnAct = false;
                     Ttext.text = "";
                     StartCoroutine(ActAttacking());
                 }
@@ -226,18 +247,21 @@ public class UICode : MonoBehaviour
                     ItemAndActText.SetActive(false);
                     if (HeartPos == ListPos[0, 0])
                     {
+                        FirstTurnAct = false;
                         Heart.SetActive(false);
                         Ttext.text = "";
                         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 네이트 코릴에게\n  야옹거렸다.");
                     }
                     else if (HeartPos == ListPos[1, 0])
                     {
+                        FirstTurnAct = false;
                         Heart.SetActive(false);
                         Ttext.text = "";
                         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 네이트 코릴에게\n  쌍욕을 박았다.");
                     }
                     else if (HeartPos == ListPos[0, 1])
                     {
+                        FirstTurnAct = false;
                         Heart.SetActive(false);
                         Ttext.text = "";
                         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 네이트 코릴에게\n  항복한다고 말했다.");
@@ -245,6 +269,7 @@ public class UICode : MonoBehaviour
                     else if (HeartPos == ListPos[1, 1])
                     {
                         Heart.SetActive(false);
+                        if (StateManager.instance.TurnCount == 1) FirstTurnAct = true;
                         Ttext.text = "";
                         Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 당신은 네이트 코릴에게\n  아무것도 기억이 안난다고 말했다.");
                     }
@@ -411,6 +436,7 @@ public class UICode : MonoBehaviour
                     ImageChanger(MercyBtn, NormalMercy);
                     SoundManager.instance.SFXPlay("Selete", SeleteSound);
                     Heart.SetActive(false);
+                    FirstTurnAct = false;
                     Ttext.text = "";
                     isMercyDialogue = true;
                     StateManager.instance.Acting = false;
@@ -452,7 +478,10 @@ public class UICode : MonoBehaviour
             Invoke("StartFightTurn", 0.5f);
         }
         //하트 오브젝트 위치 지속적으로 확인
-        if (!StateManager.instance.Fighting) Heart.transform.position = HeartPos;
+        if (!StateManager.instance.Fighting)
+        {
+            Heart.transform.position = HeartPos;
+        }
         //보스 전투 및 말하기 코드
         else
         {
@@ -474,7 +503,7 @@ public class UICode : MonoBehaviour
                     StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
                 }
             }
-            else if(isActDialogue)
+            else if (isActDialogue)
             {
                 if (!Once)
                 {
@@ -487,84 +516,132 @@ public class UICode : MonoBehaviour
                     if (HeartPos == ListPos[0, 0] && !StateManager.instance.Talking)
                     {
                         ++zClick;
-                        switch (zClick)
+                        switch (isAct1Check)
                         {
+                            case 0:
+                                DialogueAdder("지금 뭐하는 거지?", "나랑 장난하자는 건가?");
+                                break;
                             case 1:
-                                Ttext.text = "";
-                                TalkBalloon.SetActive(true);
-                                TalkBalloonText.Talk(0.2f, "....지금 뭐하는 거지?");
+                                DialogueAdder(".....미친거냐?", "징그러워 죽겠군.");
                                 break;
-                            case 2:
-                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                                TalkBalloonText.Talk(0.2f, "나랑 장난하자는 건가?");
-                                break;
-                            case 3:
-                                TalkBalloon.SetActive(false);
-                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                                isBossDialogue = false;
+                            default:
+                                DialogueAdder("......");
                                 break;
                         }
+                        LastState = "Meow";
                     }
                     else if (HeartPos == ListPos[1, 0] && !StateManager.instance.Talking)
                     {
                         ++zClick;
-                        switch (zClick)
+                        switch (isAct2Check)
                         {
-                            case 1:
-                                Ttext.text = "";
-                                TalkBalloon.SetActive(true);
-                                TalkBalloonText.Talk(0.2f, "......");
+                            case 0:
+                                DialogueAdder(".......", "그게 다냐?");
                                 break;
-                            case 2:
-                                TalkBalloon.SetActive(false);
-                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                                isBossDialogue = false;
+                            case 1:
+                                DialogueAdder("한심하군...");
+                                break;
+                            default:
+                                DialogueAdder("......");
                                 break;
                         }
+                        LastState = "Swear";
                     }
                     else if (HeartPos == ListPos[0, 1] && !StateManager.instance.Talking)
                     {
                         ++zClick;
-                        switch (zClick)
+                        if (FirstTurnAct) FirstTurnAct = false;
+                        switch (isAct3Check)
                         {
+                            case 0:
+                                DialogueAdder("이제와서 항복하겠다고?", "너무 늦었어.");
+                                break;
                             case 1:
-                                Ttext.text = "";
-                                TalkBalloon.SetActive(true);
-                                TalkBalloonText.Talk(0.2f, "이제와서 항복하겠다고?");
+                                DialogueAdder("왜 항복하는 거지?", "내가 무서운가?");
                                 break;
                             case 2:
-                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                                TalkBalloonText.Talk(0.2f, "너무 늦었어.");
+                                DialogueAdder("그렇게 여기서 벗어나고 싶나?", "좋아.", "최대한 빠르게 보내주지."); ;
                                 break;
-                            case 3:
-                                TalkBalloon.SetActive(false);
-                                TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                                isBossDialogue = false;
+                            default:
+                                DialogueAdder("지치지도 않는군.");
                                 break;
                         }
+                        LastState = "Surnen";
                     }
                     else if (HeartPos == ListPos[1, 1] && !StateManager.instance.Talking)
                     {
                         ++zClick;
-                        switch (StateManager.instance.NoLieStack)
+                        if (FirstTurnAct)
                         {
-                            case 0:
-                                DialogueAdder("뭐..?", "아무것도 기억이 안나..?", "미친 척 해봤자 나한테는 소용없어.");
-                                break;
-                            case 1:
-                                DialogueAdder("...거짓말 하지 마.", "계속 기억이 안난다고 시치미 때봤자 안통해.", "얌전히 사라져.");
-                                break;
-                            case 2:
-                                DialogueAdder("진심이냐?", "만약 정말로 기억이 안난다면...", "......아니, 아니야. 그럴리가 없지.");
-                                break;
-                            case 3:
-                                DialogueAdder("아무것도 기억이 안나..?", "정말로?", "반항하지 않는 걸 보면 맞는것 같기도 한데....");
-                                break;
+                            switch (StateManager.instance.NoLieStack)
+                            {
+                                case 0:
+                                    DialogueAdder("뭐..?", "아무것도 기억이 안나..?", "미친 척 해봤자 나한테는 소용없어.");
+                                    break;
+                                case 1:
+                                    DialogueAdder("...거짓말 하지 마.", "계속 기억이 안난다고 시치미 때봤자 안통해.", "얌전히 사라져.");
+                                    break;
+                                case 2:
+                                    DialogueAdder("진심이냐?", "만약 정말로 기억이 안난다면...", "......아니, 아니야.", "그럴리가 없지.");
+                                    break;
+                                case 3:
+                                    DialogueAdder("아무것도 기억이 안나..?",
+                                        "정말로?",
+                                        "반항하지 않는 걸 봐서는....",
+                                        "어쩌면 사실일 수도 있겠군.");
+                                    break;
+                                case 4:
+                                    DialogueAdder("그럼 지금 너한테 묻은 자국들..",
+                                        "설명할 수 있나?",
+                                        "아니면, 지금 무슨 상황인지도 모르면서 싸우고 었었던 건가?",
+                                        "흠....");
+                                    break;
+                            }
+                            LastState = "IDK";
+                        }
+                        else
+                        {
+                            switch (isAct4Check)
+                            {
+                                case 0:
+                                    DialogueAdder("난 너의 실체를 알고 있다.", "그런 거짓말은 안통해.");
+                                    break;
+                                case 1:
+                                    DialogueAdder("소용없다.", "더 이상 의미 없어.");
+                                    break;
+                                default:
+                                    DialogueAdder(".....");
+                                    break;
+                        }
+                            LastState = "IDK_out";
                         }
                     }
                 }
                 if (!isBossDialogue)
                 {
+                    switch (LastState)
+                    {
+                        case "Meow":
+                            ++isAct1Check;
+                            LastState = "";
+                            break;
+                        case "Swear":
+                            ++isAct2Check;
+                            LastState = "";
+                            break;
+                        case "Surnen":
+                            ++isAct3Check;
+                            LastState = "";
+                            break;
+                        case "IDK":
+                            ++StateManager.instance.NoLieStack;
+                            LastState = "";
+                            break;
+                        case "IDK_out":
+                            ++isAct4Check;
+                            LastState = "";
+                            break;
+                    }
                     T_1.enabled = false;
                     T_2.enabled = false;
                     T1.enabled = true;
@@ -593,26 +670,30 @@ public class UICode : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Z) && isBossDialogue && !StateManager.instance.Talking)
                 {
                     ++zClick;
-                    switch (zClick)
+                    switch (isMercyCheck)
                     {
+                        case 0:
+                            DialogueAdder("이제와서 살려주겠다고?", "자비는 없다.");
+                            break;
                         case 1:
-                            Ttext.text = "";
-                            TalkBalloon.SetActive(true);
-                            TalkBalloonText.Talk(0.2f, "이제와서 살려주겠다고?");
+                            DialogueAdder("전부 죽여놓고, 이제와서 살려준다고?", "한심하기 짝이 없군.");
                             break;
                         case 2:
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            TalkBalloonText.Talk(0.2f, "자비는 없다.");
+                            DialogueAdder("반응도 하기 싫군.", "죽어라.");
                             break;
-                        case 3:
-                            TalkBalloon.SetActive(false);
-                            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                            isBossDialogue = false;
+                        default:
+                            DialogueAdder("......");
                             break;
                     }
+                    LastState = "Mercy";
                 }
                 if (!isBossDialogue)
                 {
+                    if(LastState == "Mercy") 
+                    {
+                        ++isMercyCheck;
+                        LastState = "";
+                    }
                     StateManager.instance.Talking = false;
                     T_1.enabled = false;
                     T_2.enabled = false;
@@ -876,30 +957,26 @@ public class UICode : MonoBehaviour
     {
         StateManager.instance.Fighting = true;
     }
-    void DialogueAdder(string log1, string log2 = "", string log3 = "")
+    //대사를 받고 출력해줌
+    void DialogueAdder(params string[] logs)
     {
-        switch (zClick)
-            {
-                case 1:
-                    Ttext.text = "";
-                    TalkBalloon.SetActive(true);
-                    TalkBalloonText.Talk(0.2f, log1);
-                    break;
-                case 2:
-                    TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                    TalkBalloonText.Talk(0.2f, log2);
-                    break;
-                case 3:
-                    TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                    TalkBalloonText.Talk(0.2f, log3);
-                    break;
-                case 4:
-                    TalkBalloon.SetActive(false);
-                    TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
-                    StateManager.instance.NoLieStack++;
-                    isBossDialogue = false;
-                    break;
-            }
+        if(zClick == 1)
+        {
+            Ttext.text = "";
+            TalkBalloon.SetActive(true);
+            TalkBalloonText.Talk(0.2f, logs[zClick - 1]);
+        }
+        else if(zClick > 1 &&  zClick < logs.Length + 1)
+        {
+            TalkBalloon.SetActive(true);
+            TalkBalloonText.Talk(0.2f, logs[zClick - 1]);
+        }
+        else
+        {
+            TalkBalloon.SetActive(false);
+            TalkBalloonText.gameObject.GetComponent<TMP_Text>().text = "";
+            isBossDialogue = false;
+        }
     }
     private IEnumerator ActAttacking()
     {
@@ -970,6 +1047,9 @@ public class UICode : MonoBehaviour
                 break;
             case 3:
                 AtkPtn1M.enabled = false;
+                break;
+            case 4:
+                AtkPtn4M.enabled = false;
                 break;
         }
         isActDialogue = false;
