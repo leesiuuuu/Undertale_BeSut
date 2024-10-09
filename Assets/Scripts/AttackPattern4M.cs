@@ -53,8 +53,7 @@ public class AttackPattern4M : MonoBehaviour
                 break;
         }
     }
-
-    private void Start()
+    private void OnEnable()
     {
         StartCoroutine(AtkPtn41());
     }

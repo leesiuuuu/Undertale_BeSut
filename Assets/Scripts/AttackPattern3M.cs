@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class AttackPattern3M : MonoBehaviour
 {
@@ -18,18 +17,13 @@ public class AttackPattern3M : MonoBehaviour
     public UICode UC;
 
     public static bool isAllCreated;
-    private void Start()
+    void OnEnable()
     {
         StartCoroutine(CreateDamager1());
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(gameObject.transform.position, BoxRange);
-    }
     IEnumerator CreateDamager1()
     {
-        for(int j = 0; j < 4; j++)
+        for (int j = 0; j < 4; j++)
         {
             isAllCreated = false;
             yield return new WaitForSeconds(0.7f);
@@ -49,5 +43,11 @@ public class AttackPattern3M : MonoBehaviour
         }
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
+        yield return null;
+    }
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(gameObject.transform.position, BoxRange);
     }
 }

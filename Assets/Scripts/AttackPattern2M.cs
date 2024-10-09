@@ -24,6 +24,7 @@ public class AttackPattern2M : MonoBehaviour
         Arrow = PatternManager.instance.Arrow;
         Arrow.SetActive(true);
         MAX_COPY_COUNT = (int)Random.Range(6, 10);
+        CopyedCount = 0;
         Debug.Log(CopyedCount);
     }
     protected void Posinit(GameObject go, int Num)

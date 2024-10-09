@@ -5,6 +5,10 @@ using System.Collections;
 
 public class HeartMove : MonoBehaviour
 {
+    //Shake 기본 값
+    //0.5f, 1f
+    //빌드 기본값
+    //0.5f, 0.5f
     private Vector3 MoveVelocity;
     public float MoveSpeed;
     public GameObject ShieldObj;
@@ -38,6 +42,7 @@ public class HeartMove : MonoBehaviour
         {
             SoundManager.instance.SFXPlay("Shield", ShieldSound);
             ShieldObj.SetActive(true);
+            MoveSpeed -= 2f;
             Shield = true;
         }
         MoveVelocity = MoveVelocity.normalized;
@@ -52,7 +57,7 @@ public class HeartMove : MonoBehaviour
             {
                 PlayerManager.instance.HP -= 8;
                 SoundManager.instance.SFXPlay("Hurt", HurtClip);
-                StartCoroutine(Shake(gameObject, 1f, 0.5f));
+                StartCoroutine(Shake(gameObject, 0.5f, 1f));
                 PlayerManager.instance.HPChanged();
                 isInvin = true;
                 animator.SetBool("Hurted", true);
@@ -63,6 +68,7 @@ public class HeartMove : MonoBehaviour
             {
                 Shield = false;
                 ShieldObj.SetActive(false);
+                MoveSpeed += 2f;
                 SoundManager.instance.SFXPlay("ShieldBreak", SheldBreak);
             }
         }

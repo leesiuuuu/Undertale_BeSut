@@ -146,4 +146,7 @@ MonoBehaviour:
   BoxRange: {x: 0, y: 0}
   Damager: {fileID: 0}
   Delay: 0
+  repeatCount: 0
+  AC: {fileID: 8300000, guid: 4f2f54e8e37d6f6479854da85fdc5475, type: 3}
+  AC3: {fileID: 8300000, guid: 296693222a656244190726d8820dc908, type: 3}
   UC: {fileID: 0}

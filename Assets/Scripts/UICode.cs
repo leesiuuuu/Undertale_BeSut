@@ -53,6 +53,7 @@ public class UICode : MonoBehaviour
     public AttackPattern3M AtkPtn3M;
     public AttackPattern1M AtkPtn1M;
     public AttackPattern4M AtkPtn4M;
+    public AttackPattern5M AtkPtn5M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -596,6 +597,34 @@ public class UICode : MonoBehaviour
                                         "아니면, 지금 무슨 상황인지도 모르면서 싸우고 었었던 건가?",
                                         "흠....");
                                     break;
+                                case 5:
+                                    DialogueAdder("하지만 넌 수많은 동료들을 죽였어.",
+                                        "그건 절대 용서 될 수 없다.",
+                                        "아무리 기억이 안 난다고 해도..",
+                                        "넌 결국에는 죽게 될거다.");
+                                    break;
+                                case 6:
+                                    DialogueAdder("정말 끈질기군.",
+                                        "이 점은 예전의 너랑 똑같네.",
+                                        ".....");
+                                    break;
+                                case 7:
+                                    DialogueAdder("아직은 너를 완벽하게 못 믿겠어.",
+                                        "계속해서 나를 믿게 해봐.",
+                                        "만약 정말 기억이 안난다면,",
+                                        "넌 나를 공격할 이유가 없다.");
+                                    break;
+                                case 8:
+                                    DialogueAdder("혹시 지금...",
+                                        "누군가에게 조종당하고 있나?",
+                                        "아, 아니다.",
+                                        "너한테 한 말이 아니야.");
+                                    break;
+                                case 9:
+                                    DialogueAdder("좋다.",
+                                        "이정도면 어느정도 신뢰할 만 하군.",
+                                        "너에게 자비를 배풀어주마.");
+                                    break;
                             }
                             LastState = "IDK";
                         }
@@ -1050,6 +1079,16 @@ public class UICode : MonoBehaviour
                 break;
             case 4:
                 AtkPtn4M.enabled = false;
+                break;
+            case 5:
+                AtkPtn5M.enabled = false;
+                break;
+            default:
+                AtkPtn1M.enabled = false;
+                AtkPtn2M.enabled = false;
+                AtkPtn3M.enabled = false;
+                AtkPtn4M.enabled = false;
+                AtkPtn5M.enabled = false;
                 break;
         }
         isActDialogue = false;

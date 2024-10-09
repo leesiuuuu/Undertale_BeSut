@@ -1591,8 +1591,8 @@ MonoBehaviour:
   _Iteming: 0
   _Mercying: 0
   Talking: 0
-  NoLieStack: 0
-  TurnCount: 0
+  NoLieStack: 5
+  TurnCount: 5
 --- !u!4 &429638836
 Transform:
   m_ObjectHideFlags: 0
@@ -1709,10 +1709,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 566701204}
+  - component: {fileID: 566701206}
   - component: {fileID: 566701203}
   - component: {fileID: 566701205}
-  - component: {fileID: 566701206}
   - component: {fileID: 566701207}
+  - component: {fileID: 566701208}
   m_Layer: 0
   m_Name: PatternChecnker
   m_TagString: Untagged
@@ -1792,6 +1793,8 @@ MonoBehaviour:
   Damager: {fileID: 4221207430557407648, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
   Atk1: {fileID: 8300000, guid: 2f5003a255dcb6a47abf4e3256d5d004, type: 3}
   UC: {fileID: 2077749599}
+  MAX: 0
+  MIN: 0
 --- !u!114 &566701207
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1809,6 +1812,26 @@ MonoBehaviour:
   UC: {fileID: 2077749599}
   RepeatCount: 2
   Obj4Se: {fileID: 8300000, guid: 4ecee8bc778be684098eeb58ed7e36fd, type: 3}
+--- !u!114 &566701208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566701202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eccc5b131eee7e84db2839862c8dcab2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  X: 2.75
+  XRangePos: {x: 0, y: -2.55, z: 0}
+  Warning: {fileID: 3393336386172641305, guid: 76327d564c8193344870f4bd89389a3f, type: 3}
+  AtkObj: {fileID: 2320087288255682590, guid: 6ded27778aec9074e919b1800d47a909, type: 3}
+  WarningS: {fileID: 8300000, guid: 87cb297601b07c74f8c41ee7a140b947, type: 3}
+  UC: {fileID: 2077749599}
+  MAX: 0
+  MIN: 0
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1962,11 +1985,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4d0f3c7fb0cd846943977e2821a587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatternCount: 0
+  PatternCount: 5
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
   AtkPtn4M: {fileID: 566701207}
+  AtkPtn5M: {fileID: 566701208}
   Arrow: {fileID: 1983057795}
 --- !u!4 &737269436
 Transform:
@@ -4139,8 +4163,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossHP: 0
-  MAX_BOSS_HP: 3000
+  MAX_BOSS_HP: 1500
   Boss: {fileID: 1110988468}
+  shakeing: 0
   DamageText: {fileID: 1510510547}
   BossUI: {fileID: 7093399}
 --- !u!1 &1592521500
@@ -4945,6 +4970,7 @@ MonoBehaviour:
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
   AtkPtn4M: {fileID: 566701207}
+  AtkPtn5M: {fileID: 566701208}
   AttackBar: {fileID: 123357258}
   Slide: {fileID: 1954835025}
   DistanceChecker: {fileID: 2030273067}

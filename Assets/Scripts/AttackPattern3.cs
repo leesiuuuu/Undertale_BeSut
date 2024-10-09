@@ -8,9 +8,11 @@ public class AttackPattern3 : AttackPattern3M
     private void Start()
     {
         gameObject.GetComponent<Collider2D>().enabled = false;
-        //강도가 빌드본이랑 약 2배 차이남
-        // ex) 강도 2 -> 강도 1
-        StartCoroutine(Shake(gameObject, 1f, 2));
+        //기본 값
+        //2, 1
+        //빌드 기본값
+        //0.5, 1
+        StartCoroutine(Shake(gameObject, 2f, 1));
         RandomRotate = Random.Range(0f, 360f);
         Quaternion RandomRotate1 = Quaternion.Euler(0, 0, RandomRotate);
         gameObject.transform.rotation = RandomRotate1;
@@ -63,5 +65,6 @@ public class AttackPattern3 : AttackPattern3M
             yield return null;
         }
         Destroy(gameObject);
+        isUp = false;
     }
 }

@@ -27,7 +27,6 @@ public class SoundManager : MonoBehaviour
         audiosource.outputAudioMixerGroup = audioMixer.FindMatchingGroups("SFX")[0];
         audiosource.clip = clip;
         audiosource.Play();
-
         Destroy(go, clip.length);
     }
     public void BGPlay(AudioClip clip)

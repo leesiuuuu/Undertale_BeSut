@@ -1,12 +1,12 @@
-using JetBrains.Annotations;
-using System.Xml;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class AttackPattern4 : MonoBehaviour
 {
     float Timer1 = 0;
     public float EndTime;
+    //이새끼도 똑같음.... 빌드할 때랑 디버깅 할 때랑 속도가 3 ~ 4배 차이남
+    //ex) 50 -> 170
+    //추가로 못찾을까봐 여기다 적는데 Shake 강도가 빌드에서는 너무 큼. 조정 필요
     public float Power;
 
     public AudioClip SD;

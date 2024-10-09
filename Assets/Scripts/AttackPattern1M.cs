@@ -19,8 +19,7 @@ public class AttackPattern1M : MonoBehaviour
     private Vector2 Box2_1Range;
     [SerializeField]
     private Vector3 Pos2_1;
-    [SerializeField]
-    private float Duration;
+    public float Duration;
     private bool UD;
     private bool LR;
 
@@ -29,24 +28,24 @@ public class AttackPattern1M : MonoBehaviour
     public AudioClip Atk1;
     public UICode UC;
 
+    public float MAX;
+    public float MIN;
 
     private float DelayTime;
     private bool isCreateDone = false;
     private void OnEnable()
     {
+        MIN = 0.3f;
+        MAX = 1f;
         isCreateDone = false;
-    }
-
-    private void Start()
-    {
-        StartCoroutine(StartAttack());
         StartCoroutine(TimerSet(Duration));
+        StartCoroutine(StartAttack());
     }
     IEnumerator StartAttack()
     {
         while (!isCreateDone)
         {
-            DelayTime = Random.Range(0.3f, 1f);
+            DelayTime = Random.Range(MIN, MAX);
             UD = (Random.value > 0.5);
             LR = (Random.value > 0.5);
             yield return new WaitForSeconds(DelayTime);

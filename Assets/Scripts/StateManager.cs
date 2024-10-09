@@ -48,10 +48,13 @@ public class StateManager : MonoBehaviour
                 Dialogue = "* 당신은 자신의 몸에 핏자국이 있다는걸 \n  보았다.";
                 break;
             case 6:
-                Dialogue = "* 당신은 앞에 있는 고양이를 쓰다듬고 싶다는 생각을 했다.";
+                Dialogue = "* 당신은 앞에 있는 고양이를 쓰다듬고 싶다는\n  생각을 했다.";
                 break;
             case 7:
                 Dialogue = "* 당신은 더 이상 길게 생각하지 않기로 했다.";
+                break;
+            default:
+                Dialogue = "* 당신은 자신의 의지에 따른 선택을 하기로 했다.";
                 break;
         }
         return Dialogue;
