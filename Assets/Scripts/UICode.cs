@@ -142,7 +142,7 @@ public class UICode : MonoBehaviour
     /// </summary>
     private string LastState;
     //첫번쨰 턴에서 모르는 척 하기를 했을 때 켜짐
-    private bool FirstTurnAct = false;
+    public bool FirstTurnAct = false;
     void Start()
     {
         //리스트 요소 추가
@@ -222,7 +222,6 @@ public class UICode : MonoBehaviour
                 {
                     ImageChanger(FightBtn, NormalFight);
                     SoundManager.instance.SFXPlay("Selete", SeleteSound);
-                    FirstTurnAct = false;
                     Ttext.text = "";
                     StartCoroutine(ActAttacking());
                 }
@@ -464,6 +463,9 @@ public class UICode : MonoBehaviour
             ActCancel();
             Page = 1;
             PageAdd = false;
+            ItemLocate = 0;
+            Bf_i = 0;
+            Bf_j = 0;
             i = 0;
             j = 0;
             Ttext.text = "";
@@ -962,16 +964,9 @@ public class UICode : MonoBehaviour
         }
         if (ListELement[i, j])
         {
-            if(Page == 1)
-            {
-                
-            }
-            else
-            {
-                HeartPos = Before;
-                ItemLocate = BeforeItemLocate;
-                i = Bf_i; j = Bf_j;
-            }
+            HeartPos = Before;
+            ItemLocate = BeforeItemLocate;
+            i = Bf_i; j = Bf_j;
         }
         else
         {
@@ -1035,8 +1030,30 @@ public class UICode : MonoBehaviour
             SoundManager.instance.SFXPlay("Attack", AttackSound);
             Invoke("DeleteEffect", 0.8f);
             yield return new WaitForSeconds(0.9f);
+            if(StateManager.instance.NoLieStack == 8) //공격할 이유가 없다고 할 떄 공격하면 나타나는 반응
+            {
+                yield return new WaitForSeconds(0.7f);
+                AttackBar.SetActive(false);
+                Slide.SetActive(false);
+                FirstTurnAct = false;
+                isBossDialogue = true;
+                zClick = 1;
+                DialogueAdder("역시...");
+                while (zClick <= 3){
+                    if (Input.GetKeyDown(KeyCode.Z))
+                    {
+                        DialogueAdder("거짓말이었군.", "사라져라.");
+                        ++zClick;
+                    }
+                    yield return null;
+                }
+                StateManager.instance.NoLieStack = 0;
+                TalkBalloon.SetActive(false);
+                LastState = "IDK_out";
+            }
             Invoke("FightAndAttack", 0.7f);
             yield return null;
+            FirstTurnAct = false;
             Stop = false;
         }
         else

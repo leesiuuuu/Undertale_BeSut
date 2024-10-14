@@ -27,7 +27,7 @@ public class PatternManager : MonoBehaviour
             Destroy(gameObject);
         }
         Arrow.SetActive(false);
-    }
+    }   
     public IEnumerator SeqPatternStart(int TurnCount)
     {
         yield return new WaitForSeconds(0.5f);
@@ -81,7 +81,6 @@ public class PatternManager : MonoBehaviour
     private int beforeCheck(int before)
     {
         int randomValue;
-
         do
         {
             randomValue = Random.Range(1, 6);

@@ -6,6 +6,7 @@ public class AttackPattern4M : MonoBehaviour
     public GameObject Effect;
     public GameObject AttackObj;
     public UICode UC;
+    public GameObject Plaeyr;
     public int RepeatCount;
 
     public AudioClip Obj4Se;
@@ -59,6 +60,7 @@ public class AttackPattern4M : MonoBehaviour
     }
     IEnumerator AtkPtn41()
     {
+        Plaeyr.GetComponent<HeartMove>().NoCool = true;
         LoopTime = (int)Random.Range(3, 6);
         Times = new float[LoopTime];
         dir = new int[LoopTime];
@@ -81,6 +83,7 @@ public class AttackPattern4M : MonoBehaviour
             yield return new WaitForSeconds(1.2f);
         }
         StateManager.instance.Fighting = false;
+        Plaeyr.GetComponent<HeartMove>().NoCool = false;
         UC.MyTurnBack();
     }
 }

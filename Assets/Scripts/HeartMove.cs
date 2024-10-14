@@ -18,6 +18,9 @@ public class HeartMove : MonoBehaviour
     private bool isInvin = false;
     private Animator animator;
     private bool Shield = false;
+    public bool NoCool = false;
+    private float CoolTime;
+    public float MAX_COOLTIME = 3f;
     private void OnEnable()
     {
         if (Shield)
@@ -27,22 +30,35 @@ public class HeartMove : MonoBehaviour
     }
     private void Start()
     {
+        CoolTime = 0f;
         ShieldObj = transform.GetChild(0).gameObject;
         ShieldObj.SetActive(false);
         animator = GetComponent<Animator>();
     }
     void Update()
     {
+        if (!Shield && !NoCool)
+        {
+            if(CoolTime <= 0)
+            {
+                CoolTime = 0;
+            }
+            else
+            {
+                CoolTime -= Time.deltaTime;
+            }
+        }
         MoveVelocity = Vector3.zero;
         if(Input.GetKey(KeyCode.LeftArrow)) MoveVelocity += Vector3.left;
         if(Input.GetKey(KeyCode.RightArrow)) MoveVelocity += Vector3.right;
         if(Input.GetKey(KeyCode.UpArrow)) MoveVelocity += Vector3.up;
         if(Input.GetKey(KeyCode.DownArrow)) MoveVelocity += Vector3.down;
-        if (Input.GetKeyDown(KeyCode.C) && !Shield)
+        if (Input.GetKeyDown(KeyCode.C) && !Shield && (CoolTime <= 0 || NoCool))
         {
             SoundManager.instance.SFXPlay("Shield", ShieldSound);
             ShieldObj.SetActive(true);
             MoveSpeed -= 2f;
+            if(!NoCool) CoolTime = MAX_COOLTIME;
             Shield = true;
         }
         MoveVelocity = MoveVelocity.normalized;

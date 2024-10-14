@@ -1591,8 +1591,8 @@ MonoBehaviour:
   _Iteming: 0
   _Mercying: 0
   Talking: 0
-  NoLieStack: 5
-  TurnCount: 5
+  NoLieStack: 0
+  TurnCount: 0
 --- !u!4 &429638836
 Transform:
   m_ObjectHideFlags: 0
@@ -1810,6 +1810,7 @@ MonoBehaviour:
   Effect: {fileID: 7876757205389237024, guid: 6ab78856bb60bc74bbe0677b0d637912, type: 3}
   AttackObj: {fileID: 4879247256689600154, guid: 6abb4027a0de4484f85bbec408181120, type: 3}
   UC: {fileID: 2077749599}
+  Plaeyr: {fileID: 1706545559}
   RepeatCount: 2
   Obj4Se: {fileID: 8300000, guid: 4ecee8bc778be684098eeb58ed7e36fd, type: 3}
 --- !u!114 &566701208
@@ -1824,7 +1825,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eccc5b131eee7e84db2839862c8dcab2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  X: 2.75
+  X: 3
   XRangePos: {x: 0, y: -2.55, z: 0}
   Warning: {fileID: 3393336386172641305, guid: 76327d564c8193344870f4bd89389a3f, type: 3}
   AtkObj: {fileID: 2320087288255682590, guid: 6ded27778aec9074e919b1800d47a909, type: 3}
@@ -1985,7 +1986,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4d0f3c7fb0cd846943977e2821a587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatternCount: 5
+  PatternCount: 0
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
@@ -4500,6 +4501,8 @@ MonoBehaviour:
   HurtClip: {fileID: 8300000, guid: 5087a3f6539980f4b9c0c4d726e4cefb, type: 3}
   ShieldSound: {fileID: 8300000, guid: 3964794d00154974eab730ae42f501ba, type: 3}
   SheldBreak: {fileID: 8300000, guid: 8eaf5abd2786656479d3d68659b6c560, type: 3}
+  NoCool: 0
+  MAX_COOLTIME: 3
 --- !u!50 &1706545563
 Rigidbody2D:
   serializedVersion: 4
@@ -4981,6 +4984,7 @@ MonoBehaviour:
   PageAdd: 0
   ActList: []
   AttackEffect: {fileID: 1368249337}
+  FirstTurnAct: 1
 --- !u!1 &2111430935
 GameObject:
   m_ObjectHideFlags: 0
