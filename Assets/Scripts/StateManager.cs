@@ -1,3 +1,5 @@
+using System.Diagnostics.Tracing;
+using UnityEditor;
 using UnityEngine;
 
 public class StateManager : MonoBehaviour
@@ -15,6 +17,11 @@ public class StateManager : MonoBehaviour
     public bool Talking = false;
     public int NoLieStack = 0;
     public int TurnCount = 0;
+    //완전한 불살 루트를 거쳤을 때 나타남.
+    //그러나, 공격을 할 시 2페이즈 켜짐
+    public bool NoKill = false;
+    public bool Faze2 = false;
+    public bool GameDone = false;
     void Awake()
     {
         if(instance == null)
@@ -27,9 +34,9 @@ public class StateManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    public string DialogueChanger(int TurnCount, string Dialogue, bool Faze2 = false)
+    public string DialogueChanger(int TurnCount, string Dialogue)
     {
-        if (!Faze2)
+        if (!Faze2 && !NoKill)
         {
             switch (TurnCount)
             {
@@ -59,9 +66,13 @@ public class StateManager : MonoBehaviour
                     break;
             }
         }
+        else if (NoKill)
+        {
+            Dialogue = "* 네이트 코릴은 당신에게 자비를 배풀었다!";
+        }
         else
         {
-
+            Dialogue = "* 거짓에는 항상 책임이 따른다.";
         }
         return Dialogue;
     }

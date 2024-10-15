@@ -35,6 +35,10 @@ public class BossManager : MonoBehaviour
     }
     public void BossHPChanged(int Damage)
     {
+        if(bossHP - Damage < 0)
+        {
+            bossHP = 0;
+        }
         DamageText.gameObject.SetActive(true);
         DamageText.text = "";
         DamageText.text = Damage.ToString();

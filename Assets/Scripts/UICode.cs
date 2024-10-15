@@ -1,9 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using System.Linq;
 using TMPro;
 using Unity.VisualScripting;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -145,6 +145,8 @@ public class UICode : MonoBehaviour
     public bool FirstTurnAct = false;
     void Start()
     {
+        StateManager.instance.GameDone = false;
+
         //리스트 요소 추가
         ItemList.Add("자연산 커피");
         ItemList.Add("마법 롤케이크");
@@ -166,6 +168,12 @@ public class UICode : MonoBehaviour
         
         ItemAndActText.SetActive(false);
 
+        ItemLocate = 0;
+        Page = 1;
+        PageAdd = false;
+        i = 0;
+        j = 0;
+
         SliderAniamtor = Slide.GetComponent<Animator>();
         T1.enabled = false;
         T2.enabled = false;
@@ -185,6 +193,9 @@ public class UICode : MonoBehaviour
 
         FightBtn.sprite = SeleteFight;
         Fight = true;
+        Act = false;
+        Item = false;
+        Mercy = false;
         Heart.SetActive(true);
         AtkPtn2M.enabled = false;
         HeartPos = FightBtnPos;
@@ -427,8 +438,18 @@ public class UICode : MonoBehaviour
             {
                 if (!isMercyDialogue)
                 {
-                    Ttext.text = "";
-                    Ttext.text = "      * 살려주기";
+                    if (StateManager.instance.NoKill)
+                    {
+                        Color Yellow = new Color(255, 255, 0);
+                        Ttext.text = "";
+                        Ttext.color = Yellow;
+                        Ttext.text = "      * 살려주기";
+                    }
+                    else
+                    {
+                        Ttext.text = "";
+                        Ttext.text = "      * 살려주기";
+                    }
                     HeartPos = ListPos[0, 0];
                 }
                 if (Input.GetKeyDown(KeyCode.Z))
@@ -457,6 +478,7 @@ public class UICode : MonoBehaviour
         //취소 코드
         if (Input.GetKeyDown(KeyCode.X) && !StateManager.instance.Acting && StateManager.instance.Starting && !AttackSliding)
         {
+            Ttext.color = new Color(255, 255, 255);
             StateManager.instance.Acting = true;
             StateManager.instance.Starting = false;
             ActState(false);
@@ -503,7 +525,16 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
+                    if (StateManager.instance.NoKill)
+                    {
+                        Heart.transform.position = HeartMidPos;
+                        Invoke("MyTurnBack", 0.75f);
+                        StateManager.instance.Fighting = false;
+                    }
+                    else
+                    {
+                        StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
+                    }
                 }
             }
             else if (isActDialogue)
@@ -519,132 +550,161 @@ public class UICode : MonoBehaviour
                     if (HeartPos == ListPos[0, 0] && !StateManager.instance.Talking)
                     {
                         ++zClick;
-                        switch (isAct1Check)
+                        if (StateManager.instance.NoKill)
                         {
-                            case 0:
-                                DialogueAdder("지금 뭐하는 거지?", "나랑 장난하자는 건가?");
-                                break;
-                            case 1:
-                                DialogueAdder(".....미친거냐?", "징그러워 죽겠군.");
-                                break;
-                            default:
-                                DialogueAdder("......");
-                                break;
+                            DialogueAdder("지금 행동에는 다 이유가 있겠지.", "빨리 끝내자.");
+                        }
+                        else
+                        {
+                            switch (isAct1Check)
+                            {
+                                case 0:
+                                    DialogueAdder("지금 뭐하는 거지?", "나랑 장난하자는 건가?");
+                                    break;
+                                case 1:
+                                    DialogueAdder(".....미친거냐?", "징그러워 죽겠군.");
+                                    break;
+                                default:
+                                    DialogueAdder("......");
+                                    break;
+                            }
                         }
                         LastState = "Meow";
                     }
                     else if (HeartPos == ListPos[1, 0] && !StateManager.instance.Talking)
                     {
                         ++zClick;
-                        switch (isAct2Check)
+                        if (StateManager.instance.NoKill)
                         {
-                            case 0:
-                                DialogueAdder(".......", "그게 다냐?");
-                                break;
-                            case 1:
-                                DialogueAdder("한심하군...");
-                                break;
-                            default:
-                                DialogueAdder("......");
-                                break;
+                            DialogueAdder("이런 행동을 하는 데 다 이유가 있겠지.", "빨리 들어보고 싶군.");
+                        }
+                        else
+                        {
+                            switch (isAct2Check)
+                            {
+                                case 0:
+                                    DialogueAdder(".......", "그게 다냐?");
+                                    break;
+                                case 1:
+                                    DialogueAdder("한심하군...");
+                                    break;
+                                default:
+                                    DialogueAdder("......");
+                                    break;
+                            }
                         }
                         LastState = "Swear";
                     }
                     else if (HeartPos == ListPos[0, 1] && !StateManager.instance.Talking)
                     {
                         ++zClick;
-                        if (FirstTurnAct) FirstTurnAct = false;
-                        switch (isAct3Check)
+                        if (StateManager.instance.NoKill)
                         {
-                            case 0:
-                                DialogueAdder("이제와서 항복하겠다고?", "너무 늦었어.");
-                                break;
-                            case 1:
-                                DialogueAdder("왜 항복하는 거지?", "내가 무서운가?");
-                                break;
-                            case 2:
-                                DialogueAdder("그렇게 여기서 벗어나고 싶나?", "좋아.", "최대한 빠르게 보내주지."); ;
-                                break;
-                            default:
-                                DialogueAdder("지치지도 않는군.");
-                                break;
+                            DialogueAdder("이런 행동을 하는 데 다 이유가 있겠지.", "누가 이런걸 시키는 거지?", "빨리 들어보고 싶군.");
+                        }
+                        else 
+                        {
+                            if (FirstTurnAct) FirstTurnAct = false;
+                            switch (isAct3Check)
+                            {
+                                case 0:
+                                    DialogueAdder("이제와서 항복하겠다고?", "너무 늦었어.");
+                                    break;
+                                case 1:
+                                    DialogueAdder("왜 항복하는 거지?", "내가 무서운가?");
+                                    break;
+                                case 2:
+                                    DialogueAdder("그렇게 여기서 벗어나고 싶나?", "좋아.", "최대한 빠르게 보내주지."); ;
+                                    break;
+                                default:
+                                    DialogueAdder("지치지도 않는군.");
+                                    break;
+                            }
                         }
                         LastState = "Surnen";
                     }
                     else if (HeartPos == ListPos[1, 1] && !StateManager.instance.Talking)
                     {
                         ++zClick;
-                        if (FirstTurnAct)
+                        if (StateManager.instance.NoKill)
                         {
-                            switch (StateManager.instance.NoLieStack)
-                            {
-                                case 0:
-                                    DialogueAdder("뭐..?", "아무것도 기억이 안나..?", "미친 척 해봤자 나한테는 소용없어.");
-                                    break;
-                                case 1:
-                                    DialogueAdder("...거짓말 하지 마.", "계속 기억이 안난다고 시치미 때봤자 안통해.", "얌전히 사라져.");
-                                    break;
-                                case 2:
-                                    DialogueAdder("진심이냐?", "만약 정말로 기억이 안난다면...", "......아니, 아니야.", "그럴리가 없지.");
-                                    break;
-                                case 3:
-                                    DialogueAdder("아무것도 기억이 안나..?",
-                                        "정말로?",
-                                        "반항하지 않는 걸 봐서는....",
-                                        "어쩌면 사실일 수도 있겠군.");
-                                    break;
-                                case 4:
-                                    DialogueAdder("그럼 지금 너한테 묻은 자국들..",
-                                        "설명할 수 있나?",
-                                        "아니면, 지금 무슨 상황인지도 모르면서 싸우고 었었던 건가?",
-                                        "흠....");
-                                    break;
-                                case 5:
-                                    DialogueAdder("하지만 넌 수많은 동료들을 죽였어.",
-                                        "그건 절대 용서 될 수 없다.",
-                                        "아무리 기억이 안 난다고 해도..",
-                                        "넌 결국에는 죽게 될거다.");
-                                    break;
-                                case 6:
-                                    DialogueAdder("정말 끈질기군.",
-                                        "이 점은 예전의 너랑 똑같네.",
-                                        ".....");
-                                    break;
-                                case 7:
-                                    DialogueAdder("아직은 너를 완벽하게 못 믿겠어.",
-                                        "계속해서 나를 믿게 해봐.",
-                                        "만약 정말 기억이 안난다면,",
-                                        "넌 나를 공격할 이유가 없다.");
-                                    break;
-                                case 8:
-                                    DialogueAdder("혹시 지금...",
-                                        "누군가에게 조종당하고 있나?",
-                                        "아, 아니다.",
-                                        "너한테 한 말이 아니야.");
-                                    break;
-                                case 9:
-                                    DialogueAdder("좋다.",
-                                        "이정도면 어느정도 신뢰할 만 하군.",
-                                        "너에게 자비를 배풀어주마.");
-                                    break;
-                            }
+                            DialogueAdder("그래, 진짜 아무 기억도 안나는 것 같구나.", "그러니 빨리 끝내자.");
                             LastState = "IDK";
                         }
                         else
                         {
-                            switch (isAct4Check)
+                            if (FirstTurnAct)
                             {
-                                case 0:
-                                    DialogueAdder("난 너의 실체를 알고 있다.", "그런 거짓말은 안통해.");
-                                    break;
-                                case 1:
-                                    DialogueAdder("소용없다.", "더 이상 의미 없어.");
-                                    break;
-                                default:
-                                    DialogueAdder(".....");
-                                    break;
-                        }
-                            LastState = "IDK_out";
+                                switch (StateManager.instance.NoLieStack)
+                                {
+                                    case 0:
+                                        DialogueAdder("뭐..?", "아무것도 기억이 안나..?", "미친 척 해봤자 나한테는 소용없어.");
+                                        break;
+                                    case 1:
+                                        DialogueAdder("...거짓말 하지 마.", "계속 기억이 안난다고 시치미 때봤자 안통해.", "얌전히 사라져.");
+                                        break;
+                                    case 2:
+                                        DialogueAdder("진심이냐?", "만약 정말로 기억이 안난다면...", "......아니, 아니야.", "그럴리가 없지.");
+                                        break;
+                                    case 3:
+                                        DialogueAdder("아무것도 기억이 안나..?",
+                                            "정말로?",
+                                            "반항하지 않는 걸 봐서는....",
+                                            "어쩌면 사실일 수도 있겠군.");
+                                        break;
+                                    case 4:
+                                        DialogueAdder("그럼 지금 너한테 묻은 자국들..",
+                                            "설명할 수 있나?",
+                                            "아니면, 지금 무슨 상황인지도 모르면서 싸우고 었었던 건가?",
+                                            "흠....");
+                                        break;
+                                    case 5:
+                                        DialogueAdder("하지만 넌 수많은 동료들을 죽였어.",
+                                            "그건 절대 용서 될 수 없다.",
+                                            "아무리 기억이 안 난다고 해도..",
+                                            "넌 결국에는 죽게 될거다.");
+                                        break;
+                                    case 6:
+                                        DialogueAdder("정말 끈질기군.",
+                                            "이 점은 예전의 너랑 똑같네.",
+                                            ".....");
+                                        break;
+                                    case 7:
+                                        DialogueAdder("아직은 너를 완벽하게 못 믿겠어.",
+                                            "계속해서 나를 믿게 해봐.",
+                                            "만약 정말 기억이 안난다면,",
+                                            "넌 나를 공격할 이유가 없다.");
+                                        break;
+                                    case 8:
+                                        DialogueAdder("혹시 지금...",
+                                            "누군가에게 조종당하고 있나?",
+                                            "아, 아니다.",
+                                            "너한테 한 말이 아니야.");
+                                        break;
+                                    case 9:
+                                        DialogueAdder("좋다.",
+                                            "이정도면 어느정도 신뢰할 만 하군.",
+                                            "너에게 자비를 배풀어주마.");
+                                        break;
+                                }
+                                LastState = "IDK";
+                            }
+                            else
+                            {
+                                switch (isAct4Check)
+                                {
+                                    case 0:
+                                        DialogueAdder("난 너의 실체를 알고 있다.", "그런 거짓말은 안통해.");
+                                        break;
+                                    case 1:
+                                        DialogueAdder("소용없다.", "더 이상 의미 없어.");
+                                        break;
+                                    default:
+                                        DialogueAdder(".....");
+                                        break;
+                                }
+                                LastState = "IDK_out";
+                            }
                         }
                     }
                 }
@@ -683,10 +743,25 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
-                    if (!isCountStarted)
+                    if (StateManager.instance.NoKill)
                     {
-                        StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
-                        isCountStarted = true;
+                        Heart.transform.position = HeartMidPos;
+                        Invoke("MyTurnBack", 0.75f);
+                        StateManager.instance.Fighting = false;
+                    }
+                    if (!isCountStarted && !StateManager.instance.NoKill)
+                    {
+                        if(StateManager.instance.NoLieStack == 10)
+                        {
+                            StateManager.instance.NoKill = true;
+                            Invoke("MyTurnBack", 0.75f);
+                            StateManager.instance.Fighting = false;
+                        }
+                        else
+                        {
+                            StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
+                            isCountStarted = true;
+                        }
                     }
                 }
             }
@@ -701,20 +776,27 @@ public class UICode : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.Z) && isBossDialogue && !StateManager.instance.Talking)
                 {
                     ++zClick;
-                    switch (isMercyCheck)
+                    if (!StateManager.instance.NoKill)
                     {
-                        case 0:
-                            DialogueAdder("이제와서 살려주겠다고?", "자비는 없다.");
-                            break;
-                        case 1:
-                            DialogueAdder("전부 죽여놓고, 이제와서 살려준다고?", "한심하기 짝이 없군.");
-                            break;
-                        case 2:
-                            DialogueAdder("반응도 하기 싫군.", "죽어라.");
-                            break;
-                        default:
-                            DialogueAdder("......");
-                            break;
+                        switch (isMercyCheck)
+                        {
+                            case 0:
+                                DialogueAdder("이제와서 살려주겠다고?", "자비는 없다.");
+                                break;
+                            case 1:
+                                DialogueAdder("전부 죽여놓고, 이제와서 살려준다고?", "한심하기 짝이 없군.");
+                                break;
+                            case 2:
+                                DialogueAdder("반응도 하기 싫군.", "죽어라.");
+                                break;
+                            default:
+                                DialogueAdder("......");
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        DialogueAdder("좋아.", "자세한 이야기는 좀 쉬면서 들어보겠다.");
                     }
                     LastState = "Mercy";
                 }
@@ -736,6 +818,11 @@ public class UICode : MonoBehaviour
                     }
                     Heart.SetActive(true);
                     HM.enabled = true;
+                    if (StateManager.instance.NoKill)
+                    {
+                        StateManager.instance.GameDone = true;
+                        Debug.Log("GameDone");
+                    }
                     if (!isCountStarted)
                     {
                         StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
@@ -1019,7 +1106,14 @@ public class UICode : MonoBehaviour
             {
                 SliderAniamtor.SetBool("Blink", true);
                 Stop = true;
-                Damage = DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x);
+                if (StateManager.instance.NoKill)
+                {
+                    Damage = 9999;
+                }
+                else
+                {
+                    Damage = DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x);
+                }
                 Debug.Log(Damage);
             }
         }

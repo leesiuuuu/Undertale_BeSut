@@ -41,4 +41,8 @@ public class SoundManager : MonoBehaviour
     {
         audioMixer.SetFloat("Master", Mathf.Log10(val) * 20);
     }
+    public void StopBG()
+    {
+        BGSound.Stop();
+    }
 }
