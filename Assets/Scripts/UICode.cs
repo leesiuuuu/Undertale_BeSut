@@ -126,6 +126,7 @@ public class UICode : MonoBehaviour
     private bool Once = false;
     private bool isBossDialogue = false;
     private bool isCountStarted = false;
+    private bool GameDoneLogAdd = false;
     //각 행동 횟수별 보스 대화 로그 변경
     private int isMercyCheck = 0;
     private int isAct1Check = 0;
@@ -496,14 +497,17 @@ public class UICode : MonoBehaviour
             SoundManager.instance.SFXPlay("Move", MoveSound);
         }
         //보스 전투 턴 넘어가는 코드
-        if(StateManager.instance.Starting && StateManager.instance.Acting)
+        if(StateManager.instance.Starting && StateManager.instance.Acting && !StateManager.instance.GameDone)
         {
-            StateManager.instance.Starting = false;
-            StateManager.instance.Acting = false;
-            Invoke("StartFightTurn", 0.5f);
+            if(BossManager.instance.bossHP > 0)
+            {
+                StateManager.instance.Starting = false;
+                StateManager.instance.Acting = false;
+                Invoke("StartFightTurn", 0.5f);
+            }
         }
         //하트 오브젝트 위치 지속적으로 확인
-        if (!StateManager.instance.Fighting)
+        if (!StateManager.instance.Fighting && !GameDoneLogAdd)
         {
             Heart.transform.position = HeartPos;
         }
@@ -796,7 +800,7 @@ public class UICode : MonoBehaviour
                     }
                     else
                     {
-                        DialogueAdder("좋아.", "자세한 이야기는 좀 쉬면서 들어보겠다.");
+                        DialogueAdder("자세한 이야기는 좀 쉬면서 들어보도록 하지.");
                     }
                     LastState = "Mercy";
                 }
@@ -808,30 +812,51 @@ public class UICode : MonoBehaviour
                         LastState = "";
                     }
                     StateManager.instance.Talking = false;
-                    T_1.enabled = false;
-                    T_2.enabled = false;
-                    T1.enabled = true;
-                    if (!T2.enabled)
-                    {
-                        T2.enabled = true;
-                        Heart.transform.position = HeartMidPos;
-                    }
-                    Heart.SetActive(true);
-                    HM.enabled = true;
-                    if (StateManager.instance.NoKill)
+                    //불살 루트 종료 코드(게임 종료)
+                    if (StateManager.instance.NoKill && !GameDoneLogAdd)
                     {
                         StateManager.instance.GameDone = true;
                         Debug.Log("GameDone");
-                    }
-                    if (!isCountStarted)
-                    {
-                        StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
                         isCountStarted = true;
+                    }
+                    //GameDone 이후 반복될 시 나타나는 조건을 나누기
+                    else if (StateManager.instance.NoKill && GameDoneLogAdd)
+                    {
+                        Debug.Log("GameEnding...");
+                    }
+                    //기타
+                    else
+                    {
+                        T_1.enabled = false;
+                        T_2.enabled = false;
+                        T1.enabled = true;
+                        if (!T2.enabled)
+                        {
+                            T2.enabled = true;
+                            Heart.transform.position = HeartMidPos;
+                        }
+                        Heart.SetActive(true);
+                        HM.enabled = true;
+                        if (!isCountStarted)
+                        {
+                            StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
+                            isCountStarted = true;
+                        }
                     }
                 }
             }
         }
+        //전투가 종료되었는지 확인
+        if (StateManager.instance.GameDone && !GameDoneLogAdd)
+        {
+            Ttext.text = "";
+            Ttext.color = new Color(255, 255, 255);
+            Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 0xp와 0골드를 얻었다!");
+            StateManager.instance.GameDone = false;
+            GameDoneLogAdd = true;
+        }
     }
+
     void StateChangeRight()
     {
         if (Fight)
@@ -1145,7 +1170,12 @@ public class UICode : MonoBehaviour
                 TalkBalloon.SetActive(false);
                 LastState = "IDK_out";
             }
-            Invoke("FightAndAttack", 0.7f);
+            if (BossManager.instance.bossHP > 0) Invoke("FightAndAttack", 0.7f);
+            else 
+            { 
+                Debug.Log("For 2 Faze...");
+                yield return null;
+            }
             yield return null;
             FirstTurnAct = false;
             Stop = false;
