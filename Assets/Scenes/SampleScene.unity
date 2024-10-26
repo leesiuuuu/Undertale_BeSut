@@ -1032,6 +1032,7 @@ GameObject:
   m_Component:
   - component: {fileID: 250121120}
   - component: {fileID: 250121121}
+  - component: {fileID: 250121122}
   m_Layer: 0
   m_Name: TalkBalloon
   m_TagString: Untagged
@@ -1107,6 +1108,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &250121122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250121119}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8507c7902acc194ca202c52fc6c54ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &259953714
 GameObject:
   m_ObjectHideFlags: 0
@@ -3660,6 +3673,7 @@ GameObject:
   - component: {fileID: 1368249339}
   - component: {fileID: 1368249338}
   - component: {fileID: 1368249340}
+  - component: {fileID: 1368249341}
   m_Layer: 0
   m_Name: AttackEffect
   m_TagString: Untagged
@@ -3755,6 +3769,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1368249341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1368249337}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8507c7902acc194ca202c52fc6c54ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1435277733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3945,6 +3971,7 @@ GameObject:
   - component: {fileID: 1534476193}
   - component: {fileID: 1534476192}
   - component: {fileID: 1534476194}
+  - component: {fileID: 1534476195}
   m_Layer: 0
   m_Name: Talk
   m_TagString: Untagged
@@ -4122,6 +4149,18 @@ MonoBehaviour:
   Delay: 0
   TMPtext: {fileID: 1534476192}
   BossTalk: {fileID: 8300000, guid: 61ddaf7b2e599c147b126e83b06c1d4b, type: 3}
+--- !u!114 &1534476195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1534476190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b8507c7902acc194ca202c52fc6c54ea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1541074127
 GameObject:
   m_ObjectHideFlags: 0
@@ -4170,8 +4209,13 @@ MonoBehaviour:
   MAX_BOSS_HP: 1500
   Boss: {fileID: 1110988468}
   shakeing: 0
+  BM: {fileID: 1110988472}
   DamageText: {fileID: 1510510547}
   BossUI: {fileID: 7093399}
+  bossHurt: {fileID: 2037295067, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
+  bossHurtTalk: {fileID: -159021682, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
+  bossUlt: {fileID: 1838336873, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
+  bossHurtStand: {fileID: -943386708, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
 --- !u!1 &1592521500
 GameObject:
   m_ObjectHideFlags: 0

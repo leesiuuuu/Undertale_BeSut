@@ -7,6 +7,11 @@ public class BossMove : MonoBehaviour
     public float Duration;
 
     private float TimeElapsed = 0f;
+
+    private void OnEnable()
+    {
+        StartPosition = new Vector3(0, 2.56f, 0);
+    }
     void Start()
     {
         StartPosition = transform.position;

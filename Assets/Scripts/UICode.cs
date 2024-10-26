@@ -144,6 +144,8 @@ public class UICode : MonoBehaviour
     private string LastState;
     //첫번쨰 턴에서 모르는 척 하기를 했을 때 켜짐
     public bool FirstTurnAct = false;
+    //불살 2페이즈 루트를 탔을 때 켜짐
+    private bool SpriteChangeEvent = false;
     void Start()
     {
         StateManager.instance.GameDone = false;
@@ -499,7 +501,7 @@ public class UICode : MonoBehaviour
         //보스 전투 턴 넘어가는 코드
         if(StateManager.instance.Starting && StateManager.instance.Acting && !StateManager.instance.GameDone)
         {
-            if(BossManager.instance.bossHP > 0)
+            if(BossManager.instance.bossHP > 1)
             {
                 StateManager.instance.Starting = false;
                 StateManager.instance.Acting = false;
@@ -1133,7 +1135,8 @@ public class UICode : MonoBehaviour
                 Stop = true;
                 if (StateManager.instance.NoKill)
                 {
-                    Damage = 9999;
+                    Damage = BossManager.instance.bossHP - 1;
+                    SpriteChangeEvent = true;
                 }
                 else
                 {
@@ -1159,7 +1162,7 @@ public class UICode : MonoBehaviour
                 zClick = 1;
                 DialogueAdder("역시...");
                 while (zClick <= 3){
-                    if (Input.GetKeyDown(KeyCode.Z))
+                    if (Input.GetKeyDown(KeyCode.Z) && !StateManager.instance.Talking)
                     {
                         DialogueAdder("거짓말이었군.", "사라져라.");
                         ++zClick;
@@ -1170,11 +1173,46 @@ public class UICode : MonoBehaviour
                 TalkBalloon.SetActive(false);
                 LastState = "IDK_out";
             }
-            if (BossManager.instance.bossHP > 0) Invoke("FightAndAttack", 0.7f);
+            if (BossManager.instance.bossHP > 1) Invoke("FightAndAttack", 0.7f);
+            //2페이즈 조건문
             else 
             { 
                 Debug.Log("For 2 Faze...");
-                yield return null;
+                SoundManager.instance.StopBG();
+                yield return new WaitForSeconds(1.2f);
+                AttackBar.SetActive(false);
+                Slide.SetActive(false);
+                FirstTurnAct = false;
+                isBossDialogue = true;
+                zClick = 1;
+                DialogueAdder(".....");
+                while (true)
+                {
+                    if (zClick == 4)  BossManager.instance.ChangeSprite(1);
+                    if(zClick == 11)
+                    {
+                        BossManager.instance.Boss.transform.localScale = new Vector3(2, 2, 2);
+                        BossManager.instance.ChangeSprite(3);
+                        BossManager.instance.StartMove();
+                    }
+                    if (Input.GetKeyDown(KeyCode.Z) && !StateManager.instance.Talking)
+                    {
+                        DialogueAdder("........", 
+                            "이렇게 당할 줄은 생각도 못했는데.", 
+                            ".............",
+                            "나도 참 멍청하군.",
+                            "저딴 너셕을 믿는 게 아니었어.",
+                            "진작에 눈치챘어야 했는데.",
+                            "그 녀석 말 좀 들을껄.",
+                            "...",
+                            "....아니",
+                            "여기서 죽을 수 없어.",
+                            "막아야만 해.",
+                            "무조건...");
+                        ++zClick;
+                    }
+                    yield return null;
+                }
             }
             yield return null;
             FirstTurnAct = false;
@@ -1256,11 +1294,21 @@ public class UICode : MonoBehaviour
     {
         AttackEffect.SetActive(false);
         SliderAniamtor.SetBool("Blink", false);
+        if (SpriteChangeEvent)
+        {
+            BossManager.instance.Boss.transform.localScale = new Vector3(2.3f, 2.3f, 2.3f);
+            BossManager.instance.ChangeSprite(0);
+            BossManager.instance.StopMove();
+        }
         AttackUIAppear(Damage);
     }
     void AttackUIAppear(int Damage)
     {
         SoundManager.instance.SFXPlay("Damaged", DamagedSound);
+        if(SpriteChangeEvent)
+        {
+            BossManager.instance.ChangeSprite(0);
+        }
         BossManager.instance.BossHPChanged(Damage);
     }
     void FightAndAttack()

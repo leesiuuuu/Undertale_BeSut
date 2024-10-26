@@ -2,6 +2,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using System.Collections;
+using Unity.VisualScripting;
 
 public class BossManager : MonoBehaviour
 {
@@ -14,11 +15,20 @@ public class BossManager : MonoBehaviour
     public int MAX_BOSS_HP = 1000;
 
     public GameObject Boss;
+    private SpriteRenderer BSR;
 
     public bool shakeing;
 
+    public BossMove BM;
+
     public TMP_Text DamageText;
     public Image BossUI;
+
+    public Sprite bossHurt;
+    public Sprite bossHurtTalk;
+    public Sprite bossUlt;
+    public Sprite bossHurtStand;
+
     private void Awake()
     {
         shakeing = false;
@@ -32,6 +42,7 @@ public class BossManager : MonoBehaviour
             Destroy(gameObject);
         }
         bossHP = MAX_BOSS_HP;
+        BSR = Boss.GetComponent<SpriteRenderer>();
     }
     public void BossHPChanged(int Damage)
     {
@@ -66,5 +77,38 @@ public class BossManager : MonoBehaviour
             yield return null;
         }
         obj.transform.position = origin;
+    }
+
+    /// <summary>
+    /// 0 = bossHurt
+    /// 1 = bossHurtTalk
+    /// 2 = bossUlt
+    /// 3 = bossHurtStand
+    /// </summary>
+    /// <param name="index"></param>
+    public void ChangeSprite(int index)
+    {
+        Debug.Log("asdf");
+        Boss.GetComponent<Animator>().enabled = false;
+        switch (index)
+        {
+            case 0:
+                BSR.sprite = bossHurt; break;
+            case 1:
+                BSR.sprite = bossHurtTalk; break;
+            case 2:
+                BSR.sprite = bossUlt; break;
+            case 3:
+                BSR.sprite = bossHurtStand; break;
+        }
+    }
+    public void StopMove()
+    {
+        BM.enabled = false;
+        Boss.transform.position = new Vector3 (0, 2.56f, 0);
+    }
+    public void StartMove()
+    {
+        BM.enabled = true;
     }
 }
