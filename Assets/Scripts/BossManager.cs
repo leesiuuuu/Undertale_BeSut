@@ -109,6 +109,10 @@ public class BossManager : MonoBehaviour
     }
     public void StartMove()
     {
-        BM.enabled = true;
+        if (!BM.enabled)
+        {
+            BM.enabled = true;
+            BM.EndPosition = new Vector2(0, 2.8f);
+        }
     }
 }

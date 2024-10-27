@@ -12,6 +12,12 @@ public class PatternManager : MonoBehaviour
     public AttackPattern4M AtkPtn4M;
     public AttackPattern5M AtkPtn5M;
 
+    [Header("FadeInAnimation")]
+    public GameObject WhiteFade;
+    public float Duration;
+    private float TimeElapsed = 0f;
+
+
     private int beforePatter = 1;
 
     public GameObject Arrow;
@@ -88,5 +94,29 @@ public class PatternManager : MonoBehaviour
 
         return randomValue;
     }
+    //씬 전환을 위한 하얀 배경 페이드인 애니메이션 재생
+    public IEnumerator Faze2PatternChange()
+    {
+        Color startColor = new Color(1, 1, 1, 0);  // 초기 색상 (투명)
+        Color endColor = new Color(1, 1, 1, 1);    // 최종 색상 (불투명)
+        TimeElapsed = 0;
 
+        while (TimeElapsed < Duration)
+        {
+            TimeElapsed += Time.deltaTime;
+            float t = TimeElapsed / Duration;
+            t = Linear(t);  // Linear 보간 적용
+            WhiteFade.GetComponent<SpriteRenderer>().color = Color.Lerp(startColor, endColor, t);
+
+            yield return null; // 매 프레임 대기
+        }
+
+        // 최종 색상 설정 (안정적으로 불투명한 상태 유지)
+        WhiteFade.GetComponent<SpriteRenderer>().color = endColor;
+    }
+
+    private float Linear(float x)
+    {
+        return x;
+    }
 }

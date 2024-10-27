@@ -10,6 +10,7 @@ public class BossMove : MonoBehaviour
 
     private void OnEnable()
     {
+        TimeElapsed = 0;
         StartPosition = new Vector3(0, 2.56f, 0);
     }
     void Start()

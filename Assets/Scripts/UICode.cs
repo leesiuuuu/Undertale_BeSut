@@ -1186,10 +1186,10 @@ public class UICode : MonoBehaviour
                 isBossDialogue = true;
                 zClick = 1;
                 DialogueAdder(".....");
-                while (true)
+                while (zClick < 13)
                 {
                     if (zClick == 4)  BossManager.instance.ChangeSprite(1);
-                    if(zClick == 11)
+                    if(zClick == 10)
                     {
                         BossManager.instance.Boss.transform.localScale = new Vector3(2, 2, 2);
                         BossManager.instance.ChangeSprite(3);
@@ -1203,7 +1203,6 @@ public class UICode : MonoBehaviour
                             "³ªµµ Âü ¸ÛÃ»ÇÏ±º.",
                             "Àúµý ³Ê¼ÆÀ» ¹Ï´Â °Ô ¾Æ´Ï¾ú¾î.",
                             "ÁøÀÛ¿¡ ´«Ä¡Ã«¾î¾ß Çß´Âµ¥.",
-                            "±× ³à¼® ¸» Á» µéÀ»²¬.",
                             "...",
                             "....¾Æ´Ï",
                             "¿©±â¼­ Á×À» ¼ö ¾ø¾î.",
@@ -1213,6 +1212,7 @@ public class UICode : MonoBehaviour
                     }
                     yield return null;
                 }
+                StartCoroutine(PatternManager.instance.Faze2PatternChange());
             }
             yield return null;
             FirstTurnAct = false;

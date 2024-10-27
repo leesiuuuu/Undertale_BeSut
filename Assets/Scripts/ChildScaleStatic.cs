@@ -2,15 +2,20 @@ using UnityEngine;
 
 public class ChildScaleStatic : MonoBehaviour
 {
-    private Vector3 lastScale;
+    private Vector3 WorldScale;
     void Start()
     {
-        lastScale = transform.localScale;
+        WorldScale = transform.lossyScale;
     }
 
     // Update is called once per frame
     void LateUpdate()
     {
-        transform.localScale = lastScale;
+        Vector3 parentScale = transform.parent.lossyScale;
+        transform.localScale = new Vector3(
+            WorldScale.x /  parentScale.x,
+            WorldScale.y / parentScale.y,
+            WorldScale.z / parentScale.z
+            );
     }
 }
