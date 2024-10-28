@@ -20,6 +20,7 @@ public class HeartMove : MonoBehaviour
     private bool Shield = false;
     public bool NoCool = false;
     private float CoolTime;
+    private int damage = 8;
     public float MAX_COOLTIME = 3f;
     private void OnEnable()
     {
@@ -37,6 +38,10 @@ public class HeartMove : MonoBehaviour
     }
     void Update()
     {
+        if (StateManager.instance.Faze2)
+        {
+            MAX_COOLTIME /= 1.5f;
+        }
         if (!Shield && !NoCool)
         {
             if(CoolTime <= 0)
@@ -71,7 +76,7 @@ public class HeartMove : MonoBehaviour
         {
             if (!isInvin && !Shield)
             {
-                PlayerManager.instance.HP -= 8;
+                PlayerManager.instance.HP -= StateManager.instance.Faze2 ? damage * 2 : damage;
                 SoundManager.instance.SFXPlay("Hurt", HurtClip);
                 StartCoroutine(Shake(gameObject, 0.5f, 1f));
                 PlayerManager.instance.HPChanged();

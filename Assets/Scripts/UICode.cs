@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -470,33 +471,36 @@ public class UICode : MonoBehaviour
                 }
             }
         }
-        //확인 코드
-        if (Input.GetKeyDown(KeyCode.Z) && StateManager.instance.Acting && !StateManager.instance.Starting)
+        if (!StateManager.instance.logAppear)
         {
-            StateManager.instance.Acting = false;
-            StateManager.instance.Starting = true;
-            ActState(true);
-            SoundManager.instance.SFXPlay("Selete", SeleteSound);
-        }
-        //취소 코드
-        if (Input.GetKeyDown(KeyCode.X) && !StateManager.instance.Acting && StateManager.instance.Starting && !AttackSliding)
-        {
-            Ttext.color = new Color(255, 255, 255);
-            StateManager.instance.Acting = true;
-            StateManager.instance.Starting = false;
-            ActState(false);
-            ActCancel();
-            Page = 1;
-            PageAdd = false;
-            ItemLocate = 0;
-            Bf_i = 0;
-            Bf_j = 0;
-            i = 0;
-            j = 0;
-            Ttext.text = "";
-            ItemAndActText.SetActive(false);
-            Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
-            SoundManager.instance.SFXPlay("Move", MoveSound);
+            //확인 코드
+            if (Input.GetKeyDown(KeyCode.Z) && StateManager.instance.Acting && !StateManager.instance.Starting)
+            {
+                StateManager.instance.Acting = false;
+                StateManager.instance.Starting = true;
+                ActState(true);
+                SoundManager.instance.SFXPlay("Selete", SeleteSound);
+            }
+            //취소 코드
+            if (Input.GetKeyDown(KeyCode.X) && !StateManager.instance.Acting && StateManager.instance.Starting && !AttackSliding)
+            {
+                Ttext.color = new Color(255, 255, 255);
+                StateManager.instance.Acting = true;
+                StateManager.instance.Starting = false;
+                ActState(false);
+                ActCancel();
+                Page = 1;
+                PageAdd = false;
+                ItemLocate = 0;
+                Bf_i = 0;
+                Bf_j = 0;
+                i = 0;
+                j = 0;
+                Ttext.text = "";
+                ItemAndActText.SetActive(false);
+                Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
+                SoundManager.instance.SFXPlay("Move", MoveSound);
+            }
         }
         //보스 전투 턴 넘어가는 코드
         if(StateManager.instance.Starting && StateManager.instance.Acting && !StateManager.instance.GameDone)
@@ -1212,7 +1216,51 @@ public class UICode : MonoBehaviour
                     }
                     yield return null;
                 }
-                StartCoroutine(PatternManager.instance.Faze2PatternChange());
+                StartCoroutine(PatternManager.instance.Faze2PatternChange(3, 1.5f));
+                yield return new WaitForSeconds(5.3f);
+                isBossDialogue = true;
+                zClick = 1;
+                DialogueAdder("이제 봐주지 않는다.");
+                while (zClick <= 2)
+                {
+                    if (Input.GetKeyDown(KeyCode.Z))
+                    {
+                        zClick = 4;
+                        DialogueAdder("");
+                    }
+                    yield return null;
+                }
+                zClick = 1;
+                Debug.Log("Faze 2 Start!");
+                //2페이즈 시작 알림
+                StateManager.instance.Acting = false;
+                StateManager.instance.NoKill = false;
+                StateManager.instance.Faze2 = true;
+                StateManager.instance.Starting = false;
+                SoundManager.instance.BG2Play();
+
+
+                ItemLocate = 0;
+                Page = 1;
+                PageAdd = false;
+                i = 0;
+                j = 0;
+                StateManager.instance._Fighting = false;
+                StateManager.instance.Talking = false;
+                Ttext.gameObject.SetActive(true);
+                Ttext.gameObject.GetComponent<TalkBox>().Talk(0.5f, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
+                Fight = true;
+                Act = false;
+                Item = false;
+                Mercy = false;
+                ImageChanger(FightBtn, SeleteFight);
+                HeartPos = FightBtnPos;
+                Heart.SetActive(true);
+                AttackSliding = false;
+
+                Stop = false;
+                FirstTurnAct = false;
+                yield return null;
             }
             yield return null;
             FirstTurnAct = false;

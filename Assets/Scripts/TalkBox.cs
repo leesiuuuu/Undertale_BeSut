@@ -22,6 +22,7 @@ public class TalkBox : MonoBehaviour
     {
         yield return new WaitForSeconds(Delay);
         StateManager.instance.Acting = false;
+        StateManager.instance.logAppear = true;
         TMPtext.text = null;
         for(int i = 0; i < dialogue.Length; i++)
         {
@@ -30,5 +31,6 @@ public class TalkBox : MonoBehaviour
             yield return new WaitForSeconds(talkWaitTime);
         }
         StateManager.instance.Acting = true;
+        StateManager.instance.logAppear = false;
     }
 }

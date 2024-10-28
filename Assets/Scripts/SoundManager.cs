@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
     public static SoundManager instance;
     public AudioMixer audioMixer;
     public AudioSource BGSound;
+    public AudioSource BG2Sound;
     void Awake()
     {
         if (instance == null)
@@ -37,6 +38,13 @@ public class SoundManager : MonoBehaviour
         BGSound.volume = 0.1f;
         BGSound.Play();
     }
+    public void BG2Play()
+    {
+        BG2Sound.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
+        BG2Sound.loop = true;
+        BG2Sound.volume = 1f;
+        BG2Sound.Play();
+    }
     public void Volume(float val)
     {
         audioMixer.SetFloat("Master", Mathf.Log10(val) * 20);
@@ -44,5 +52,9 @@ public class SoundManager : MonoBehaviour
     public void StopBG()
     {
         BGSound.Stop();
+    }
+    public void StopBG2()
+    {
+        BG2Sound.Stop();
     }
 }

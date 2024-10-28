@@ -8,6 +8,7 @@ public class StateManager : MonoBehaviour
     public bool Fighting = false;
     public bool Acting = false;
     public bool Starting = false;
+    public bool logAppear = false;
     [Header("ActState")]
     public bool _Fighting = false;
     public bool _Acting = false;

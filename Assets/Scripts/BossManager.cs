@@ -3,6 +3,9 @@ using TMPro;
 using UnityEngine;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
+using System.Collections.Specialized;
+using UnityEditor.Timeline;
 
 public class BossManager : MonoBehaviour
 {
@@ -24,6 +27,7 @@ public class BossManager : MonoBehaviour
     public TMP_Text DamageText;
     public Image BossUI;
 
+    [Header("Sprites")]
     public Sprite bossHurt;
     public Sprite bossHurtTalk;
     public Sprite bossUlt;
@@ -89,7 +93,6 @@ public class BossManager : MonoBehaviour
     public void ChangeSprite(int index)
     {
         Debug.Log("asdf");
-        Boss.GetComponent<Animator>().enabled = false;
         switch (index)
         {
             case 0:
@@ -113,6 +116,50 @@ public class BossManager : MonoBehaviour
         {
             BM.enabled = true;
             BM.EndPosition = new Vector2(0, 2.8f);
+        }
+    }
+    public void Faze2Change()
+    {
+        Boss.GetComponent<SpriteRenderer>().sprite = bossUlt;
+    }
+    public void BossMoveToLeftOrRight(float Duration)
+    {
+        //true = left false = right
+        bool leftOrRigh = (Random.value > 0.5f);
+        Vector2 StartPos = new Vector2(0, 2.56f);
+        Vector2 EndPos = new Vector2(leftOrRigh ? -2 : 2, 2.56f);
+
+        float TimeElapsed = 0;
+
+        Miss(TimeElapsed, Duration, StartPos, EndPos);
+    }
+    private float easeOutQuint(float x)
+    {
+        return 1 - Mathf.Pow(1 - x, 5);
+    }
+    private float easeInQuint(float x)
+    {
+        return x * x * x * x * x;
+    }
+    private void Miss(float TimeElapsed, float Duration, Vector2 StartPos, Vector2 EndPos)
+    {
+        while (TimeElapsed < Duration)
+        {
+            TimeElapsed += Time.deltaTime;
+            float t = TimeElapsed / Duration;
+            t = easeOutQuint(t);
+            transform.position = Vector2.Lerp(StartPos, EndPos, t);
+        }
+        TimeElapsed = 0;
+        Vector2 temp = EndPos;
+        EndPos = StartPos;
+        StartPos = temp;
+        while(TimeElapsed < Duration)
+        {
+            TimeElapsed += Time.deltaTime;
+            float t = TimeElapsed/Duration;
+            t = easeInQuint(t);
+            transform.position = Vector2.Lerp(EndPos, StartPos, t);
         }
     }
 }

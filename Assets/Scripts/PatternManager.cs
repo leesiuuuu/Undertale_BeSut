@@ -14,7 +14,6 @@ public class PatternManager : MonoBehaviour
 
     [Header("FadeInAnimation")]
     public GameObject WhiteFade;
-    public float Duration;
     private float TimeElapsed = 0f;
 
 
@@ -95,16 +94,16 @@ public class PatternManager : MonoBehaviour
         return randomValue;
     }
     //씬 전환을 위한 하얀 배경 페이드인 애니메이션 재생
-    public IEnumerator Faze2PatternChange()
+    public IEnumerator Faze2PatternChange(float StartDuration, float EndDuration)
     {
         Color startColor = new Color(1, 1, 1, 0);  // 초기 색상 (투명)
         Color endColor = new Color(1, 1, 1, 1);    // 최종 색상 (불투명)
         TimeElapsed = 0;
 
-        while (TimeElapsed < Duration)
+        while (TimeElapsed < StartDuration)
         {
             TimeElapsed += Time.deltaTime;
-            float t = TimeElapsed / Duration;
+            float t = TimeElapsed / StartDuration;
             t = Linear(t);  // Linear 보간 적용
             WhiteFade.GetComponent<SpriteRenderer>().color = Color.Lerp(startColor, endColor, t);
 
@@ -113,8 +112,19 @@ public class PatternManager : MonoBehaviour
 
         // 최종 색상 설정 (안정적으로 불투명한 상태 유지)
         WhiteFade.GetComponent<SpriteRenderer>().color = endColor;
-    }
+        BossManager.instance.Faze2Change();
+        yield return new WaitForSeconds(0.5f);
+        TimeElapsed = 0;
+        while (TimeElapsed < EndDuration)
+        {
+            TimeElapsed += Time.deltaTime;
+            float t = TimeElapsed / EndDuration;
+            t = Linear(t);  // Linear 보간 적용
+            WhiteFade.GetComponent<SpriteRenderer>().color = Color.Lerp(endColor, startColor, t);
 
+            yield return null; // 매 프레임 대기
+        }
+    }
     private float Linear(float x)
     {
         return x;
