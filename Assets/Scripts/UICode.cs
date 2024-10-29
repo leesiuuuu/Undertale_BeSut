@@ -1357,7 +1357,15 @@ public class UICode : MonoBehaviour
         {
             BossManager.instance.ChangeSprite(0);
         }
-        BossManager.instance.BossHPChanged(Damage);
+        if (StateManager.instance.Faze2)
+        {
+            BossManager.instance.BossMiss("MISS");
+        
+        }
+        else
+        {
+            BossManager.instance.BossHPChanged(Damage);
+        }
     }
     void FightAndAttack()
     {

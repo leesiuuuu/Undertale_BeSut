@@ -27,6 +27,8 @@ public class BossManager : MonoBehaviour
     public TMP_Text DamageText;
     public Image BossUI;
 
+    public float MissAnimDuration;
+
     [Header("Sprites")]
     public Sprite bossHurt;
     public Sprite bossHurtTalk;
@@ -65,10 +67,22 @@ public class BossManager : MonoBehaviour
         StartCoroutine(Shake(Boss, 4f, 0.2f));
         Invoke("ReturnBoss", 0.8f);
     }
+    public void BossMiss(string Miss)
+    {
+        DamageText.gameObject.SetActive(true);
+        DamageText.text = "";
+        //아웃라인 변경 코드
+        DamageText.text = Miss;
+        BossUI.transform.parent.gameObject.SetActive(true);
+        shakeing = true;
+        StartCoroutine(BossMoveToLeftOrRight(MissAnimDuration));
+        Invoke("ReturnBoss", 0.8f);
+    }
     void ReturnBoss()
     {
         DamageText.gameObject.SetActive(false);
         BossUI.transform.parent.gameObject.SetActive(false);
+        //아웃라인 원래대로 되돌리기
         shakeing = false;
     }
     public IEnumerator Shake(GameObject obj, float Duration = 1f, float Power = 1f)
@@ -122,7 +136,7 @@ public class BossManager : MonoBehaviour
     {
         Boss.GetComponent<SpriteRenderer>().sprite = bossUlt;
     }
-    public void BossMoveToLeftOrRight(float Duration)
+    public IEnumerator BossMoveToLeftOrRight(float Duration)
     {
         //true = left false = right
         bool leftOrRigh = (Random.value > 0.5f);
@@ -132,6 +146,7 @@ public class BossManager : MonoBehaviour
         float TimeElapsed = 0;
 
         Miss(TimeElapsed, Duration, StartPos, EndPos);
+        yield return null;
     }
     private float easeOutQuint(float x)
     {
@@ -143,6 +158,7 @@ public class BossManager : MonoBehaviour
     }
     private void Miss(float TimeElapsed, float Duration, Vector2 StartPos, Vector2 EndPos)
     {
+        BM.enabled = false;
         while (TimeElapsed < Duration)
         {
             TimeElapsed += Time.deltaTime;

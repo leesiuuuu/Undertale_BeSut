@@ -4022,7 +4022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1510510546
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4379,6 +4379,7 @@ MonoBehaviour:
   BM: {fileID: 1110988472}
   DamageText: {fileID: 1510510547}
   BossUI: {fileID: 7093399}
+  MissAnimDuration: 0
   bossHurt: {fileID: 2037295067, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
   bossHurtTalk: {fileID: -159021682, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
   bossUlt: {fileID: 1838336873, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
