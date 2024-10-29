@@ -50,6 +50,17 @@ public class BossManager : MonoBehaviour
         bossHP = MAX_BOSS_HP;
         BSR = Boss.GetComponent<SpriteRenderer>();
     }
+    public void BossHPHeal(int Cure)
+    {
+        DamageText.gameObject.SetActive(true);
+        DamageText.text = "";
+        DamageText.outlineColor = Color.green;
+        DamageText.text = Cure.ToString();
+        bossHP += Cure;
+        float HPDetail1 = bossHP / (float)MAX_BOSS_HP;
+        BossUI.fillAmount = HPDetail1;
+        Invoke("ReturnBoss", 0.8f);
+    }
     public void BossHPChanged(int Damage)
     {
         if(bossHP - Damage < 0)
@@ -71,18 +82,16 @@ public class BossManager : MonoBehaviour
     {
         DamageText.gameObject.SetActive(true);
         DamageText.text = "";
-        //아웃라인 변경 코드
+        DamageText.outlineColor = Color.gray;
         DamageText.text = Miss;
         BossUI.transform.parent.gameObject.SetActive(true);
-        shakeing = true;
-        StartCoroutine(BossMoveToLeftOrRight(MissAnimDuration));
         Invoke("ReturnBoss", 0.8f);
     }
     void ReturnBoss()
     {
         DamageText.gameObject.SetActive(false);
         BossUI.transform.parent.gameObject.SetActive(false);
-        //아웃라인 원래대로 되돌리기
+        DamageText.outlineColor = Color.red;
         shakeing = false;
     }
     public IEnumerator Shake(GameObject obj, float Duration = 1f, float Power = 1f)
@@ -145,18 +154,9 @@ public class BossManager : MonoBehaviour
 
         float TimeElapsed = 0;
 
-        Miss(TimeElapsed, Duration, StartPos, EndPos);
-        yield return null;
+        yield return StartCoroutine(Miss(TimeElapsed, Duration, StartPos, EndPos));
     }
-    private float easeOutQuint(float x)
-    {
-        return 1 - Mathf.Pow(1 - x, 5);
-    }
-    private float easeInQuint(float x)
-    {
-        return x * x * x * x * x;
-    }
-    private void Miss(float TimeElapsed, float Duration, Vector2 StartPos, Vector2 EndPos)
+    private IEnumerator Miss(float TimeElapsed, float Duration, Vector2 StartPos, Vector2 EndPos)
     {
         BM.enabled = false;
         while (TimeElapsed < Duration)
@@ -164,7 +164,8 @@ public class BossManager : MonoBehaviour
             TimeElapsed += Time.deltaTime;
             float t = TimeElapsed / Duration;
             t = easeOutQuint(t);
-            transform.position = Vector2.Lerp(StartPos, EndPos, t);
+            Boss.transform.position = Vector2.Lerp(StartPos, EndPos, t);
+            yield return null;
         }
         TimeElapsed = 0;
         Vector2 temp = EndPos;
@@ -173,9 +174,19 @@ public class BossManager : MonoBehaviour
         while(TimeElapsed < Duration)
         {
             TimeElapsed += Time.deltaTime;
-            float t = TimeElapsed/Duration;
+            float t = TimeElapsed / Duration;
             t = easeInQuint(t);
-            transform.position = Vector2.Lerp(EndPos, StartPos, t);
+            Boss.transform.position = Vector2.Lerp(StartPos, EndPos, t);
+            yield return null;
         }
+        BM.enabled = true;
+    }
+    private float easeOutQuint(float x)
+    {
+        return 1 - Mathf.Pow(1 - x, 5);
+    }
+    private float easeInQuint(float x)
+    {
+        return x * x * x * x * x;
     }
 }

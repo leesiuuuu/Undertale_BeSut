@@ -1137,7 +1137,7 @@ public class UICode : MonoBehaviour
             {
                 SliderAniamtor.SetBool("Blink", true);
                 Stop = true;
-                if (StateManager.instance.NoKill)
+                if (StateManager.instance.NoKill && !SpriteChangeEvent)
                 {
                     Damage = BossManager.instance.bossHP - 1;
                     SpriteChangeEvent = true;
@@ -1152,6 +1152,10 @@ public class UICode : MonoBehaviour
         if (Stop)
         {
             //공격 후 데미지 UI 생성 및 전투 창 넘어가기
+            if (StateManager.instance.Faze2)
+            {
+                StartCoroutine(BossManager.instance.BossMoveToLeftOrRight(BossManager.instance.MissAnimDuration));
+            }
             AttackEffect.SetActive(true);
             SoundManager.instance.SFXPlay("Attack", AttackSound);
             Invoke("DeleteEffect", 0.8f);
@@ -1217,7 +1221,9 @@ public class UICode : MonoBehaviour
                     yield return null;
                 }
                 StartCoroutine(PatternManager.instance.Faze2PatternChange(3, 1.5f));
-                yield return new WaitForSeconds(5.3f);
+                yield return new WaitForSeconds(5f);
+                BossManager.instance.BossHPHeal(BossManager.instance.MAX_BOSS_HP - BossManager.instance.bossHP);
+                yield return new WaitForSeconds(0.8f);
                 isBossDialogue = true;
                 zClick = 1;
                 DialogueAdder("이제 봐주지 않는다.");
@@ -1356,11 +1362,11 @@ public class UICode : MonoBehaviour
         if(SpriteChangeEvent)
         {
             BossManager.instance.ChangeSprite(0);
+            SpriteChangeEvent = false;
         }
         if (StateManager.instance.Faze2)
         {
             BossManager.instance.BossMiss("MISS");
-        
         }
         else
         {
