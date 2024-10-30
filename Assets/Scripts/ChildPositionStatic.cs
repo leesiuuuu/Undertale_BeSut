@@ -11,7 +11,6 @@ public class ChildPositionStatic : MonoBehaviour
         worldPosition = transform.position;
         fixedY = EffectPos.y;
     }
-
     // Update is called once per frame
     void LateUpdate()
     {
@@ -21,14 +20,14 @@ public class ChildPositionStatic : MonoBehaviour
         {
             transform.position = new Vector3(
                 worldPosition.x + parentPos.x,
-                fixedY,
+                worldPosition.y - parentPos.y,
                 0);
         }
         else if(parentPos.x < leastparentPos.x)
         {
             transform.position = new Vector3(
                 worldPosition.x - parentPos.x,
-                fixedY,
+                worldPosition.y + parentPos.y,
                 0);
         }
         else

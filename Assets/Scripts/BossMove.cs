@@ -12,6 +12,7 @@ public class BossMove : MonoBehaviour
     {
         TimeElapsed = 0;
         StartPosition = new Vector3(0, 2.56f, 0);
+        EndPosition = new Vector3(0, 2.8f, 0);
     }
     void Start()
     {

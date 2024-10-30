@@ -1,10 +1,7 @@
-using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -186,7 +183,6 @@ public class UICode : MonoBehaviour
         HM.enabled = false;
         AttackBar.SetActive(false);
         Slide.SetActive(false);
-        AttackEffect.SetActive(false);
         //배열 초기화
         ListPos[0, 0] = new Vector3(-4.81f, -0.748f, 0f);
         ListPos[1, 0] = new Vector3(0.08f, -0.748f, 0f);
@@ -1156,9 +1152,9 @@ public class UICode : MonoBehaviour
             {
                 StartCoroutine(BossManager.instance.BossMoveToLeftOrRight(BossManager.instance.MissAnimDuration));
             }
-            AttackEffect.SetActive(true);
+            GameObject clone = Instantiate(AttackEffect);
             SoundManager.instance.SFXPlay("Attack", AttackSound);
-            Invoke("DeleteEffect", 0.8f);
+            StartCoroutine(DeleteEffect(clone));
             yield return new WaitForSeconds(0.9f);
             if(StateManager.instance.NoLieStack == 8) //공격할 이유가 없다고 할 떄 공격하면 나타나는 반응
             {
@@ -1344,9 +1340,10 @@ public class UICode : MonoBehaviour
         ImageChanger(FightBtn, SeleteFight);
         HeartPos = FightBtnPos;
     }
-    void DeleteEffect()
+    IEnumerator DeleteEffect(GameObject Clone)
     {
-        AttackEffect.SetActive(false);
+        yield return new WaitForSeconds(0.8f);
+        Destroy(Clone);
         SliderAniamtor.SetBool("Blink", false);
         if (SpriteChangeEvent)
         {
@@ -1355,6 +1352,7 @@ public class UICode : MonoBehaviour
             BossManager.instance.StopMove();
         }
         AttackUIAppear(Damage);
+        yield return null;
     }
     void AttackUIAppear(int Damage)
     {
