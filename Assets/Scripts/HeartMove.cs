@@ -22,6 +22,7 @@ public class HeartMove : MonoBehaviour
     private float CoolTime;
     private int damage = 8;
     public float MAX_COOLTIME = 3f;
+    private bool NotStartFaze2 = true;
     private void OnEnable()
     {
         if (Shield)
@@ -38,9 +39,10 @@ public class HeartMove : MonoBehaviour
     }
     void Update()
     {
-        if (StateManager.instance.Faze2)
+        if (StateManager.instance.Faze2 && NotStartFaze2)
         {
-            MAX_COOLTIME /= 1.5f;
+            MAX_COOLTIME = MAX_COOLTIME / 2;
+            NotStartFaze2 = false;
         }
         if (!Shield && !NoCool)
         {

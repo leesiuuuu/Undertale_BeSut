@@ -6,16 +6,18 @@ TagManager:
   tags:
   - AttackSprite
   - Arrow
+  - Shield
+  - Laser
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - TalkBox
   - Water
   - UI
   - AtkSprite
-  - 
-  - 
+  - Laser
+  - Player
   - 
   - 
   - 

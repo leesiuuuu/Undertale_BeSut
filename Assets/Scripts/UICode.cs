@@ -144,6 +144,8 @@ public class UICode : MonoBehaviour
     public bool FirstTurnAct = false;
     //불살 2페이즈 루트를 탔을 때 켜짐
     private bool SpriteChangeEvent = false;
+    //피할건지 판단
+    private bool IsMiss;
     void Start()
     {
         StateManager.instance.GameDone = false;
@@ -1119,6 +1121,7 @@ public class UICode : MonoBehaviour
     private IEnumerator ActAttacking()
     {
         Damage = 0;
+        IsMiss = (Random.value < 0.5f);
         bool Stop = false;
         Heart.SetActive(false);
         AttackBar.SetActive(true);
@@ -1148,7 +1151,7 @@ public class UICode : MonoBehaviour
         if (Stop)
         {
             //공격 후 데미지 UI 생성 및 전투 창 넘어가기
-            if (StateManager.instance.Faze2)
+            if (StateManager.instance.Faze2 && IsMiss)
             {
                 StartCoroutine(BossManager.instance.BossMoveToLeftOrRight(BossManager.instance.MissAnimDuration));
             }
@@ -1356,18 +1359,19 @@ public class UICode : MonoBehaviour
     }
     void AttackUIAppear(int Damage)
     {
-        SoundManager.instance.SFXPlay("Damaged", DamagedSound);
         if(SpriteChangeEvent)
         {
+            SoundManager.instance.SFXPlay("Damaged", DamagedSound);
             BossManager.instance.ChangeSprite(0);
             SpriteChangeEvent = false;
         }
-        if (StateManager.instance.Faze2)
+        if (StateManager.instance.Faze2 && IsMiss)
         {
             BossManager.instance.BossMiss("MISS");
         }
         else
         {
+            SoundManager.instance.SFXPlay("Damaged", DamagedSound);
             BossManager.instance.BossHPChanged(Damage);
         }
     }

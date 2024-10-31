@@ -36,52 +36,55 @@ public class PatternManager : MonoBehaviour
     public IEnumerator SeqPatternStart(int TurnCount)
     {
         yield return new WaitForSeconds(0.5f);
-        switch (TurnCount)
+        if (!StateManager.instance.Faze2)
         {
-            case 1:
-                AtkPtn2M.enabled = true;
-                break;
-            case 2:
-                AtkPtn3M.enabled = true;
-                break;
-            case 3:
-                AtkPtn1M.enabled = true;
-                break;
-            case 4:
-                AtkPtn4M.enabled = true;
-                break;
-            case 5:
-                AtkPtn5M.enabled = true;
-                break;
-            default:
-                int randomPattern = beforeCheck(beforePatter);
-                beforePatter = randomPattern;
-                switch (randomPattern)
-                {
-                    case 1:
-                        AtkPtn1M.enabled = true;
-                        AtkPtn1M.Duration = Random.Range(AtkPtn1M.Duration - 2, AtkPtn1M.Duration + 5);
-                        AtkPtn1M.MAX = Random.Range(AtkPtn1M.MIN - 0.2f, AtkPtn1M.MAX - 0.7f);
-                        break;
-                    case 2:
-                        AtkPtn2M.enabled = true;
-                        break;
-                    case 3:
-                        AtkPtn3M.enabled = true;
-                        break;
-                    case 4:
-                        AtkPtn4M.enabled = true;
-                        AtkPtn4M.RepeatCount = Random.Range(2, 7);
-                        break;
-                    case 5:
-                        AtkPtn5M.enabled = true;
-                        AtkPtn5M.MAX = Random.Range(AtkPtn5M.MIN + 0.1f, AtkPtn5M.MAX - 0.5f);
-                        break;
-                }
-                break;
+            switch (TurnCount)
+            {
+                case 1:
+                    AtkPtn2M.enabled = true;
+                    break;
+                case 2:
+                    AtkPtn3M.enabled = true;
+                    break;
+                case 3:
+                    AtkPtn1M.enabled = true;
+                    break;
+                case 4:
+                    AtkPtn4M.enabled = true;
+                    break;
+                case 5:
+                    AtkPtn5M.enabled = true;
+                    break;
+                default:
+                    int randomPattern = beforeCheck(beforePatter);
+                    beforePatter = randomPattern;
+                    switch (randomPattern)
+                    {
+                        case 1:
+                            AtkPtn1M.enabled = true;
+                            AtkPtn1M.Duration = Random.Range(AtkPtn1M.Duration - 2, AtkPtn1M.Duration + 5);
+                            AtkPtn1M.MAX = Random.Range(AtkPtn1M.MIN - 0.2f, AtkPtn1M.MAX - 0.7f);
+                            break;
+                        case 2:
+                            AtkPtn2M.enabled = true;
+                            break;
+                        case 3:
+                            AtkPtn3M.enabled = true;
+                            break;
+                        case 4:
+                            AtkPtn4M.enabled = true;
+                            AtkPtn4M.RepeatCount = Random.Range(2, 7);
+                            break;
+                        case 5:
+                            AtkPtn5M.enabled = true;
+                            AtkPtn5M.MAX = Random.Range(AtkPtn5M.MIN + 0.1f, AtkPtn5M.MAX - 0.5f);
+                            break;
+                    }
+                    break;
+            }
+            PatternCount++;
+            yield return null;
         }
-        PatternCount++;
-        yield return null;
     }
     private int beforeCheck(int before)
     {
