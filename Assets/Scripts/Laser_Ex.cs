@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.LowLevel;
 
 public class Laser_Ex : MonoBehaviour
 {
@@ -6,9 +7,11 @@ public class Laser_Ex : MonoBehaviour
     public Transform laserFirePoint;
     public LineRenderer m_LR;
     public int segmentCount = 5; // 레이저 두께를 위한 세그먼트 개수
-    private float segmentOffset = 0.01f; // 세그먼트 간 간격
-
+    public float segmentOffset = 0.01f; // 세그먼트 간 간격
     [SerializeField] private LayerMask ignoreLayers; // 무시할 레이어 추가
+
+    public float laserSpeed;
+    private float currentLaserDistance = 0f; // 현재 레이저 길이
 
     private void Start()
     {
@@ -22,22 +25,31 @@ public class Laser_Ex : MonoBehaviour
 
     void ShootLaser()
     {
+        // 레이저 길이를 점진적으로 증가시킴
+        currentLaserDistance = Mathf.Min(currentLaserDistance + laserSpeed * Time.deltaTime, defDistanceRay);
+
         for (int i = 0; i < segmentCount; i++)
         {
-            // 세그먼트마다 약간의 오프셋을 적용해 위치를 변경
             Vector3 offset = new Vector3(0, (i - segmentCount / 2) * segmentOffset, 0);
             Vector2 start = laserFirePoint.position + offset;
 
-            // 특정 레이어를 제외한 Raycast 수행
-            RaycastHit2D hit = Physics2D.Raycast(start, transform.right, defDistanceRay, ~ignoreLayers);
+            RaycastHit2D hit = Physics2D.Raycast(start, transform.right, currentLaserDistance, ~ignoreLayers);
 
             if (hit)
             {
-                Draw2DRay(i, start, hit.point);
+                if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
+                {
+                    Debug.Log("Hit!");
+                    Draw2DRay(i, start, (Vector2)start + (Vector2)transform.right * currentLaserDistance);
+                }
+                else
+                {
+                    Draw2DRay(i, start, hit.point);
+                }
             }
             else
             {
-                Draw2DRay(i, start, (Vector2)start + (Vector2)transform.right * defDistanceRay);
+                Draw2DRay(i, start, (Vector2)start + (Vector2)transform.right * currentLaserDistance);
             }
         }
     }
