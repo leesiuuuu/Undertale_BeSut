@@ -56,8 +56,10 @@ public class PosMove : MonoBehaviour
         }
     }
     public float Duration;
-
+    public float Delay;
+    public bool Delete = false;
     private float ElapsedTime = 0f;
+    private float DelayedTime = 0f;
     void Start()
     {
         if(StartPos == null) StartPos = transform.position;
@@ -66,107 +68,120 @@ public class PosMove : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(ElapsedTime < Duration)
+        if(DelayedTime <= Delay)
         {
-            ElapsedTime += Time.deltaTime;
-            float t = ElapsedTime / Duration;
-            switch (ease)
+            DelayedTime += Time.deltaTime;
+        }
+        else
+        {
+            if (ElapsedTime < Duration)
             {
-                case Ease.Linear:
-                    t = Linear(t);
-                    break;
-                case Ease.easeInSine:
-                    t = easeInSine(t);
-                    break;
-                case Ease.easeOutSine:
-                    t = easeOutSine(t);
-                    break;
-                case Ease.easeInOutSine:
-                    t = easeInOutSine(t);
-                    break;
-                case Ease.easeInCubic:
-                    t = easeInCubic(t);
-                    break;
-                case Ease.easeOutCubic:
-                    t = easeOutCubic(t);
-                    break;
-                case Ease.easeInOutCubic:
-                    t = easeInOutCubic(t);
-                    break;
-                case Ease.easeInQuint:
-                    t = easeInQuint(t);
-                    break;
-                case Ease.easeOutQuint:
-                    t = easeOutQuint(t);
-                    break;
-                case Ease.easeInOutQuint:
-                    t = easeInOutQuint(t);
-                    break;
-                case Ease.easeInCirc:
-                    t = easeInCirc(t);
-                    break;
-                case Ease.easeOutCirc:
-                    t = easeOutCirc(t);
-                    break;
-                case Ease.easeInOutCirc:
-                    t = easeInOutCirc(t);
-                    break;
-                case Ease.easeInElastic:
-                    t = easeInElastic(t);
-                    break;
-                case Ease.easeOutElastic:
-                    t = easeOutElastic(t);
-                    break;
-                case Ease.easeInOutElastic:
-                    t = easeInOutElastic(t);
-                    break;
-                case Ease.easeInQuad:
-                    t = easeInQuad(t);
-                    break;
-                case Ease.easeOutQuad:
-                    t = easeOutQuad(t);
-                    break;
-                case Ease.easeInOutQuad:
-                    t = easeInOutQuad(t);
-                    break;
-                case Ease.easeInQuart:
-                    t = easeInQuart(t);
-                    break;
-                case Ease.easeOutQuart:
-                    t = easeOutQuart(t);
-                    break;
-                case Ease.easeInOutQuart:
-                    t = easeInOutQuart(t);
-                    break;
-                case Ease.easeInExpo:
-                    t = easeInExpo(t);
-                    break;
-                case Ease.easeOutExpo:
-                    t = easeOutExpo(t);
-                    break;
-                case Ease.easeInOutExpo:
-                    t = easeInOutExpo(t);
-                    break;
-                case Ease.easeInBack:
-                    t = easeInBack(t);
-                    break;
-                case Ease.easeOutBack:
-                    t = easeOutBack(t);
-                    break;
-                case Ease.easeInOutBack:
-                    t = easeInOutBack(t);
-                    break;
-                case Ease.easeInBounce:
-                    t = easeInBounce(t);
-                    break;
-                case Ease.easeOutBounce:
-                    t = easeOutBounce(t);
-                    break;
-                case Ease.easeInOutBounce:
-                    t = easeInOutBounce(t);
-                    break;
+                ElapsedTime += Time.deltaTime;
+                float t = ElapsedTime / Duration;
+                switch (ease)
+                {
+                    case Ease.Linear:
+                        t = Linear(t);
+                        break;
+                    case Ease.easeInSine:
+                        t = easeInSine(t);
+                        break;
+                    case Ease.easeOutSine:
+                        t = easeOutSine(t);
+                        break;
+                    case Ease.easeInOutSine:
+                        t = easeInOutSine(t);
+                        break;
+                    case Ease.easeInCubic:
+                        t = easeInCubic(t);
+                        break;
+                    case Ease.easeOutCubic:
+                        t = easeOutCubic(t);
+                        break;
+                    case Ease.easeInOutCubic:
+                        t = easeInOutCubic(t);
+                        break;
+                    case Ease.easeInQuint:
+                        t = easeInQuint(t);
+                        break;
+                    case Ease.easeOutQuint:
+                        t = easeOutQuint(t);
+                        break;
+                    case Ease.easeInOutQuint:
+                        t = easeInOutQuint(t);
+                        break;
+                    case Ease.easeInCirc:
+                        t = easeInCirc(t);
+                        break;
+                    case Ease.easeOutCirc:
+                        t = easeOutCirc(t);
+                        break;
+                    case Ease.easeInOutCirc:
+                        t = easeInOutCirc(t);
+                        break;
+                    case Ease.easeInElastic:
+                        t = easeInElastic(t);
+                        break;
+                    case Ease.easeOutElastic:
+                        t = easeOutElastic(t);
+                        break;
+                    case Ease.easeInOutElastic:
+                        t = easeInOutElastic(t);
+                        break;
+                    case Ease.easeInQuad:
+                        t = easeInQuad(t);
+                        break;
+                    case Ease.easeOutQuad:
+                        t = easeOutQuad(t);
+                        break;
+                    case Ease.easeInOutQuad:
+                        t = easeInOutQuad(t);
+                        break;
+                    case Ease.easeInQuart:
+                        t = easeInQuart(t);
+                        break;
+                    case Ease.easeOutQuart:
+                        t = easeOutQuart(t);
+                        break;
+                    case Ease.easeInOutQuart:
+                        t = easeInOutQuart(t);
+                        break;
+                    case Ease.easeInExpo:
+                        t = easeInExpo(t);
+                        break;
+                    case Ease.easeOutExpo:
+                        t = easeOutExpo(t);
+                        break;
+                    case Ease.easeInOutExpo:
+                        t = easeInOutExpo(t);
+                        break;
+                    case Ease.easeInBack:
+                        t = easeInBack(t);
+                        break;
+                    case Ease.easeOutBack:
+                        t = easeOutBack(t);
+                        break;
+                    case Ease.easeInOutBack:
+                        t = easeInOutBack(t);
+                        break;
+                    case Ease.easeInBounce:
+                        t = easeInBounce(t);
+                        break;
+                    case Ease.easeOutBounce:
+                        t = easeOutBounce(t);
+                        break;
+                    case Ease.easeInOutBounce:
+                        t = easeInOutBounce(t);
+                        break;
+                }
+                transform.position = Vector3.Lerp(StartPos, EndPos, t);
             }
-            transform.position = Vector3.Lerp(StartPos, EndPos, t);
+            else
+            {
+                if (Delete) Destroy(gameObject);
+                PosMove PM = this.GetComponent<PosMove>();
+                Destroy(PM);
+            }
         }
     }
     public float Linear(float x)

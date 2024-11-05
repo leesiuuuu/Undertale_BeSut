@@ -1,5 +1,5 @@
+//Chat GPT Code
 using UnityEngine;
-using UnityEngine.LowLevel;
 
 public class Laser_Ex : MonoBehaviour
 {
@@ -10,8 +10,10 @@ public class Laser_Ex : MonoBehaviour
     public float segmentOffset = 0.01f; // 세그먼트 간 간격
     [SerializeField] private LayerMask ignoreLayers; // 무시할 레이어 추가
 
-    public float laserSpeed;
+    public float laserSpeed; // 레이저가 증가하는 속도
+    public float laserShrinkSpeed; // 레이저가 감소하는 속도
     private float currentLaserDistance = 0f; // 현재 레이저 길이
+    private bool isLaserExpanding = true; // 레이저가 증가 중인지 감소 중인지 확인
 
     private void Start()
     {
@@ -25,8 +27,24 @@ public class Laser_Ex : MonoBehaviour
 
     void ShootLaser()
     {
-        // 레이저 길이를 점진적으로 증가시킴
-        currentLaserDistance = Mathf.Min(currentLaserDistance + laserSpeed * Time.deltaTime, defDistanceRay);
+        // 레이저가 증가 중이면 증가시키고, 아니면 감소시킴
+        if (isLaserExpanding)
+        {
+            currentLaserDistance = Mathf.Min(currentLaserDistance + laserSpeed * Time.deltaTime, defDistanceRay);
+            if (currentLaserDistance >= defDistanceRay)
+            {
+                isLaserExpanding = false; // 최대 길이에 도달하면 감소 모드로 전환
+            }
+        }
+        else
+        {
+            currentLaserDistance = Mathf.Max(currentLaserDistance - laserShrinkSpeed * Time.deltaTime, 0);
+            if (currentLaserDistance <= 0)
+            {
+                this.enabled = false;
+                Destroy(this.gameObject);
+            }
+        }
 
         for (int i = 0; i < segmentCount; i++)
         {

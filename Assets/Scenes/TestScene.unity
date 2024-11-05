@@ -281,7 +281,8 @@ MonoBehaviour:
   ignoreLayers:
     serializedVersion: 2
     m_Bits: 8
-  laserSpeed: 100
+  laserSpeed: 50
+  laserShrinkSpeed: 50
 --- !u!1 &264794640
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +293,7 @@ GameObject:
   m_Component:
   - component: {fileID: 264794641}
   - component: {fileID: 264794642}
+  - component: {fileID: 264794643}
   m_Layer: 0
   m_Name: LaserPortal
   m_TagString: Untagged
@@ -329,9 +331,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   StartPos: {x: 4.22, y: -7.06, z: 0}
-  EndPos: {x: 4.22, y: -2.09, z: 0}
-  ease: 29
-  Duration: 2
+  EndPos: {x: 4.22, y: -1.39, z: 0}
+  ease: 11
+  Duration: 0.5
+  Delay: 0
+  Delete: 0
+--- !u!114 &264794643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264794640}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 29b1f607fe4bf9540b394aa27d81e966, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  StartPos: {x: 4.22, y: -1.39, z: 0}
+  EndPos: {x: 4.22, y: -7.06, z: 0}
+  ease: 10
+  Duration: 0.5
+  Delay: 5
+  Delete: 1
 --- !u!1 &472002582
 GameObject:
   m_ObjectHideFlags: 0
