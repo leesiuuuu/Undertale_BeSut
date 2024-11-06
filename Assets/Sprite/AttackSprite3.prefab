@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7056468082508448892}
   - component: {fileID: 6861228829960245833}
   - component: {fileID: -4694127422591328974}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackSprite3
   m_TagString: AttackSprite
   m_Icon: {fileID: 0}
@@ -106,7 +106,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3167540171157768848}
   - component: {fileID: 169005070763004019}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: 3SADFJk1p
   m_TagString: AttackSprite
   m_Icon: {fileID: 0}
@@ -190,7 +190,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8749990961522766494}
   - component: {fileID: 7076095264390873180}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackSprite1\
   m_TagString: AttackSprite
   m_Icon: {fileID: 0}
@@ -274,7 +274,7 @@ GameObject:
   m_Component:
   - component: {fileID: 330917275731759660}
   - component: {fileID: 2416533436644767384}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttaKSpafsd2
   m_TagString: AttackSprite
   m_Icon: {fileID: 0}

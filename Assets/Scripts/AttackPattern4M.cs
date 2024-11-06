@@ -61,6 +61,7 @@ public class AttackPattern4M : MonoBehaviour
     IEnumerator AtkPtn41()
     {
         Plaeyr.GetComponent<HeartMove>().NoCool = true;
+        Plaeyr.GetComponent<HeartMove>().Pattern3Start = true;
         LoopTime = (int)Random.Range(3, 6);
         Times = new float[LoopTime];
         dir = new int[LoopTime];
@@ -83,6 +84,7 @@ public class AttackPattern4M : MonoBehaviour
             yield return new WaitForSeconds(1.2f);
         }
         StateManager.instance.Fighting = false;
+        Plaeyr.GetComponent<HeartMove>().Pattern3Start = false;
         Plaeyr.GetComponent<HeartMove>().NoCool = false;
         UC.MyTurnBack();
     }

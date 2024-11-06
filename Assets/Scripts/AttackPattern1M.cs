@@ -23,6 +23,8 @@ public class AttackPattern1M : MonoBehaviour
     private bool UD;
     private bool LR;
 
+    private Transform PlayerTransform;
+
     public GameObject Damager;
 
     public AudioClip Atk1;
@@ -35,6 +37,7 @@ public class AttackPattern1M : MonoBehaviour
     private bool isCreateDone = false;
     private void OnEnable()
     {
+        PlayerTransform = GameObject.Find("Heart").transform;
         MIN = 0.3f;
         MAX = 1f;
         isCreateDone = false;
@@ -89,6 +92,6 @@ public class AttackPattern1M : MonoBehaviour
         GameObject clone = Instantiate(Damager, RandomPos, Quaternion.identity);
         clone.GetComponent<Rigidbody2D>().gravityScale = 0;
   
-        clone.GetComponent<AttackPattern1>().target = transform;
+        clone.GetComponent<AttackPattern1>().target = PlayerTransform;
     }
 }

@@ -11,8 +11,8 @@ public class AttackPattern3 : AttackPattern3M
         //기본 값
         //2, 1
         //빌드 기본값
-        //0.5, 1
-        StartCoroutine(Shake(gameObject, 2f, 1));
+        //0.8, 1
+        StartCoroutine(Shake(gameObject, 0.8f, 1));
         RandomRotate = Random.Range(0f, 360f);
         Quaternion RandomRotate1 = Quaternion.Euler(0, 0, RandomRotate);
         gameObject.transform.rotation = RandomRotate1;

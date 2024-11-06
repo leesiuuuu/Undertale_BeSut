@@ -2,11 +2,6 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 using System.Collections;
-using Unity.VisualScripting;
-using UnityEditor.Rendering;
-using System.Collections.Specialized;
-using UnityEditor.Timeline;
-
 public class BossManager : MonoBehaviour
 {
     //shake ±âº» °ª

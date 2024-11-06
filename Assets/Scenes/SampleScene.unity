@@ -1734,8 +1734,8 @@ MonoBehaviour:
   _Iteming: 0
   _Mercying: 0
   Talking: 0
-  NoLieStack: 9
-  TurnCount: 10
+  NoLieStack: 0
+  TurnCount: 3
   NoKill: 0
   Faze2: 0
   GameDone: 0
@@ -1927,10 +1927,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5782b70fe4c72c244abdeff1c85897fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Box1Range: {x: 5.1, y: 0.77}
-  Pos1: {x: -4.11, y: 4.42, z: 0}
-  Box1_1Range: {x: 5.1, y: 0.77}
-  Pos1_1: {x: 3.98, y: 4.42, z: 0}
+  Box1Range: {x: 5.1, y: 3.07}
+  Pos1: {x: -4.11, y: 3.47, z: 0}
+  Box1_1Range: {x: 5.1, y: 3.07}
+  Pos1_1: {x: 3.98, y: 3.47, z: 0}
   Box2Range: {x: 5.1, y: 0.77}
   Pos2: {x: -4.11, y: -4.78, z: 0}
   Box2_1Range: {x: 5.1, y: 0.77}
@@ -2132,7 +2132,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4d0f3c7fb0cd846943977e2821a587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatternCount: 10
+  PatternCount: 3
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
@@ -4611,6 +4611,7 @@ MonoBehaviour:
   SheldBreak: {fileID: 8300000, guid: 8eaf5abd2786656479d3d68659b6c560, type: 3}
   NoCool: 0
   MAX_COOLTIME: 3
+  Pattern3Start: 0
 --- !u!50 &1706545563
 Rigidbody2D:
   serializedVersion: 4

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3553520096614684639}
   - component: {fileID: 5650282344735415993}
   - component: {fileID: 1361473443694924174}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AttackEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}

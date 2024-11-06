@@ -13,7 +13,11 @@ public class Laser_Ex : MonoBehaviour
     public float laserSpeed; // 레이저가 증가하는 속도
     public float laserShrinkSpeed; // 레이저가 감소하는 속도
     private float currentLaserDistance = 0f; // 현재 레이저 길이
-    private bool isLaserExpanding = true; // 레이저가 증가 중인지 감소 중인지 확인
+
+    public bool isLaserExpanding = true; // 레이저가 증가 중인지 감소 중인지 확인
+
+    public float _LaserDelay;
+    private float LaserDelay;
 
     private void Start()
     {
@@ -22,7 +26,14 @@ public class Laser_Ex : MonoBehaviour
 
     private void Update()
     {
-        ShootLaser();
+        if(LaserDelay <= _LaserDelay)
+        {
+            LaserDelay += Time.deltaTime;
+        }
+        else
+        {
+            ShootLaser();
+        }
     }
 
     void ShootLaser()
@@ -33,7 +44,7 @@ public class Laser_Ex : MonoBehaviour
             currentLaserDistance = Mathf.Min(currentLaserDistance + laserSpeed * Time.deltaTime, defDistanceRay);
             if (currentLaserDistance >= defDistanceRay)
             {
-                isLaserExpanding = false; // 최대 길이에 도달하면 감소 모드로 전환
+                currentLaserDistance = defDistanceRay;
             }
         }
         else

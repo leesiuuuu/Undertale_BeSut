@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6574514582612352188}
   - component: {fileID: 3665483251551140515}
   - component: {fileID: 8763745846409030532}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: AtkObj5
   m_TagString: AttackSprite
   m_Icon: {fileID: 0}
