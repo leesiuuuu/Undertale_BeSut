@@ -5,15 +5,19 @@ public class PatternManager : MonoBehaviour
 {
     public static PatternManager instance;
     public int PatternCount = 1;
-    [Header("AtkPtn2 Attributes")]
+    [Header("Faze1 AtkPtn Attributes")]
     public AttackPattern2M AtkPtn2M;
     public AttackPattern3M AtkPtn3M;
     public AttackPattern1M AtkPtn1M;
     public AttackPattern4M AtkPtn4M;
     public AttackPattern5M AtkPtn5M;
+    [Space(20)]
+    [Header("Faze 2 AtkPtn Attributes")]
+    public AttackPatternA1M AtkPtnA1M;
 
     [Header("FadeInAnimation")]
     public GameObject WhiteFade;
+    //public AudioClip WhiteSound;
     private float TimeElapsed = 0f;
 
 
@@ -86,6 +90,18 @@ public class PatternManager : MonoBehaviour
             yield return null;
         }
     }
+    public IEnumerator SeqPatternStart2(int TurnCount)
+    {
+        yield return new WaitForSeconds(0.5f);
+        switch(TurnCount)
+        {
+            case 0:
+                AtkPtnA1M.enabled = true;
+                AtkPtnA1M.LoopTime1 = Random.Range(6, 10);
+                AtkPtnA1M.SpawnDelay = Random.Range(0.1f, 0.25f);
+                break;
+        }
+    }
     private int beforeCheck(int before)
     {
         int randomValue;
@@ -103,6 +119,7 @@ public class PatternManager : MonoBehaviour
         Color endColor = new Color(1, 1, 1, 1);    // 최종 색상 (불투명)
         TimeElapsed = 0;
 
+        //SoundManager.instance.SFXPlay("FazeToStarting", WhiteSound);
         while (TimeElapsed < StartDuration)
         {
             TimeElapsed += Time.deltaTime;
@@ -127,6 +144,8 @@ public class PatternManager : MonoBehaviour
 
             yield return null; // 매 프레임 대기
         }
+        StateManager.instance.TurnCount = 0;
+        PatternCount = 0;
     }
     private float Linear(float x)
     {

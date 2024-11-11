@@ -1394,7 +1394,8 @@ public class UICode : MonoBehaviour
         }
         Heart.SetActive(true);
         Invoke("EnablePlayer", 0.3f);
-        StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
+        if (!StateManager.instance.Faze2) StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
+        else StartCoroutine(PatternManager.instance.SeqPatternStart2(StateManager.instance.TurnCount));
     }
     void EnablePlayer()
     {

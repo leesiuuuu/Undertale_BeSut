@@ -261,7 +261,7 @@ GameObject:
   - component: {fileID: 943184726}
   m_Layer: 8
   m_Name: Heart
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -501,6 +501,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   StartBarrier: {fileID: 1419747019028973334, guid: 0a9b0d66fdcb40e45a575b4197cc260a, type: 3}
   MagicJhin: {fileID: 5412627687233372276, guid: 36210a886acbec649a578a7235b053ef, type: 3}
+  AtkObj: {fileID: 5866269744536752586, guid: 512beb72b3c35d7489d67cb0e996a5e5, type: 3}
+  LoopTime1: 6
+  SpawnDelay: 0.1
+  BoxRange: {x: 0, y: 5.97}
+  BoxSize: {x: 4.3, y: 1.66}
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0
