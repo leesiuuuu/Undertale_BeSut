@@ -179,7 +179,7 @@ public class PosMove : MonoBehaviour
             else
             {
                 if (Delete) Destroy(gameObject);
-                PosMove PM = this.GetComponent<PosMove>();
+                PosMove PM = GetComponent<PosMove>();
                 Destroy(PM);
             }
         }

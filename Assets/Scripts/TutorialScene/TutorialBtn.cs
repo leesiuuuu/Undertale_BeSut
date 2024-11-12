@@ -1,53 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ButtonInfo
-{
-    private string BtnName;
-    private bool isSelete;
-    private int Number;
-    private Button Btn_Object;
-
-    public ButtonInfo (string BtnName, bool isSelete, int Number, Button btn_Object)
-    {
-        this.BtnName = BtnName;
-        this.isSelete = isSelete;
-        this.Number = Number;
-        Btn_Object = btn_Object;
-        Btn_Object.SetPressed(false);
-    }
-    public bool GetSeleteState()
-    {
-        return this.isSelete;
-    }
-    public void SetSeleteState(bool isSelete)
-    {
-        this.isSelete =isSelete;
-    }
-    public void BtnMove(ButtonInfo NextBtn)
-    {
-        isSelete = false;
-        NextBtn.SetSeleteState(true);
-    }
-    public void SetNumber(int number)
-    {
-        this.Number = number;
-    }
-    public int GetNumber()
-    {
-        return Number;
-    }
-    public string GetName()
-    {
-        return BtnName;
-    }
-    public Button GetBtn()
-    {
-        return Btn_Object;
-    }
-}
-
-public class ButtonSelete : MonoBehaviour
+public class TutorialBtn : MonoBehaviour
 {
     private int MAX_BTN_COUNT = 4;
 
@@ -65,17 +19,17 @@ public class ButtonSelete : MonoBehaviour
     {
         MAX_BTN_COUNT = HeartObjPosArray.Length;
 
-        for(int i = 0; i < Btns.Length; i++)
+        for (int i = 0; i < Btns.Length; i++)
         {
             Sprites.Add(Btns[i]);
         }
 
-        for(int i = 0; i < MAX_BTN_COUNT; i++)
+        for (int i = 0; i < MAX_BTN_COUNT; i++)
         {
             ButtonInfos.Add(new ButtonInfo($"Btn{i}", (i == 0) ? true : false, i, Sprites[i]));
         }
 
-        for(int i = 0; i < MAX_BTN_COUNT; i++)
+        for (int i = 0; i < MAX_BTN_COUNT; i++)
         {
             HeartObjPos.Add(HeartObjPosArray[i]);
         }
@@ -124,7 +78,7 @@ public class ButtonSelete : MonoBehaviour
     {
         foreach (ButtonInfo button in ButtonInfos)
         {
-            if(button.GetNumber() == id)
+            if (button.GetNumber() == id)
             {
                 Debug.Log($"버튼을 찾았습니다! id : {id}");
                 return button;
@@ -136,7 +90,7 @@ public class ButtonSelete : MonoBehaviour
 
     Vector2 MoveHeartObj()
     {
-        foreach(ButtonInfo button in ButtonInfos)
+        foreach (ButtonInfo button in ButtonInfos)
         {
             if (button.GetSeleteState())
             {
@@ -147,9 +101,9 @@ public class ButtonSelete : MonoBehaviour
     }
     void BtnSeleteActivate()
     {
-        foreach(ButtonInfo btn in ButtonInfos)
+        foreach (ButtonInfo btn in ButtonInfos)
         {
-            if(btn.GetSeleteState())
+            if (btn.GetSeleteState())
             {
                 btn.GetBtn().SeleteOn();
             }
@@ -161,25 +115,34 @@ public class ButtonSelete : MonoBehaviour
     }
     void BtnPressedCheck()
     {
-        foreach(ButtonInfo buttonInfo in ButtonInfos)
+        foreach (ButtonInfo buttonInfo in ButtonInfos)
         {
             if (buttonInfo.GetBtn().GetPressed())
             {
-                switch(buttonInfo.GetNumber()){
+                switch (buttonInfo.GetNumber())
+                {
                     case 0:
-                        BtnManager.instance.StartGame();
+                        BtnManager.instance.MoveTutorial();
                         buttonInfo.GetBtn().SetPressed(false);
                         break;
                     case 1:
-                        BtnManager.instance.TutorialGame();
+                        BtnManager.instance.SeleteTutorial();
                         buttonInfo.GetBtn().SetPressed(false);
                         break;
                     case 2:
-                        BtnManager.instance.SettingGame();
+                        BtnManager.instance.CancelTutorial();
                         buttonInfo.GetBtn().SetPressed(false);
                         break;
                     case 3:
-                        BtnManager.instance.ExitGame();
+                        BtnManager.instance.ShieldTutorial();
+                        buttonInfo.GetBtn().SetPressed(false);
+                        break;
+                    case 4:
+                        BtnManager.instance.QQQTutorial();
+                        buttonInfo.GetBtn().SetPressed(false);
+                        break;
+                    case 5:
+                        BtnManager.instance.ExitTutorial();
                         buttonInfo.GetBtn().SetPressed(false);
                         break;
                     default:

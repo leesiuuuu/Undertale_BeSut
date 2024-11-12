@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BtnManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class BtnManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
+            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -19,10 +21,13 @@ public class BtnManager : MonoBehaviour
     public void StartGame() 
     {
         Debug.Log("Game Start!");
+        //씬 이동 로직 추가
+        Destroy(gameObject);
     }
     public void TutorialGame() 
     {
         Debug.Log("Game Tutorial!");
+        SceneManager.LoadScene("TutorialScene");
     }
     public void SettingGame() 
     {
@@ -32,4 +37,13 @@ public class BtnManager : MonoBehaviour
     {
         Debug.Log("Game Exit!");
     }
+    public void MoveTutorial()
+    {
+
+    }
+    public void SeleteTutorial() { }
+    public void CancelTutorial() { }
+    public void ShieldTutorial() { }
+    public void QQQTutorial() { }
+    public void ExitTutorial() { }
 }

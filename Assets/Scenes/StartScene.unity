@@ -999,6 +999,16 @@ MonoBehaviour:
   TutoBtn: {fileID: 73894085}
   SetBtn: {fileID: 1507280109}
   ExitBtn: {fileID: 330121623}
+  HeartObjPosArray:
+  - {x: -1.49, y: 0.54}
+  - {x: -1.91, y: -0.94}
+  - {x: -1.67, y: -2.37}
+  - {x: -1.63, y: -3.91}
+  Btns:
+  - {fileID: 2072443069}
+  - {fileID: 73894085}
+  - {fileID: 1507280109}
+  - {fileID: 330121623}
 --- !u!1 &1890902459
 GameObject:
   m_ObjectHideFlags: 0
