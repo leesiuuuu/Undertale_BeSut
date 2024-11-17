@@ -18,6 +18,7 @@ public class AttackPatternA1M : MonoBehaviour
 
     private GameObject Jhin1;
     private GameObject Jhin2;
+    private GameObject Barrier123;
 
     private float timer;
     private void OnEnable()
@@ -39,7 +40,7 @@ public class AttackPatternA1M : MonoBehaviour
                 Jhin2 = Clone;
             }
         }
-        Instantiate(StartBarrier);
+        Barrier123 = Instantiate(StartBarrier);
         StartCoroutine(Pattern(LoopTime1, SpawnDelay));
     }
     private void Update()
@@ -48,7 +49,7 @@ public class AttackPatternA1M : MonoBehaviour
     }
     IEnumerator Pattern(float LoopTime, float SpawnDelay)
     {
-        yield return new WaitForSeconds(StartBarrier.GetComponent<PosMove>().Delay + 0.5f);
+        yield return new WaitForSeconds(Barrier123.GetComponent<PosMove>().Delay + 0.5f);
         
         while (timer < LoopTime)
         {
@@ -63,6 +64,7 @@ public class AttackPatternA1M : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         StartCoroutine(Jhin1Add());
         StartCoroutine(Jhin2Add());
+        StartCoroutine(BarrierDisappear());
         yield return new WaitForSeconds(0.8f);
         UC.MyTurnBack();
 
@@ -102,12 +104,14 @@ public class AttackPatternA1M : MonoBehaviour
     }
     IEnumerator BarrierDisappear()
     {
-        StartBarrier.AddComponent<PosMove>();
-        StartBarrier.GetComponent<PosMove>().StartPos = new Vector2(-0.06f, -1.19f);
-        StartBarrier.GetComponent<PosMove>().EndPos = new Vector3(-0.06f, -8,47f);
-        StartBarrier.GetComponent<PosMove>().Duration = 0.3f;
-        StartBarrier.GetComponent<PosMove>().Delay = 1.2f;
-        StartBarrier.GetComponent<PosMove>().ease = PosMove.Ease.easeOutQuart;
+        if (!Barrier123.TryGetComponent<PosMove>(out var posMove))
+        {
+            Barrier123.AddComponent<PosMove>();
+        }
+        Barrier123.GetComponent<PosMove>().StartPos = new Vector2(-0.06f, -1.32f);
+        Barrier123.GetComponent<PosMove>().EndPos = new Vector3(-0.06f, -8,47f);
+        Barrier123.GetComponent<PosMove>().Duration = 0.3f;
+        Barrier123.GetComponent<PosMove>().ease = PosMove.Ease.easeInQuart;
         
         yield return null;
     }
