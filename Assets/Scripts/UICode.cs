@@ -1181,10 +1181,16 @@ public class UICode : MonoBehaviour
                 LastState = "IDK_out";
             }
             if (BossManager.instance.bossHP > 1) Invoke("FightAndAttack", 0.7f);
+            else if (BossManager.instance.bossHP < BossManager.instance.MAX_BOSS_HP / 2)
+            {
+                //보스 체력 절반 이상 소모할 시 2페이즈 넘어감
+            }
             //2페이즈 조건문
-            else 
-            { 
+            else
+            {
                 Debug.Log("For 2 Faze...");
+                StateManager.instance.BetrayalFaze2 = true;
+                StateManager.instance.SaveBetrayalFaze2();
                 SoundManager.instance.StopBG();
                 yield return new WaitForSeconds(1.2f);
                 AttackBar.SetActive(false);
@@ -1195,8 +1201,8 @@ public class UICode : MonoBehaviour
                 DialogueAdder(".....");
                 while (zClick < 13)
                 {
-                    if (zClick == 4)  BossManager.instance.ChangeSprite(1);
-                    if(zClick == 10)
+                    if (zClick == 4) BossManager.instance.ChangeSprite(1);
+                    if (zClick == 10)
                     {
                         BossManager.instance.Boss.transform.localScale = new Vector3(2, 2, 2);
                         BossManager.instance.ChangeSprite(3);
@@ -1204,8 +1210,8 @@ public class UICode : MonoBehaviour
                     }
                     if (Input.GetKeyDown(KeyCode.Z) && !StateManager.instance.Talking)
                     {
-                        DialogueAdder("........", 
-                            "이렇게 당할 줄은 생각도 못했는데.", 
+                        DialogueAdder("........",
+                            "이렇게 당할 줄은 생각도 못했는데.",
                             ".............",
                             "나도 참 멍청하군.",
                             "저딴 너셕을 믿는 게 아니었어.",

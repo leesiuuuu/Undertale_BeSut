@@ -22,6 +22,11 @@ public class StateManager : MonoBehaviour
     //그러나, 공격을 할 시 2페이즈 켜짐
     public bool NoKill = false;
     public bool Faze2 = false;
+    [Space(20)]
+    //2페이즈 넘어가는 루트
+    public bool NormalFaze2 = false;
+    public bool BetrayalFaze2 = false;
+    [Space(20)]
     public bool GameDone = false;
     void Awake()
     {
@@ -76,5 +81,14 @@ public class StateManager : MonoBehaviour
             Dialogue = "* 거짓에는 항상 책임이 따른다.";
         }
         return Dialogue;
+    }
+
+    public void SaveBetrayalFaze2()
+    {
+        PlayerPrefs.SetInt("BetrayalFaze2", BetrayalFaze2 ? 1 : 0);
+    }
+    public void InitBetrayalFaze2()
+    {
+        PlayerPrefs.DeleteKey("BetrayalFaze2");
     }
 }

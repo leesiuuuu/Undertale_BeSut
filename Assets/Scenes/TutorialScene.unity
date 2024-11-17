@@ -623,6 +623,8 @@ MonoBehaviour:
   - {fileID: 1810793392}
   - {fileID: 371555120}
   - {fileID: 1346907806}
+  LaserShield: {fileID: -1658678008, guid: 6e5167c0e9e765b4ca54a09ea7eed2ca, type: 3}
+  SeleteLaserShield: {fileID: -391574142, guid: 6e5167c0e9e765b4ca54a09ea7eed2ca, type: 3}
 --- !u!1 &785449688
 GameObject:
   m_ObjectHideFlags: 0

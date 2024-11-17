@@ -14,6 +14,9 @@ public class TutorialBtn : MonoBehaviour
     public Vector2[] HeartObjPosArray;
     public Button[] Btns;
 
+    public Sprite LaserShield;
+    public Sprite SeleteLaserShield;
+
     List<Button> Sprites = new List<Button>();
     private void Start()
     {
@@ -32,6 +35,17 @@ public class TutorialBtn : MonoBehaviour
         for (int i = 0; i < MAX_BTN_COUNT; i++)
         {
             HeartObjPos.Add(HeartObjPosArray[i]);
+        }
+
+        if (PlayerPrefs.GetInt("BetrayalFaze2") == 1)
+        {
+            Debug.Log("특수 튜토리얼 해방!");
+            Sprites[4].Btn = LaserShield;
+            Sprites[4].SeleteBtn = SeleteLaserShield;
+        }
+        else
+        {
+            Debug.Log("튜토리얼");
         }
 
     }
