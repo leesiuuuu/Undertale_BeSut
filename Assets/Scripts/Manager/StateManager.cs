@@ -87,7 +87,7 @@ public class StateManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("BetrayalFaze2", BetrayalFaze2 ? 1 : 0);
     }
-    public void InitBetrayalFaze2()
+    public void DeleteBetrayalFaze2()
     {
         PlayerPrefs.DeleteKey("BetrayalFaze2");
     }

@@ -52,6 +52,8 @@ public class UICode : MonoBehaviour
     public AttackPattern1M AtkPtn1M;
     public AttackPattern4M AtkPtn4M;
     public AttackPattern5M AtkPtn5M;
+    [Space(20f)]
+    public AttackPatternA1M AtkPtnA1M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -1181,7 +1183,7 @@ public class UICode : MonoBehaviour
                 LastState = "IDK_out";
             }
             if (BossManager.instance.bossHP > 1) Invoke("FightAndAttack", 0.7f);
-            else if (BossManager.instance.bossHP < BossManager.instance.MAX_BOSS_HP / 2)
+            else if (BossManager.instance.bossHP < BossManager.instance.MAX_BOSS_HP / 2 && BossManager.instance.bossHP != 1)
             {
                 //보스 체력 절반 이상 소모할 시 2페이즈 넘어감
             }
@@ -1304,30 +1306,46 @@ public class UICode : MonoBehaviour
         PageAdd = false;
         i = 0;
         j = 0;
-        switch (StateManager.instance.TurnCount)
+        if (!StateManager.instance.BetrayalFaze2)
         {
-            case 1:
-                AtkPtn2M.enabled = false;
-                break;
-            case 2:
-                AtkPtn3M.enabled = false;
-                break;
-            case 3:
-                AtkPtn1M.enabled = false;
-                break;
-            case 4:
-                AtkPtn4M.enabled = false;
-                break;
-            case 5:
-                AtkPtn5M.enabled = false;
-                break;
-            default:
-                AtkPtn1M.enabled = false;
-                AtkPtn2M.enabled = false;
-                AtkPtn3M.enabled = false;
-                AtkPtn4M.enabled = false;
-                AtkPtn5M.enabled = false;
-                break;
+            StateManager.instance.SaveBetrayalFaze2();
+        }
+        if (StateManager.instance.Faze2)
+        {
+            switch (StateManager.instance.TurnCount)
+            {
+                case 0:
+                    AtkPtnA1M.enabled = false;
+                    break;
+            }
+        }
+        else
+        {
+            switch (StateManager.instance.TurnCount)
+            {
+                case 1:
+                    AtkPtn2M.enabled = false;
+                    break;
+                case 2:
+                    AtkPtn3M.enabled = false;
+                    break;
+                case 3:
+                    AtkPtn1M.enabled = false;
+                    break;
+                case 4:
+                    AtkPtn4M.enabled = false;
+                    break;
+                case 5:
+                    AtkPtn5M.enabled = false;
+                    break;
+                default:
+                    AtkPtn1M.enabled = false;
+                    AtkPtn2M.enabled = false;
+                    AtkPtn3M.enabled = false;
+                    AtkPtn4M.enabled = false;
+                    AtkPtn5M.enabled = false;
+                    break;
+            }
         }
         isActDialogue = false;
         isItemDialogue = false;

@@ -66,6 +66,7 @@ public class AttackPatternA1M : MonoBehaviour
         StartCoroutine(Jhin2Add());
         StartCoroutine(BarrierDisappear());
         yield return new WaitForSeconds(0.8f);
+        StateManager.instance.Fighting = false;
         UC.MyTurnBack();
 
     }
@@ -111,6 +112,7 @@ public class AttackPatternA1M : MonoBehaviour
         Barrier123.GetComponent<PosMove>().StartPos = new Vector2(-0.06f, -1.32f);
         Barrier123.GetComponent<PosMove>().EndPos = new Vector3(-0.06f, -8,47f);
         Barrier123.GetComponent<PosMove>().Duration = 0.3f;
+        Barrier123.GetComponent<PosMove>().Delete = true;
         Barrier123.GetComponent<PosMove>().ease = PosMove.Ease.easeInQuart;
         
         yield return null;

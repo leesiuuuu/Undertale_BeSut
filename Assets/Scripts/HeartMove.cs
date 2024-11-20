@@ -100,7 +100,7 @@ public class HeartMove : MonoBehaviour
         {
             if (!isInvin && !Shield)
             {
-                PlayerManager.instance.HP -= StateManager.instance.Faze2 ? damage * 2 : damage;
+                PlayerManager.instance.HP -= StateManager.instance.BetrayalFaze2 ? damage * 2 : StateManager.instance.NormalFaze2 ? (int)(damage * 1.5f) : damage;
                 SoundManager.instance.SFXPlay("Hurt", HurtClip);
                 StartCoroutine(Shake(gameObject, 0.5f, 1f));
                 PlayerManager.instance.HPChanged();

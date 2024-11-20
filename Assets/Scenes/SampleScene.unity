@@ -1738,6 +1738,8 @@ MonoBehaviour:
   TurnCount: 10
   NoKill: 0
   Faze2: 0
+  NormalFaze2: 0
+  BetrayalFaze2: 0
   GameDone: 0
 --- !u!4 &429638836
 Transform:
@@ -5105,6 +5107,7 @@ MonoBehaviour:
   AtkPtn1M: {fileID: 566701206}
   AtkPtn4M: {fileID: 566701207}
   AtkPtn5M: {fileID: 566701208}
+  AtkPtnA1M: {fileID: 566701209}
   AttackBar: {fileID: 123357258}
   Slide: {fileID: 1954835025}
   DistanceChecker: {fileID: 2030273067}
