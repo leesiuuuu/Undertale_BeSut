@@ -70,7 +70,7 @@ public class BossManager : MonoBehaviour
         BossUI.fillAmount = HPDetail1;
         BossUI.transform.parent.gameObject.SetActive(true);
         shakeing = true;
-        StartCoroutine(Shake(Boss, 4f, 0.2f));
+        StartCoroutine(Shake(Boss, 1f, 0.2f));
         Invoke("ReturnBoss", 0.8f);
     }
     public void BossMiss(string Miss)

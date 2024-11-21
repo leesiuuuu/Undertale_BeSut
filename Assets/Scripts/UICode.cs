@@ -1301,6 +1301,7 @@ public class UICode : MonoBehaviour
     //보스 턴 끝날 시 초기화
     public void MyTurnBack()
     {
+        HM.enabled = false;
         ItemLocate = 0;
         Page = 1;
         PageAdd = false;
@@ -1350,7 +1351,6 @@ public class UICode : MonoBehaviour
         isActDialogue = false;
         isItemDialogue = false;
         isMercyDialogue = false;
-        HM.enabled = false;
         Once = false;
         isCountStarted = false;
         ++StateManager.instance.TurnCount;

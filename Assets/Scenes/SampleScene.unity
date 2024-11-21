@@ -245,6 +245,7 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 0bebd6af26cdea145862a727c123bfb9, type: 2}
   BGSound: {fileID: 160051313}
   BG2Sound: {fileID: 95130411}
+  StartMenu: {fileID: 0}
 --- !u!1 &68226468
 GameObject:
   m_ObjectHideFlags: 0
@@ -1734,8 +1735,8 @@ MonoBehaviour:
   _Iteming: 0
   _Mercying: 0
   Talking: 0
-  NoLieStack: 9
-  TurnCount: 10
+  NoLieStack: 0
+  TurnCount: 0
   NoKill: 0
   Faze2: 0
   NormalFaze2: 0
@@ -2155,7 +2156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4d0f3c7fb0cd846943977e2821a587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatternCount: 10
+  PatternCount: 0
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
@@ -4856,7 +4857,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 640, y: 480}
-  m_ScreenMatchMode: 2
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96

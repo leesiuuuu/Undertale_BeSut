@@ -1,5 +1,7 @@
 using UnityEngine;
+#if UNITY_EDITOR
 using UnityEditor;
+#endif
 
 public class PosMove : MonoBehaviour
 {
@@ -41,20 +43,6 @@ public class PosMove : MonoBehaviour
         easeOutBounce,
         easeInOutBounce
     }
-    [CustomEditor(typeof(PosMove))]
-    public class EaseEditor : Editor
-    {
-        public override void OnInspectorGUI()
-        {
-            serializedObject.Update();
-            PosMove PM = (PosMove)target;
-
-            DrawDefaultInspector();
-            PM.ease = (PosMove.Ease)EditorGUILayout.EnumPopup("Ease Type", PM.ease);
-            serializedObject.ApplyModifiedProperties();
-            EditorUtility.SetDirty(PM);
-        }
-    }
     public float Duration;
     public float Delay;
     public bool Delete = false;
@@ -62,13 +50,12 @@ public class PosMove : MonoBehaviour
     private float DelayedTime = 0f;
     void Start()
     {
-        if(StartPos == null) StartPos = transform.position;
+        if (StartPos == null) StartPos = transform.position;
     }
-
     // Update is called once per frame
     void Update()
     {
-        if(DelayedTime <= Delay)
+        if (DelayedTime <= Delay)
         {
             DelayedTime += Time.deltaTime;
         }
@@ -371,3 +358,19 @@ public class PosMove : MonoBehaviour
             : (1 + easeOutBounce(2 * x - 1)) / 2;
     }
 }
+#if UNITY_EDITOR
+[CustomEditor(typeof(PosMove))]
+public class EaseEditor : Editor
+{
+    public override void OnInspectorGUI()
+    {
+        serializedObject.Update();
+        PosMove PM = (PosMove)target;
+
+        DrawDefaultInspector();
+        PM.ease = (PosMove.Ease)EditorGUILayout.EnumPopup("Ease Type", PM.ease);
+        serializedObject.ApplyModifiedProperties();
+        EditorUtility.SetDirty(PM);
+    }
+}
+#endif

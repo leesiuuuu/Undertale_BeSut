@@ -1,7 +1,4 @@
-using JetBrains.Annotations;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class AttackPattern5_1 : MonoBehaviour
 {
