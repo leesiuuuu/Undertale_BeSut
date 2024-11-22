@@ -534,7 +534,7 @@ public class UICode : MonoBehaviour
                         Heart.transform.position = HeartMidPos;
                     }
                     Heart.SetActive(true);
-                    Invoke("EnablePlayer", 0.3f);
+                    StartCoroutine("EnablePlayer", 0.3f);
                     if (StateManager.instance.NoKill)
                     {
                         Heart.transform.position = HeartMidPos;
@@ -752,7 +752,7 @@ public class UICode : MonoBehaviour
                         Heart.transform.position = HeartMidPos;
                     }
                     Heart.SetActive(true);
-                    Invoke("EnablePlayer", 0.3f);
+                    StartCoroutine("EnablePlayer", 0.3f);
                     if (StateManager.instance.NoKill)
                     {
                         Heart.transform.position = HeartMidPos;
@@ -842,7 +842,7 @@ public class UICode : MonoBehaviour
                             Heart.transform.position = HeartMidPos;
                         }
                         Heart.SetActive(true);
-                        Invoke("EnablePlayer", 0.3f);
+                        StartCoroutine("EnablePlayer", 0.3f);
                         if (!isCountStarted)
                         {
                             StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
@@ -1417,12 +1417,13 @@ public class UICode : MonoBehaviour
             Heart.transform.position = HeartMidPos;
         }
         Heart.SetActive(true);
-        Invoke("EnablePlayer", 0.3f);
+        StartCoroutine("EnablePlayer", 0.3f);
         if (!StateManager.instance.Faze2) StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
         else StartCoroutine(PatternManager.instance.SeqPatternStart2(StateManager.instance.TurnCount));
     }
-    void EnablePlayer()
+    IEnumerator EnablePlayer()
     {
         HM.enabled = true;
+        yield return null;
     }
 }
