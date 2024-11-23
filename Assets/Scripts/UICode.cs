@@ -54,6 +54,7 @@ public class UICode : MonoBehaviour
     public AttackPattern5M AtkPtn5M;
     [Space(20f)]
     public AttackPatternA1M AtkPtnA1M;
+    public AttackPatternA2M AtkPtnA2M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -1317,6 +1318,9 @@ public class UICode : MonoBehaviour
             {
                 case 0:
                     AtkPtnA1M.enabled = false;
+                    break;
+                case 1:
+                    AtkPtnA2M.enabled = false;
                     break;
             }
         }

@@ -14,6 +14,7 @@ public class PatternManager : MonoBehaviour
     [Space(20)]
     [Header("Faze 2 AtkPtn Attributes")]
     public AttackPatternA1M AtkPtnA1M;
+    public AttackPatternA2M AtkPtnA2M;
 
     [Header("FadeInAnimation")]
     public GameObject WhiteFade;
@@ -99,6 +100,9 @@ public class PatternManager : MonoBehaviour
                 AtkPtnA1M.enabled = true;
                 AtkPtnA1M.LoopTime1 = Random.Range(6, 10);
                 AtkPtnA1M.SpawnDelay = Random.Range(0.1f, 0.25f);
+                break;
+            case 1:
+                AtkPtnA2M.enabled = true;
                 break;
         }
     }

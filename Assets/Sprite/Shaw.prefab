@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5742341883054552522}
   - component: {fileID: 3171104086417971697}
   - component: {fileID: 4643160260153184837}
-  m_Layer: 0
+  - component: {fileID: 3406179585529668948}
+  m_Layer: 6
   m_Name: Shaw
-  m_TagString: Untagged
+  m_TagString: AttackSprite
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -105,3 +106,49 @@ MonoBehaviour:
   EndDuration: 0.25
   Delay: 0
   AtkSound: {fileID: 0}
+--- !u!68 &3406179585529668948
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514445479046860603}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: -0.09679419, y: -0.35792568}
+  - {x: -0.09881044, y: 0.012848427}
+  - {x: -0.07554753, y: 0.2988864}
+  - {x: 0.015022501, y: 0.37779218}
+  - {x: 0.063335635, y: 0.336162}
+  - {x: 0.1006426, y: -0.36409438}
+  - {x: -0.10716799, y: -0.3653056}
+  m_AdjacentStartPoint: {x: 0, y: 0}
+  m_AdjacentEndPoint: {x: 0, y: 0}
+  m_UseAdjacentStartPoint: 0
+  m_UseAdjacentEndPoint: 0
