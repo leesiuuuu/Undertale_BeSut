@@ -105,7 +105,7 @@ MonoBehaviour:
   Duration: 0.25
   EndDuration: 0.25
   Delay: 0
-  AtkSound: {fileID: 0}
+  AtkSound: {fileID: 8300000, guid: f7050f021cf325c45be32d4bc1fb04bd, type: 3}
 --- !u!68 &3406179585529668948
 EdgeCollider2D:
   m_ObjectHideFlags: 0

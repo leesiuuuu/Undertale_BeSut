@@ -1183,14 +1183,75 @@ public class UICode : MonoBehaviour
                 TalkBalloon.SetActive(false);
                 LastState = "IDK_out";
             }
-            if (BossManager.instance.bossHP > 1) Invoke("FightAndAttack", 0.7f);
-            else if (BossManager.instance.bossHP < BossManager.instance.MAX_BOSS_HP / 2 && BossManager.instance.bossHP != 1)
+            //보스 체력 절반 이상 소모할 시 2페이즈 넘어감
+            if (BossManager.instance.bossHP < BossManager.instance.MAX_BOSS_HP / 2 && BossManager.instance.bossHP != 1 && !StateManager.instance.Faze2)
             {
-                //보스 체력 절반 이상 소모할 시 2페이즈 넘어감
+                Debug.Log("Faze 2(Normal)");
+                StateManager.instance.NormalFaze2 = true;
+                StateManager.instance.DeleteBetrayalFaze2();
+                yield return new WaitForSeconds(1.2f);
+                AttackBar.SetActive(false);
+                Slide.SetActive(false);
+                FirstTurnAct = false;
+                isBossDialogue = true;
+                zClick = 1;
+                DialogueAdder("아주 제대로 날 죽이려고 드는군.");
+                while (zClick < 7)
+                {
+                    if (zClick == 6)
+                    {
+                        BossManager.instance.ChangeSprite(4);
+                    }
+                    if (Input.GetKeyDown(KeyCode.Z) && !StateManager.instance.Talking)
+                    {
+                        DialogueAdder("사실 널 조금은 믿고 있었어.",
+                            "너가 공격을 멈추고 항복하기를 바랬는데.",
+                            "이렇게 보기 좋게 내 믿음을 져버리다니.",
+                            "뭐, 아쉽게 된거지.",
+                            "널 확실하게 죽여줄게.");
+                        zClick++;
+                    }
+                    yield return null;
+                }
+                StartCoroutine(PatternManager.instance.Faze2PatternChange(3, 1.5f));
+                yield return new WaitForSeconds(5f);
+                BossManager.instance.BossHPHeal(BossManager.instance.MAX_BOSS_HP - BossManager.instance.bossHP);
+                yield return new WaitForSeconds(0.8f);
+                isBossDialogue = true;
+                zClick = 1;
+                DialogueAdder("어디 한번 해보자고.");
+                while (zClick <= 2)
+                {
+                    if (Input.GetKeyDown(KeyCode.Z))
+                    {
+                        zClick = 4;
+                        DialogueAdder("");
+                    }
+                    yield return null;
+                }
+                Debug.Log("Faze 2 Start!");
+                //2페이즈 시작 알림
+                AttackSliding = false;
+                StateManager.instance.Acting = false;
+                StateManager.instance.NoKill = false;
+                StateManager.instance.Faze2 = true;
+                StateManager.instance.Starting = false;
+                SoundManager.instance.StopBG();
+                SoundManager.instance.BG2Play();
+                Faze2Init();
+                Stop = false;
+                FirstTurnAct = false;
+                yield return null;
+
             }
+            else if (BossManager.instance.bossHP > 1) Invoke("FightAndAttack", 0.7f);
             //2페이즈 조건문
             else
             {
+                if (StateManager.instance.Faze2)
+                {
+                    yield return null;
+                }
                 Debug.Log("For 2 Faze...");
                 StateManager.instance.BetrayalFaze2 = true;
                 StateManager.instance.SaveBetrayalFaze2();
@@ -1252,26 +1313,7 @@ public class UICode : MonoBehaviour
                 StateManager.instance.Faze2 = true;
                 StateManager.instance.Starting = false;
                 SoundManager.instance.BG2Play();
-
-
-                ItemLocate = 0;
-                Page = 1;
-                PageAdd = false;
-                i = 0;
-                j = 0;
-                StateManager.instance._Fighting = false;
-                StateManager.instance.Talking = false;
-                Ttext.gameObject.SetActive(true);
-                Ttext.gameObject.GetComponent<TalkBox>().Talk(0.5f, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
-                Fight = true;
-                Act = false;
-                Item = false;
-                Mercy = false;
-                ImageChanger(FightBtn, SeleteFight);
-                HeartPos = FightBtnPos;
-                Heart.SetActive(true);
-                AttackSliding = false;
-
+                Faze2Init();
                 Stop = false;
                 FirstTurnAct = false;
                 yield return null;
@@ -1429,5 +1471,25 @@ public class UICode : MonoBehaviour
     {
         HM.enabled = true;
         yield return null;
+    }
+    
+    void Faze2Init()
+    {
+        ItemLocate = 0;
+        Page = 1;
+        PageAdd = false;
+        i = 0;
+        j = 0;
+        StateManager.instance._Fighting = false;
+        StateManager.instance.Talking = false;
+        Ttext.gameObject.SetActive(true);
+        Ttext.gameObject.GetComponent<TalkBox>().Talk(0.5f, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
+        Fight = true;
+        Act = false;
+        Item = false;
+        Mercy = false;
+        ImageChanger(FightBtn, SeleteFight);
+        HeartPos = FightBtnPos;
+        Heart.SetActive(true);
     }
 }

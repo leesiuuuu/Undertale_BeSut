@@ -17,14 +17,8 @@ public class ShawSpawn : MonoBehaviour
 
     private float Delaytime = 0f;
 
-    public AudioClip AtkSound;
-
     private float TimeElapsed = 0f;
     private bool Donw = false;
-    private void Start()
-    {
-        SoundManager.instance.SFXPlay("AtkSound", AtkSound);
-    }
     private void Update()
     {
         if (Delaytime <= Delay)

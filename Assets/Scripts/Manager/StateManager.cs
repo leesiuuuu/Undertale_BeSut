@@ -1,5 +1,6 @@
 using System.Diagnostics.Tracing;
 using UnityEditor;
+using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class StateManager : MonoBehaviour
@@ -78,7 +79,24 @@ public class StateManager : MonoBehaviour
         }
         else
         {
-            Dialogue = "* 거짓에는 항상 책임이 따른다.";
+            if (NormalFaze2)
+            {
+                switch (TurnCount)
+                {
+                    case 1:
+                        Dialogue = "* 네이트 코릴은 당신을 죽이고 싶어 하는\n  것처럼 보인다."; break;
+                    case 2:
+                        Dialogue = "* 당신은 싸우기 싫었다."; break;
+                    case 3:
+                        Dialogue = "* 당신은 잘못된 선택을 한 것 같았다."; break;
+                    default:
+                        Dialogue = "* 당신은 빠르게 끝내고 싶다고 생각했다."; break;
+                }
+            }
+            else
+            {
+                Dialogue = "* 거짓에는 항상 책임이 따른다.";
+            }
         }
         return Dialogue;
     }
@@ -89,6 +107,12 @@ public class StateManager : MonoBehaviour
     }
     public void DeleteBetrayalFaze2()
     {
-        PlayerPrefs.DeleteKey("BetrayalFaze2");
+        try
+        {
+            PlayerPrefs.DeleteKey("BetrayalFaze2");
+        } catch 
+        {
+            return;
+        }
     }
 }

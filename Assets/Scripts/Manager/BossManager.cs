@@ -29,6 +29,9 @@ public class BossManager : MonoBehaviour
     public Sprite bossHurtTalk;
     public Sprite bossUlt;
     public Sprite bossHurtStand;
+    [Header("NormalSprite")]
+    public Sprite NormalBossStand;
+    public Sprite NormalBossUlt;
 
     private void Awake()
     {
@@ -106,11 +109,12 @@ public class BossManager : MonoBehaviour
     /// 1 = bossHurtTalk
     /// 2 = bossUlt
     /// 3 = bossHurtStand
+    /// 4 = NoramlBossStand
+    /// 5 = NormalBossUlt;
     /// </summary>
     /// <param name="index"></param>
     public void ChangeSprite(int index)
     {
-        Debug.Log("asdf");
         switch (index)
         {
             case 0:
@@ -121,6 +125,10 @@ public class BossManager : MonoBehaviour
                 BSR.sprite = bossUlt; break;
             case 3:
                 BSR.sprite = bossHurtStand; break;
+            case 4:
+                BSR.sprite = NormalBossStand; break;
+            case 5:
+                BSR.sprite = NormalBossUlt; break;
         }
     }
     public void StopMove()
@@ -138,7 +146,15 @@ public class BossManager : MonoBehaviour
     }
     public void Faze2Change()
     {
-        Boss.GetComponent<SpriteRenderer>().sprite = bossUlt;
+        if (StateManager.instance.BetrayalFaze2)
+        {
+            Boss.GetComponent<SpriteRenderer>().sprite = bossUlt;
+        }
+        else
+        {
+            Boss.GetComponent<SpriteRenderer>().sprite = NormalBossUlt;
+        }
+        
     }
     public IEnumerator BossMoveToLeftOrRight(float Duration)
     {

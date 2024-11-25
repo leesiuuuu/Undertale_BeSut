@@ -1735,9 +1735,9 @@ MonoBehaviour:
   _Iteming: 0
   _Mercying: 0
   Talking: 0
-  NoLieStack: 9
-  TurnCount: 10
-  NoKill: 1
+  NoLieStack: 0
+  TurnCount: 0
+  NoKill: 0
   Faze2: 0
   NormalFaze2: 0
   BetrayalFaze2: 0
@@ -2000,7 +2000,7 @@ MonoBehaviour:
   MagicJhin: {fileID: 5412627687233372276, guid: 36210a886acbec649a578a7235b053ef, type: 3}
   AtkObj: {fileID: 5866269744536752586, guid: 512beb72b3c35d7489d67cb0e996a5e5, type: 3}
   LoopTime1: 8
-  SpawnDelay: 0.15
+  SpawnDelay: 0.2
   BoxRange: {x: 0, y: 5.97}
   BoxSize: {x: 4.3, y: 1.66}
   UC: {fileID: 2077749599}
@@ -2182,7 +2182,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4d0f3c7fb0cd846943977e2821a587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatternCount: 10
+  PatternCount: 7
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
@@ -4318,7 +4318,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bossHP: 0
-  MAX_BOSS_HP: 1500
+  MAX_BOSS_HP: 800
   Boss: {fileID: 1110988468}
   shakeing: 0
   BM: {fileID: 1110988472}
@@ -4329,6 +4329,8 @@ MonoBehaviour:
   bossHurtTalk: {fileID: -159021682, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
   bossUlt: {fileID: 1838336873, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
   bossHurtStand: {fileID: -943386708, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
+  NormalBossStand: {fileID: 483174300, guid: cfb7dcb1b45726840864b8a60af7ebe7, type: 3}
+  NormalBossUlt: {fileID: 1845718785, guid: cfb7dcb1b45726840864b8a60af7ebe7, type: 3}
 --- !u!1 &1592521500
 GameObject:
   m_ObjectHideFlags: 0

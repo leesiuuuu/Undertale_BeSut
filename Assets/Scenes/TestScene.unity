@@ -464,7 +464,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1013512859}
-  - component: {fileID: 1013512860}
   m_Layer: 0
   m_Name: PatternChecker
   m_TagString: Untagged
@@ -487,30 +486,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1013512860
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1013512857}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a803edfc5eed536438937fa9aad3f912, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  X: 3
-  XRangePos: {x: 0, y: -2.55, z: 0}
-  XRangePos1: {x: 0, y: -0.79, z: 0}
-  X1: 3
-  Warning: {fileID: 3393336386172641305, guid: 76327d564c8193344870f4bd89389a3f, type: 3}
-  _Warning: {fileID: -183065352, guid: abe595bbc46f1a54da1bcab17f7cb55b, type: 3}
-  AtkObj: {fileID: 514445479046860603, guid: 5a3447b02ad1d87489b0709c03fd0660, type: 3}
-  SafeZoneEffect: {fileID: 7876757205389237024, guid: 6ab78856bb60bc74bbe0677b0d637912, type: 3}
-  WarningS: {fileID: 0}
-  UC: {fileID: 0}
-  MAX: 0
-  MIN: 0
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0
