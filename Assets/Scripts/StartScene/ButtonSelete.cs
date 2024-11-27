@@ -86,6 +86,7 @@ public class ButtonSelete : MonoBehaviour
         LeastNumber = CurrentNumber;
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
+            //사운드 코드 추가
             if (CurrentNumber <= 0)
             {
                 CurrentNumber = MAX_BTN_COUNT - 1;
@@ -97,6 +98,7 @@ public class ButtonSelete : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
+            //사운드 코드 추가
             if (CurrentNumber >= MAX_BTN_COUNT - 1)
             {
                 CurrentNumber = 0;
@@ -133,7 +135,6 @@ public class ButtonSelete : MonoBehaviour
         Debug.LogWarning($"{id}의 번호를 가진 버튼이 없습니다.");
         return null;
     }
-
     Vector2 MoveHeartObj()
     {
         foreach(ButtonInfo button in ButtonInfos)

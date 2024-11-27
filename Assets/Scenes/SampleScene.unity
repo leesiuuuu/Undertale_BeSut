@@ -2003,6 +2003,9 @@ MonoBehaviour:
   SpawnDelay: 0.2
   BoxRange: {x: 0, y: 5.97}
   BoxSize: {x: 4.3, y: 1.66}
+  Shooo: {fileID: 8300000, guid: 3b44fb78be80997428b14d8faf3e1568, type: 3}
+  ShoooBack: {fileID: 8300000, guid: ef14bf36594682047a0637c81519380b, type: 3}
+  BarrierSound: {fileID: 8300000, guid: a73aa14311c173d4bbd7c016b5167349, type: 3}
   UC: {fileID: 2077749599}
 --- !u!114 &566701210
 MonoBehaviour:
@@ -2182,7 +2185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4d0f3c7fb0cd846943977e2821a587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatternCount: 7
+  PatternCount: 0
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}

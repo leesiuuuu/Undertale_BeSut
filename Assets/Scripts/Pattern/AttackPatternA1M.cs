@@ -14,6 +14,10 @@ public class AttackPatternA1M : MonoBehaviour
     public Vector2 BoxRange;
     public Vector2 BoxSize;
 
+    public AudioClip Shooo;
+    public AudioClip ShoooBack;
+    public AudioClip BarrierSound;
+
     public UICode UC;
 
     private GameObject Jhin1;
@@ -31,6 +35,7 @@ public class AttackPatternA1M : MonoBehaviour
             {
                 Clone.GetComponent<PosMove>().StartPos = new Vector3(-5.42f, 2.6f, 0);
                 Clone.GetComponent<PosMove>().EndPos = new Vector3(-4.08f, 2.6f, 0);
+                SoundManager.instance.SFXPlay("Shooo", Shooo);
                 Jhin1 = Clone;
             }
             else
@@ -41,6 +46,7 @@ public class AttackPatternA1M : MonoBehaviour
             }
         }
         Barrier123 = Instantiate(StartBarrier);
+        SoundManager.instance.SFXPlay("Barrier", BarrierSound);
         StartCoroutine(Pattern(LoopTime1, SpawnDelay));
     }
     private void Update()
@@ -83,6 +89,7 @@ public class AttackPatternA1M : MonoBehaviour
         Jhin1.GetComponent<PosMove>().Duration = 0.8f;
         Jhin1.GetComponent<PosMove>().Delete = true;
         Jhin1.GetComponent<PosMove>().ease = PosMove.Ease.easeOutQuad;
+        SoundManager.instance.SFXPlay("ShoooBack", ShoooBack);
 
         Jhin1.AddComponent<Transition>();
         Jhin1.GetComponent<Transition>().Duration = 0.5f;
@@ -114,6 +121,7 @@ public class AttackPatternA1M : MonoBehaviour
         Barrier123.GetComponent<PosMove>().Duration = 0.3f;
         Barrier123.GetComponent<PosMove>().Delete = true;
         Barrier123.GetComponent<PosMove>().ease = PosMove.Ease.easeInQuart;
+        SoundManager.instance.SFXPlay("S", BarrierSound);
         
         yield return null;
     }

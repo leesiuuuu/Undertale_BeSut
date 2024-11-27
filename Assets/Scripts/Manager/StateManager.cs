@@ -1,6 +1,3 @@
-using System.Diagnostics.Tracing;
-using UnityEditor;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class StateManager : MonoBehaviour
