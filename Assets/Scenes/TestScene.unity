@@ -499,8 +499,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bcd406f6f0e7bca4f9cc045ce806c76e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BtmAtker: {fileID: 0}
-  TopAtker: {fileID: 0}
+  BtmAtker: {fileID: 2931691071131444729, guid: 8d9d34f36f0315c4fbcba4ed7b95df7f, type: 3}
+  TopAtker: {fileID: 6643931122511095392, guid: fe4831999ff0e6d4cbc189bf5bb78130, type: 3}
+  DelayTime: 1
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0

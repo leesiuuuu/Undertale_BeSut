@@ -15,6 +15,7 @@ public class PatternManager : MonoBehaviour
     [Header("Faze 2 AtkPtn Attributes")]
     public AttackPatternA1M AtkPtnA1M;
     public AttackPatternA2M AtkPtnA2M;
+    public AttackPatternA3M AtkPtnA3M;
 
     [Header("FadeInAnimation")]
     public GameObject WhiteFade;
@@ -103,6 +104,9 @@ public class PatternManager : MonoBehaviour
                 break;
             case 1:
                 AtkPtnA2M.enabled = true;
+                break;
+            case 2:
+                AtkPtnA3M.enabled = true;
                 break;
         }
     }
