@@ -17,7 +17,11 @@ public class Laser_Ex : MonoBehaviour
     public bool isLaserExpanding = true; // 레이저가 증가 중인지 감소 중인지 확인
 
     public float _LaserDelay;
+
+    public float LaserUnexpandingDelay;
     private float LaserDelay;
+
+    public static bool LaserDamaged = false;
 
     private void Start()
     {
@@ -45,6 +49,7 @@ public class Laser_Ex : MonoBehaviour
             if (currentLaserDistance >= defDistanceRay)
             {
                 currentLaserDistance = defDistanceRay;
+                Invoke("ChangeExpanding", LaserUnexpandingDelay);
             }
         }
         else
@@ -69,11 +74,13 @@ public class Laser_Ex : MonoBehaviour
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
                     Debug.Log("Hit!");
+                    LaserDamaged = true;
                     Draw2DRay(i, start, (Vector2)start + (Vector2)transform.right * currentLaserDistance);
                 }
                 else
                 {
                     Draw2DRay(i, start, hit.point);
+                    LaserDamaged = false;
                 }
             }
             else
@@ -87,5 +94,9 @@ public class Laser_Ex : MonoBehaviour
     {
         m_LR.SetPosition(index * 2, StartPos);
         m_LR.SetPosition(index * 2 + 1, EndPos);
+    }
+    void ChangeExpanding()
+    {
+        isLaserExpanding = false;
     }
 }

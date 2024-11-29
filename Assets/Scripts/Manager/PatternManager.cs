@@ -16,11 +16,15 @@ public class PatternManager : MonoBehaviour
     public AttackPatternA1M AtkPtnA1M;
     public AttackPatternA2M AtkPtnA2M;
     public AttackPatternA3M AtkPtnA3M;
+    public AttackPatternA4M AtkPtnA4M;
 
     [Header("FadeInAnimation")]
     public GameObject WhiteFade;
     //public AudioClip WhiteSound;
     private float TimeElapsed = 0f;
+
+    [HideInInspector]
+    public bool isFaze2Pattern4 = false;
 
 
     private int beforePatter = 1;
@@ -107,6 +111,10 @@ public class PatternManager : MonoBehaviour
                 break;
             case 2:
                 AtkPtnA3M.enabled = true;
+                break;
+            case 3:
+                isFaze2Pattern4 = true;
+                AtkPtnA4M.enabled = true;
                 break;
         }
     }

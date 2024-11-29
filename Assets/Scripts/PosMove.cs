@@ -1,11 +1,15 @@
 using UnityEngine;
+using System.Linq.Expressions;
+
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
 
 public class PosMove : MonoBehaviour
 {
+    [SerializeField]
     public Vector3 StartPos;
+    [SerializeField]
     public Vector3 EndPos;
     [HideInInspector]
     public Ease ease;
@@ -65,6 +69,7 @@ public class PosMove : MonoBehaviour
             {
                 ElapsedTime += Time.deltaTime;
                 float t = ElapsedTime / Duration;
+                t = Mathf.Clamp(t, 0f, 1f);
                 switch (ease)
                 {
                     case Ease.Linear:

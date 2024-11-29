@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 8609412923474205533}
   - component: {fileID: 3398062569979728166}
   m_Layer: 0
-  m_Name: LaserPortal
+  m_Name: LaserPortal_Big
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59,8 +59,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.22, y: -7.06, z: 0}
-  m_LocalScale: {x: 0.37, y: 0.37, z: 0.37}
-  m_ConstrainProportionsScale: 1
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5936170612296470707}
   - {fileID: 7169555981045298481}
@@ -100,7 +100,7 @@ MonoBehaviour:
   EndPos: {x: 4.22, y: -7.06, z: 0}
   ease: 10
   Duration: 0.5
-  Delay: 2.5
+  Delay: 5
   Delete: 1
 --- !u!1 &3241057241883551641
 GameObject:
@@ -252,10 +252,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2d1d012c913f024f9d4570786d6b1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defDistanceRay: 20
+  defDistanceRay: 200
   laserFirePoint: {fileID: 7646972327060779080}
   m_LR: {fileID: 4547052506917476796}
-  segmentCount: 20
+  segmentCount: 70
   segmentOffset: 0.02
   ignoreLayers:
     serializedVersion: 2
@@ -264,7 +264,7 @@ MonoBehaviour:
   laserShrinkSpeed: 100
   isLaserExpanding: 1
   _LaserDelay: 1
-  LaserUnexpandingDelay: 1
+  LaserUnexpandingDelay: 0
 --- !u!1 &8777898403642965187
 GameObject:
   m_ObjectHideFlags: 0

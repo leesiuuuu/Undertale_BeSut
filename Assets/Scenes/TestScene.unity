@@ -259,6 +259,7 @@ GameObject:
   - component: {fileID: 943184724}
   - component: {fileID: 943184725}
   - component: {fileID: 943184726}
+  - component: {fileID: 943184727}
   m_Layer: 8
   m_Name: Heart
   m_TagString: Player
@@ -399,7 +400,7 @@ Transform:
   m_GameObject: {fileID: 943184718}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.03, y: -1.32, z: 0}
+  m_LocalPosition: {x: -0.03, y: -1.31, z: 0}
   m_LocalScale: {x: 2.1, y: 2.1, z: 2.1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -413,7 +414,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943184718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 14e9539a5500ca640aae9b9afdbe903b, type: 3}
   m_Name: 
@@ -430,12 +431,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943184718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef70b4365c394f54ea9a85a66ce5915f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 3
+  MoveSpeed: 4.5
   NoCool: 0
   isBarrierOn: 0
   Barrier: {fileID: 1806371051}
@@ -455,6 +456,26 @@ MonoBehaviour:
   deg: 0
   objSpeed: 100
   Barrier: {fileID: 0}
+--- !u!114 &943184727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943184718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fea957efcc9dfd459eed6fde1af5dbe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MoveSpeed: 4.5
+  ShieldObj: {fileID: 0}
+  HurtClip: {fileID: 0}
+  ShieldSound: {fileID: 0}
+  SheldBreak: {fileID: 0}
+  NoCool: 0
+  MAX_COOLTIME: 3
+  Pattern3Start: 0
 --- !u!1 &1013512857
 GameObject:
   m_ObjectHideFlags: 0
@@ -496,12 +517,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013512857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcd406f6f0e7bca4f9cc045ce806c76e, type: 3}
+  m_Script: {fileID: 11500000, guid: 47d92192242f7f04d971665dc865ed24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BtmAtker: {fileID: 2931691071131444729, guid: 8d9d34f36f0315c4fbcba4ed7b95df7f, type: 3}
-  TopAtker: {fileID: 6643931122511095392, guid: fe4831999ff0e6d4cbc189bf5bb78130, type: 3}
-  DelayTime: 1
+  LaserPortal: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
+  SpawnRandom1: 6
+  SpawnRandom2: 15
+  UC: {fileID: 0}
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0
@@ -653,7 +675,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1806371052
 Transform:
   m_ObjectHideFlags: 0

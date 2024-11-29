@@ -2,8 +2,9 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
+using TreeEditor;
 
-public class HeartMove : MonoBehaviour
+public class SpecialHeartMove : MonoBehaviour
 {
     //Shake 기본 값
     //0.5f, 1f
@@ -24,14 +25,11 @@ public class HeartMove : MonoBehaviour
     public float MAX_COOLTIME = 3f;
     private bool NotStartFaze2 = true;
 
-    private float LaserDamage = 0;
-
-    bool _Once = false;
-
     [HideInInspector]
     public bool Pattern3Start;
     private void OnEnable()
     {
+        transform.position = new Vector3(0, -1.37f, 0);
         if (Shield)
         {
             ShieldObj.SetActive(true);
@@ -46,14 +44,14 @@ public class HeartMove : MonoBehaviour
     }
     void Update()
     {
-        if (StateManager.instance.Faze2 && NotStartFaze2)
+/*        if (StateManager.instance.Faze2 && NotStartFaze2)
         {
             MAX_COOLTIME = MAX_COOLTIME / 2;
             NotStartFaze2 = false;
         }
         if (!Shield && !NoCool)
         {
-            if(CoolTime <= 0)
+            if (CoolTime <= 0)
             {
                 CoolTime = 0;
             }
@@ -61,56 +59,27 @@ public class HeartMove : MonoBehaviour
             {
                 CoolTime -= Time.deltaTime;
             }
-        }
+        }*/
         MoveVelocity = Vector3.zero;
-        //2페이즈 4패턴 실행 시 움직임 방식 변경
-        if (PatternManager.instance.isFaze2Pattern4)
-        {
-            if (!_Once)
-            {
-                transform.position = new Vector3(
-                    transform.position.x,
-                    -1.37f,
-                    transform.position.z);
-                _Once = true;
-            }
-            if (Input.GetKeyDown(KeyCode.UpArrow) && transform.position.y < -0.67f)
-            {
-                transform.position = new Vector3(
-                    transform.position.x,
-                    transform.position.y + 0.7f,
-                    transform.position.z);
-            }
-            if (Input.GetKeyDown(KeyCode.DownArrow) && transform.position.y > -2.07f)
-            {
-                transform.position = new Vector3(
-                transform.position.x,
-                transform.position.y - 0.7f,
-                transform.position.z);
-            }
-        }
-        else
-        {
-            _Once = false;
-            if (Input.GetKey(KeyCode.UpArrow)) MoveVelocity += Vector3.up;
-            if (Input.GetKey(KeyCode.DownArrow)) MoveVelocity += Vector3.down;
-            if (Laser_Ex.LaserDamaged)
-            {
-                LaserDamage += Time.deltaTime / 2f;
-                PlayerManager.instance.HP -= (int)LaserDamage;
-                PlayerManager.instance.HPChanged();
-            }
-            else
-            {
-                LaserDamage = 0;
-            }
-        }
-        //변경되지 않는 설정들
         if (Input.GetKey(KeyCode.LeftArrow)) MoveVelocity += Vector3.left;
         if (Input.GetKey(KeyCode.RightArrow)) MoveVelocity += Vector3.right;
-        if (Input.GetKeyDown(KeyCode.C) && (CoolTime <= 0 || NoCool))
+        if (Input.GetKeyDown(KeyCode.UpArrow) && transform.position.y < -0.67f)
         {
-            SoundManager.instance.SFXPlay("Shield", ShieldSound);
+            transform.position = new Vector3(
+                transform.position.x,
+                transform.position.y + 0.7f,
+                transform.position.z);
+        }
+        if (Input.GetKeyDown(KeyCode.DownArrow) && transform.position.y > -2.07f)
+        {
+            transform.position = new Vector3(
+            transform.position.x,
+            transform.position.y - 0.7f,
+            transform.position.z);
+        }
+/*        if (Input.GetKeyDown(KeyCode.C) && (CoolTime <= 0 || NoCool))
+        {
+            //SoundManager.instance.SFXPlay("Shield", ShieldSound);
             if (Pattern3Start)
             {
                 if (!Shield)
@@ -134,12 +103,12 @@ public class HeartMove : MonoBehaviour
                 if (!NoCool) CoolTime = MAX_COOLTIME;
                 Shield = true;
             }
-        }
+        }*/
         MoveVelocity = MoveVelocity.normalized;
         transform.position += MoveVelocity * MoveSpeed * Time.deltaTime;
-        
+
     }
-    private void OnTriggerEnter2D(Collider2D cols)
+/*    private void OnTriggerEnter2D(Collider2D cols)
     {
         if (cols.gameObject.CompareTag("AttackSprite"))
         {
@@ -182,5 +151,5 @@ public class HeartMove : MonoBehaviour
             yield return null;
         }
         obj.transform.position = origin;
-    }
+    }*/
 }

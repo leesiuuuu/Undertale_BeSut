@@ -331,7 +331,7 @@ GameObject:
   m_Component:
   - component: {fileID: 88727450}
   - component: {fileID: 88727451}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TextBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1866,6 +1866,7 @@ GameObject:
   - component: {fileID: 566701209}
   - component: {fileID: 566701210}
   - component: {fileID: 566701211}
+  - component: {fileID: 566701212}
   m_Layer: 0
   m_Name: PatternChecnker
   m_TagString: Untagged
@@ -2049,6 +2050,23 @@ MonoBehaviour:
   TopAtker: {fileID: 6643931122511095392, guid: fe4831999ff0e6d4cbc189bf5bb78130, type: 3}
   DelayTime: 1
   UC: {fileID: 2077749599}
+--- !u!114 &566701212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566701202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47d92192242f7f04d971665dc865ed24, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LaserPortal: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
+  Lines: {fileID: 2124813699973766873, guid: a4cdb8ae17c736f4398f173d305f6153, type: 3}
+  SpawnRandom1: 8
+  SpawnRandom2: 16
+  UC: {fileID: 2077749599}
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2211,7 +2229,9 @@ MonoBehaviour:
   AtkPtnA1M: {fileID: 566701209}
   AtkPtnA2M: {fileID: 566701210}
   AtkPtnA3M: {fileID: 566701211}
+  AtkPtnA4M: {fileID: 566701212}
   WhiteFade: {fileID: 1447209073}
+  isFaze2Pattern4: 0
   Arrow: {fileID: 1983057795}
 --- !u!4 &737269436
 Transform:
@@ -2376,7 +2396,7 @@ GameObject:
   - component: {fileID: 789038932}
   - component: {fileID: 789038930}
   - component: {fileID: 789038931}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TextBox_Main
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2554,7 +2574,7 @@ GameObject:
   - component: {fileID: 804115436}
   - component: {fileID: 804115435}
   - component: {fileID: 804115434}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Heart (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3164,7 +3184,7 @@ GameObject:
   - component: {fileID: 1110874583}
   - component: {fileID: 1110874584}
   - component: {fileID: 1110874585}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: TextBoxBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4592,7 +4612,7 @@ GameObject:
   - component: {fileID: 1706545564}
   - component: {fileID: 1706545563}
   - component: {fileID: 1706545565}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Heart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5161,6 +5181,7 @@ MonoBehaviour:
   AtkPtnA1M: {fileID: 566701209}
   AtkPtnA2M: {fileID: 566701210}
   AtkPtnA3M: {fileID: 566701211}
+  AtkPtnA4M: {fileID: 566701212}
   AttackBar: {fileID: 123357258}
   Slide: {fileID: 1954835025}
   DistanceChecker: {fileID: 2030273067}
