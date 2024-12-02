@@ -23,14 +23,28 @@ public class Laser_Ex : MonoBehaviour
 
     public static bool LaserDamaged = false;
 
+    private GameObject Player;
+    private HeartMove HM_Player;
+
+
+    public float damageInterval = 0.05f; // 데미지를 줄 간격
+    private float damageTimer = 0f; // 현재 데미지 쿨다운 상태
+
     private void Start()
     {
         m_LR.positionCount = segmentCount * 2; // 각 세그먼트의 시작과 끝 점
+        Player = GameObject.Find("Heart");
+        HM_Player = Player.GetComponent<HeartMove>();
     }
 
     private void Update()
     {
-        if(LaserDelay <= _LaserDelay)
+        if (damageTimer > 0)
+        {
+            damageTimer -= Time.deltaTime;
+        }
+
+        if (LaserDelay <= _LaserDelay)
         {
             LaserDelay += Time.deltaTime;
         }
@@ -73,14 +87,17 @@ public class Laser_Ex : MonoBehaviour
             {
                 if (hit.collider.gameObject.layer == LayerMask.NameToLayer("Player"))
                 {
-                    Debug.Log("Hit!");
-                    LaserDamaged = true;
+                    if(damageTimer <= 0)
+                    {
+                        Debug.Log("Hit!");
+                        HM_Player.Damaged(1);
+                        damageTimer += damageInterval;
+                    }
                     Draw2DRay(i, start, (Vector2)start + (Vector2)transform.right * currentLaserDistance);
                 }
                 else
                 {
                     Draw2DRay(i, start, hit.point);
-                    LaserDamaged = false;
                 }
             }
             else

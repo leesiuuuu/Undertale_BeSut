@@ -24,8 +24,6 @@ public class HeartMove : MonoBehaviour
     public float MAX_COOLTIME = 3f;
     private bool NotStartFaze2 = true;
 
-    private float LaserDamage = 0;
-
     bool _Once = false;
 
     [HideInInspector]
@@ -94,16 +92,6 @@ public class HeartMove : MonoBehaviour
             _Once = false;
             if (Input.GetKey(KeyCode.UpArrow)) MoveVelocity += Vector3.up;
             if (Input.GetKey(KeyCode.DownArrow)) MoveVelocity += Vector3.down;
-            if (Laser_Ex.LaserDamaged)
-            {
-                LaserDamage += Time.deltaTime / 2f;
-                PlayerManager.instance.HP -= (int)LaserDamage;
-                PlayerManager.instance.HPChanged();
-            }
-            else
-            {
-                LaserDamage = 0;
-            }
         }
         //변경되지 않는 설정들
         if (Input.GetKey(KeyCode.LeftArrow)) MoveVelocity += Vector3.left;
@@ -145,14 +133,7 @@ public class HeartMove : MonoBehaviour
         {
             if (!isInvin && !Shield)
             {
-                PlayerManager.instance.HP -= StateManager.instance.BetrayalFaze2 ? damage * 2 : StateManager.instance.NormalFaze2 ? (int)(damage * 1.5f) : damage;
-                SoundManager.instance.SFXPlay("Hurt", HurtClip);
-                StartCoroutine(Shake(gameObject, 0.5f, 1f));
-                PlayerManager.instance.HPChanged();
-                isInvin = true;
-                animator.SetBool("Hurted", true);
-                Debug.Log(PlayerManager.instance.HP);
-                Invoke("ReturnInvin", 0.7f);
+                Damaged();
             }
             else if (Shield)
             {
@@ -182,5 +163,31 @@ public class HeartMove : MonoBehaviour
             yield return null;
         }
         obj.transform.position = origin;
+    }
+    public void Damaged(int LaserDamage = 0)
+    {
+        if(LaserDamage == 0)
+        {
+            PlayerManager.instance.HP -= StateManager.instance.BetrayalFaze2 ? damage * 2 : StateManager.instance.NormalFaze2 ? (int)(damage * 1.5f) : damage;
+        }
+        else
+        {
+            if(!isInvin) PlayerManager.instance.HP -= LaserDamage;
+        }
+        SoundManager.instance.SFXPlay("Hurt", HurtClip);
+        if(LaserDamage == 0)
+        {
+            StartCoroutine(Shake(gameObject, 0.5f, 1f));
+            isInvin = true;
+            PlayerManager.instance.HPChanged();
+            animator.SetBool("Hurted", true);
+            Debug.Log(PlayerManager.instance.HP);
+            Invoke("ReturnInvin", 0.7f);
+        }
+        else
+        {
+            PlayerManager.instance.HPChanged();
+            //animator.SetBool("Hurted", true);
+        }
     }
 }
