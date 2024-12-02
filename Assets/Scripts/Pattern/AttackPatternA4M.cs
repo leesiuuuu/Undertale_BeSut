@@ -35,7 +35,7 @@ public class AttackPatternA4M : MonoBehaviour
             Clone.GetComponent<PosMove>().StartPos.y = YPos[RandomNum];
             yield return new WaitForSeconds(2f);
         }
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.9f);
         Destroy(n);
         StateManager.instance.Fighting = false;
         PatternManager.instance.isFaze2Pattern4 = false;

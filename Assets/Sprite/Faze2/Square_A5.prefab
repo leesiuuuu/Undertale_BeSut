@@ -143,3 +143,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ca877076a5a1c44b3fabb124b7af79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Rotate: 0
+  BoomSound: {fileID: 8300000, guid: 296693222a656244190726d8820dc908, type: 3}

@@ -5,6 +5,7 @@ public class AttackPatternA5M : MonoBehaviour
 {
     public GameObject AtkObj;
     public UICode UC;
+    public AudioClip AtkSound;
     private void OnEnable()
     {
         StartCoroutine(Pattern());
@@ -18,6 +19,7 @@ public class AttackPatternA5M : MonoBehaviour
         {
             GameObject Clone = Instantiate(AtkObj, Pos, Quaternion.identity);
             Clone.GetComponent<AttackPatternA5>().Rotate = 90f;
+            SoundManager.instance.SFXPlay("AtkPtn5", AtkSound);
             yield return new WaitForSeconds(0.2f);
             Pos.x += 0.9f;
         }
@@ -37,6 +39,7 @@ public class AttackPatternA5M : MonoBehaviour
             }
             GameObject clone = Instantiate(AtkObj, Pos2, Quaternion.identity);
             if (i == 2 || i == 3) clone.GetComponent<AttackPatternA5>().Rotate = 90f;
+            SoundManager.instance.SFXPlay("AtkPtn5", AtkSound);
             yield return new WaitForSeconds(0.5f);
         }
         yield return new WaitForSeconds(2f);
@@ -56,6 +59,7 @@ public class AttackPatternA5M : MonoBehaviour
             }
             GameObject clone = Instantiate(AtkObj, Pos3, Quaternion.identity);
             if (i > 1) clone.GetComponent<AttackPatternA5>().Rotate = 90;
+            SoundManager.instance.SFXPlay("AtkPtn5", AtkSound);
             yield return new WaitForSeconds(0.5f);
         }
         yield return new WaitForSeconds(2.4f);

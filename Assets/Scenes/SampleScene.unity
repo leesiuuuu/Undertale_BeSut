@@ -1738,8 +1738,8 @@ MonoBehaviour:
   NoLieStack: 0
   TurnCount: 0
   NoKill: 0
-  Faze2: 1
-  NormalFaze2: 1
+  Faze2: 0
+  NormalFaze2: 0
   BetrayalFaze2: 0
   GameDone: 0
 --- !u!4 &429638836
@@ -2082,6 +2082,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AtkObj: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
   UC: {fileID: 2077749599}
+  AtkSound: {fileID: 8300000, guid: 4f2f54e8e37d6f6479854da85fdc5475, type: 3}
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2235,7 +2236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4d0f3c7fb0cd846943977e2821a587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatternCount: 3
+  PatternCount: 0
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
@@ -4002,8 +4003,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5108, y: -0.0041, z: 0}
-  m_LocalScale: {x: 14.843952, y: 10.112485, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 28.08, y: 19.129581, z: 1.8916795}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

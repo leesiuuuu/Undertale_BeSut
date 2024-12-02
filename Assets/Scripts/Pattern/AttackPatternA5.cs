@@ -4,8 +4,9 @@ using UnityEngine;
 public class AttackPatternA5 : MonoBehaviour
 {
     public float Rotate;
-
+    public AudioClip BoomSound;
     private bool isUp = false;
+    private bool once = false;
     private void Start()
     {
         gameObject.GetComponent<Collider2D>().enabled = false;
@@ -43,7 +44,12 @@ public class AttackPatternA5 : MonoBehaviour
     IEnumerator ScaleUp(GameObject obj, float Duration, float Delay)
     {
         yield return new WaitForSeconds(Delay);
-        Vector3 EndVector = new Vector3(25.1195f, 0.6f, 1);
+        if (!once)
+        {
+            SoundManager.instance.SFXPlay("SFXPldd", BoomSound);
+            once = true;
+        }
+            Vector3 EndVector = new Vector3(25.1195f, 0.6f, 1);
         while (Duration > 0f)
         {
             Duration -= 0.05f;

@@ -1,8 +1,4 @@
-using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
-using System.Collections;
-using TreeEditor;
 
 public class SpecialHeartMove : MonoBehaviour
 {

@@ -113,7 +113,7 @@ public class AttackPatternA2M : MonoBehaviour
     }
     IEnumerator Blink(AudioClip SF, GameObject clone, bool isSpawn = false)
     {
-        for (int j = 0; j < 8; j++)
+        for (int j = 0; j < 6; j++)
         {
             clone.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
             yield return new WaitForSeconds(0.04f);

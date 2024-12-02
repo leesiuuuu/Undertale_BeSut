@@ -517,10 +517,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013512857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fc8f945122e6d649a3439bf29d051b8, type: 3}
+  m_Script: {fileID: 11500000, guid: 1f30a598b182ba840b3258f8d4e86dd3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AtkObj: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
+  BtmAtker: {fileID: 2931691071131444729, guid: 8d9d34f36f0315c4fbcba4ed7b95df7f, type: 3}
+  TopAtker: {fileID: 6643931122511095392, guid: fe4831999ff0e6d4cbc189bf5bb78130, type: 3}
+  LeftAtker: {fileID: 6643931122511095392, guid: d23e64910437fb8488f3c6c3c7166010, type: 3}
+  RightAtker: {fileID: 6643931122511095392, guid: abd758f5a34533846b5d68e7fbbfdca5, type: 3}
+  DelayTime: 1
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0
