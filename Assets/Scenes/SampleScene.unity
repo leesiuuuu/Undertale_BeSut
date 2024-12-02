@@ -1867,6 +1867,7 @@ GameObject:
   - component: {fileID: 566701210}
   - component: {fileID: 566701211}
   - component: {fileID: 566701212}
+  - component: {fileID: 566701213}
   m_Layer: 0
   m_Name: PatternChecnker
   m_TagString: Untagged
@@ -2067,6 +2068,20 @@ MonoBehaviour:
   SpawnRandom1: 8
   SpawnRandom2: 16
   UC: {fileID: 2077749599}
+--- !u!114 &566701213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566701202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fc8f945122e6d649a3439bf29d051b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  AtkObj: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
+  UC: {fileID: 2077749599}
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2220,7 +2235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a4d0f3c7fb0cd846943977e2821a587, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PatternCount: 0
+  PatternCount: 3
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
@@ -2230,6 +2245,7 @@ MonoBehaviour:
   AtkPtnA2M: {fileID: 566701210}
   AtkPtnA3M: {fileID: 566701211}
   AtkPtnA4M: {fileID: 566701212}
+  AtkPtnA5M: {fileID: 566701213}
   WhiteFade: {fileID: 1447209073}
   isFaze2Pattern4: 0
   Arrow: {fileID: 1983057795}
@@ -5182,6 +5198,7 @@ MonoBehaviour:
   AtkPtnA2M: {fileID: 566701210}
   AtkPtnA3M: {fileID: 566701211}
   AtkPtnA4M: {fileID: 566701212}
+  AtkPtnA5M: {fileID: 566701213}
   AttackBar: {fileID: 123357258}
   Slide: {fileID: 1954835025}
   DistanceChecker: {fileID: 2030273067}

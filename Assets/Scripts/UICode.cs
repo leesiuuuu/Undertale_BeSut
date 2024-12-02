@@ -57,6 +57,7 @@ public class UICode : MonoBehaviour
     public AttackPatternA2M AtkPtnA2M;
     public AttackPatternA3M AtkPtnA3M;
     public AttackPatternA4M AtkPtnA4M;
+    public AttackPatternA5M AtkPtnA5M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -1194,6 +1195,10 @@ public class UICode : MonoBehaviour
                     Damage = BossManager.instance.bossHP - 1;
                     SpriteChangeEvent = true;
                 }
+                else if(StateManager.instance.BetrayalFaze2 || StateManager.instance.NormalFaze2)
+                {
+                    Damage = (int)(DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x) * 1.5f);
+                }
                 else
                 {
                     Damage = DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x);
@@ -1419,6 +1424,9 @@ public class UICode : MonoBehaviour
                     break;
                 case 3:
                     AtkPtnA4M.enabled = false;
+                    break;
+                case 4:
+                    AtkPtnA5M.enabled = false;
                     break;
             }
         }

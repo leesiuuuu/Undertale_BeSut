@@ -265,6 +265,7 @@ MonoBehaviour:
   isLaserExpanding: 1
   _LaserDelay: 1
   LaserUnexpandingDelay: 0
+  damageInterval: 0.5
 --- !u!1 &8777898403642965187
 GameObject:
   m_ObjectHideFlags: 0

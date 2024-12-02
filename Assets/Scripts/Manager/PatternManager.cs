@@ -17,6 +17,7 @@ public class PatternManager : MonoBehaviour
     public AttackPatternA2M AtkPtnA2M;
     public AttackPatternA3M AtkPtnA3M;
     public AttackPatternA4M AtkPtnA4M;
+    public AttackPatternA5M AtkPtnA5M;
 
     [Header("FadeInAnimation")]
     public GameObject WhiteFade;
@@ -115,6 +116,9 @@ public class PatternManager : MonoBehaviour
             case 3:
                 isFaze2Pattern4 = true;
                 AtkPtnA4M.enabled = true;
+                break;
+            case 4:
+                AtkPtnA5M.enabled = true;
                 break;
         }
     }
