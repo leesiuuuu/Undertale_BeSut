@@ -9,7 +9,7 @@ public class AttackPatternA6M : MonoBehaviour
     public GameObject LeftAtker;
     public GameObject RightAtker;
     public float DelayTime;
-    //public UICode UC;
+    public UICode UC;
     private void OnEnable()
     {
         StartCoroutine(PatternStarter());
@@ -17,7 +17,7 @@ public class AttackPatternA6M : MonoBehaviour
     IEnumerator PatternStarter()
     {
         yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < 6; i++)
+        for (int i = 0; i < 8; i++)
         {
             for(int j = 0; j < 4; j++)
             {
@@ -52,7 +52,7 @@ public class AttackPatternA6M : MonoBehaviour
         GameObject Clone = Instantiate(Random.value > 0.5 ? BtmAtker : TopAtker);
         Clone.GetComponent<PosMove>().Duration = 0.5f;
         yield return new WaitForSeconds(0.5f);
-        //StateManager.instance.Fighting = false;
-        //UC.MyTurnBack();
+        StateManager.instance.Fighting = false;
+        UC.MyTurnBack();
     }
 }
