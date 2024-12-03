@@ -59,6 +59,7 @@ public class UICode : MonoBehaviour
     public AttackPatternA4M AtkPtnA4M;
     public AttackPatternA5M AtkPtnA5M;
     public AttackPatternA6M AtkPtnA6M;
+    public AttackPatternA7M AtkPtnA7M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -1431,6 +1432,9 @@ public class UICode : MonoBehaviour
                     break;
                 case 5:
                     AtkPtnA6M.enabled = false;
+                    break;
+                case 6:
+                    AtkPtn1M.enabled = false;
                     break;
             }
         }

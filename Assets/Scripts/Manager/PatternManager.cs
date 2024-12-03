@@ -19,6 +19,7 @@ public class PatternManager : MonoBehaviour
     public AttackPatternA4M AtkPtnA4M;
     public AttackPatternA5M AtkPtnA5M;
     public AttackPatternA6M AtkPtnA6M;
+    public AttackPatternA7M AtkPtnA7M;
 
     [Header("FadeInAnimation")]
     public GameObject WhiteFade;
@@ -26,7 +27,7 @@ public class PatternManager : MonoBehaviour
     private float TimeElapsed = 0f;
 
     [HideInInspector]
-    public bool isFaze2Pattern4 = false;
+    public bool isSpeicalMove = false;
 
 
     private int beforePatter = 1;
@@ -115,7 +116,7 @@ public class PatternManager : MonoBehaviour
                 AtkPtnA3M.enabled = true;
                 break;
             case 3:
-                isFaze2Pattern4 = true;
+                isSpeicalMove = true;
                 AtkPtnA4M.enabled = true;
                 break;
             case 4:
@@ -123,6 +124,10 @@ public class PatternManager : MonoBehaviour
                 break;
             case 5:
                 AtkPtnA6M.enabled = true;
+                break;
+            case 6:
+                isSpeicalMove = true;
+                AtkPtnA7M.enabled = true;
                 break;
         }
     }

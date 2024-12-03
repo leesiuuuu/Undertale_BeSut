@@ -38,7 +38,7 @@ public class AttackPatternA4M : MonoBehaviour
         yield return new WaitForSeconds(0.9f);
         Destroy(n);
         StateManager.instance.Fighting = false;
-        PatternManager.instance.isFaze2Pattern4 = false;
+        PatternManager.instance.isSpeicalMove = false;
         UC.MyTurnBack();
     }
 }

@@ -37,6 +37,10 @@ public class BtnManager : MonoBehaviour
     {
         Debug.Log("Game Exit!");
     }
+    public void AchiGame()
+    {
+        Debug.Log("Achi Window!");
+    }
     public void MoveTutorial()
     {
 

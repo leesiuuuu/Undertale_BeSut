@@ -49,7 +49,7 @@ public class ButtonInfo
 
 public class ButtonSelete : MonoBehaviour
 {
-    private int MAX_BTN_COUNT = 4;
+    private int MAX_BTN_COUNT = 5;
 
     int CurrentNumber = 0;
     int LeastNumber;
@@ -180,6 +180,10 @@ public class ButtonSelete : MonoBehaviour
                         buttonInfo.GetBtn().SetPressed(false);
                         break;
                     case 3:
+                        BtnManager.instance.AchiGame();
+                        buttonInfo.GetBtn().SetPressed(false);
+                        break;
+                    case 4:
                         BtnManager.instance.ExitGame();
                         buttonInfo.GetBtn().SetPressed(false);
                         break;

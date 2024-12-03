@@ -62,7 +62,7 @@ public class HeartMove : MonoBehaviour
         }
         MoveVelocity = Vector3.zero;
         //2페이즈 4패턴 실행 시 움직임 방식 변경
-        if (PatternManager.instance.isFaze2Pattern4)
+        if (PatternManager.instance.isSpeicalMove)
         {
             if (!_Once)
             {
