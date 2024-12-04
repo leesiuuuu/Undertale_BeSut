@@ -2123,7 +2123,7 @@ MonoBehaviour:
   ObjSpawnDelay: 0.4
   BoxRange: {x: 0, y: 7.58}
   BoxSize: {x: 3.84, y: 0.92}
-  UC: {fileID: 0}
+  UC: {fileID: 2077749599}
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
