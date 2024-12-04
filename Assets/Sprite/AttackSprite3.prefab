@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EndTime: 4
-  Power: 170
+  Power: 220
   SD: {fileID: 8300000, guid: 819cae2c164474c4dbd958a24aa70e96, type: 3}
 --- !u!1 &5621235947352184529
 GameObject:

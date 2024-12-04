@@ -20,7 +20,6 @@ public class AttackPatternA5 : MonoBehaviour
     }
     private void Update()
     {
-        gameObject.GetComponent<Collider2D>().enabled = true;
         if (!isUp)
         {
             StartCoroutine(ScaleUp(gameObject, 1, 1));
@@ -44,6 +43,7 @@ public class AttackPatternA5 : MonoBehaviour
     IEnumerator ScaleUp(GameObject obj, float Duration, float Delay)
     {
         yield return new WaitForSeconds(Delay);
+        gameObject.GetComponent<Collider2D>().enabled = true;
         if (!once)
         {
             SoundManager.instance.SFXPlay("SFXPldd", BoomSound);

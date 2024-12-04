@@ -9,7 +9,7 @@ public class UICode : MonoBehaviour
 {
     [Header("Button List")]
     public Image FightBtn;
-    public Image ActBtn;
+    public Image ActBtn; 
     public Image ItemBtn;
     public Image MercyBtn;
     [Header("Sprite List")]
@@ -60,6 +60,7 @@ public class UICode : MonoBehaviour
     public AttackPatternA5M AtkPtnA5M;
     public AttackPatternA6M AtkPtnA6M;
     public AttackPatternA7M AtkPtnA7M;
+    public AttackPatternA8M AtkPtnA8M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -1434,7 +1435,10 @@ public class UICode : MonoBehaviour
                     AtkPtnA6M.enabled = false;
                     break;
                 case 6:
-                    AtkPtn1M.enabled = false;
+                    AtkPtnA7M.enabled = false;
+                    break;
+                case 7:
+                    AtkPtnA8M.enabled = false;
                     break;
             }
         }

@@ -487,7 +487,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943184718}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef70b4365c394f54ea9a85a66ce5915f, type: 3}
   m_Name: 
@@ -519,7 +519,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943184718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fea957efcc9dfd459eed6fde1af5dbe, type: 3}
   m_Name: 
@@ -642,6 +642,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1013512859}
+  - component: {fileID: 1013512860}
   m_Layer: 0
   m_Name: PatternChecker
   m_TagString: Untagged
@@ -664,6 +665,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1013512860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013512857}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfbf8126f9b0c7343bf17b336dc0a3ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Warning: {fileID: -183065352, guid: abe595bbc46f1a54da1bcab17f7cb55b, type: 3}
+  Count: 4
+  Shaw: {fileID: 514445479046860603, guid: 5a3447b02ad1d87489b0709c03fd0660, type: 3}
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0

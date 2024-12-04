@@ -1736,7 +1736,7 @@ MonoBehaviour:
   _Mercying: 0
   Talking: 0
   NoLieStack: 0
-  TurnCount: 3
+  TurnCount: 5
   NoKill: 0
   Faze2: 1
   NormalFaze2: 1
@@ -1870,6 +1870,7 @@ GameObject:
   - component: {fileID: 566701213}
   - component: {fileID: 566701214}
   - component: {fileID: 566701215}
+  - component: {fileID: 566701216}
   m_Layer: 0
   m_Name: PatternChecnker
   m_TagString: Untagged
@@ -2068,7 +2069,7 @@ MonoBehaviour:
   LaserPortal: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
   Lines: {fileID: 2124813699973766873, guid: a4cdb8ae17c736f4398f173d305f6153, type: 3}
   SpawnRandom1: 8
-  SpawnRandom2: 16
+  SpawnRandom2: 10
   UC: {fileID: 2077749599}
 --- !u!114 &566701213
 MonoBehaviour:
@@ -2119,11 +2120,29 @@ MonoBehaviour:
   Lines: {fileID: 2124813699973766873, guid: a4cdb8ae17c736f4398f173d305f6153, type: 3}
   AtkObj: {fileID: 5866269744536752586, guid: 512beb72b3c35d7489d67cb0e996a5e5, type: 3}
   SpawnRandom1: 8
-  SpawnRandom2: 12
+  SpawnRandom2: 10
   ObjSpawnDelay: 0.4
   BoxRange: {x: 0, y: 7.58}
   BoxSize: {x: 3.84, y: 0.92}
   UC: {fileID: 2077749599}
+--- !u!114 &566701216
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566701202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfbf8126f9b0c7343bf17b336dc0a3ad, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Warning: {fileID: -183065352, guid: abe595bbc46f1a54da1bcab17f7cb55b, type: 3}
+  Count: 4
+  Shaw: {fileID: 514445479046860603, guid: 5a3447b02ad1d87489b0709c03fd0660, type: 3}
+  UC: {fileID: 2077749599}
+  WarningSound: {fileID: 8300000, guid: 87cb297601b07c74f8c41ee7a140b947, type: 3}
+  ShawSound: {fileID: 8300000, guid: f7050f021cf325c45be32d4bc1fb04bd, type: 3}
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2290,6 +2309,7 @@ MonoBehaviour:
   AtkPtnA5M: {fileID: 566701213}
   AtkPtnA6M: {fileID: 566701214}
   AtkPtnA7M: {fileID: 566701215}
+  AtkPtnA8M: {fileID: 566701216}
   WhiteFade: {fileID: 1447209073}
   isSpeicalMove: 0
   Arrow: {fileID: 1983057795}
@@ -5245,6 +5265,7 @@ MonoBehaviour:
   AtkPtnA5M: {fileID: 566701213}
   AtkPtnA6M: {fileID: 566701214}
   AtkPtnA7M: {fileID: 566701215}
+  AtkPtnA8M: {fileID: 566701216}
   AttackBar: {fileID: 123357258}
   Slide: {fileID: 1954835025}
   DistanceChecker: {fileID: 2030273067}
