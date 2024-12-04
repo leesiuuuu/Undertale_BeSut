@@ -16,19 +16,19 @@ public class ItemUse : MonoBehaviour
         switch (ItemName)
         {
             case "자연산 커피":
-                HPPercetage = 20;
-                break;
-            case "마법 롤케이크":
-                HPPercetage = 40;
-                break;
-            case "마법 소다":
                 HPPercetage = 30;
                 break;
+            case "마법 롤케이크":
+                HPPercetage = 50;
+                break;
+            case "마법 소다":
+                HPPercetage = 40;
+                break;
             case "뮤즈 룰스":
-                HPPercetage = 15;
+                HPPercetage = 30;
                 break;
             case "특제 케-이크":
-                HPPercetage = 60;
+                HPPercetage = 80;
                 break;
         }
         string ItemLog = "* 당신은 " + ItemName + "을(를) 사용했다!\n  HP가 " + HPPercetage +"만큼 증가했다!";

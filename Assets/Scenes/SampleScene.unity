@@ -1736,10 +1736,10 @@ MonoBehaviour:
   _Mercying: 0
   Talking: 0
   NoLieStack: 0
-  TurnCount: 5
+  TurnCount: 0
   NoKill: 0
-  Faze2: 1
-  NormalFaze2: 1
+  Faze2: 0
+  NormalFaze2: 0
   BetrayalFaze2: 0
   GameDone: 0
 --- !u!4 &429638836
