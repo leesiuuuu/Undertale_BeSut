@@ -1736,10 +1736,10 @@ MonoBehaviour:
   _Mercying: 0
   Talking: 0
   NoLieStack: 0
-  TurnCount: 7
+  TurnCount: 0
   NoKill: 0
-  Faze2: 1
-  NormalFaze2: 1
+  Faze2: 0
+  NormalFaze2: 0
   BetrayalFaze2: 0
   GameDone: 0
 --- !u!4 &429638836
@@ -1872,6 +1872,7 @@ GameObject:
   - component: {fileID: 566701215}
   - component: {fileID: 566701216}
   - component: {fileID: 566701217}
+  - component: {fileID: 566701218}
   m_Layer: 0
   m_Name: PatternChecnker
   m_TagString: Untagged
@@ -2166,6 +2167,19 @@ MonoBehaviour:
   UC: {fileID: 2077749599}
   BoxSize: {x: 10.88, y: 1.9}
   BoxPos: {x: 0, y: 6.47, z: 0}
+--- !u!114 &566701218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566701202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: da3067ddf23cba44c878d2a74477d1dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UC: {fileID: 2077749599}
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2334,6 +2348,7 @@ MonoBehaviour:
   AtkPtnA7M: {fileID: 566701215}
   AtkPtnA8M: {fileID: 566701216}
   AtkPtnA9M: {fileID: 566701217}
+  AtkPtnA10M: {fileID: 566701218}
   WhiteFade: {fileID: 1447209073}
   isSpeicalMove: 0
   Arrow: {fileID: 1983057795}

@@ -674,17 +674,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013512857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3af4c83741c29944a8a684ea878b296c, type: 3}
+  m_Script: {fileID: 11500000, guid: da3067ddf23cba44c878d2a74477d1dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AtkObj: {fileID: 4221207430557407648, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-  Player: {fileID: 943184718}
-  LaserPortal: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
-  Lines: {fileID: 2124813699973766873, guid: a4cdb8ae17c736f4398f173d305f6153, type: 3}
-  SpawnRandom1: 6
-  SpawnRandom2: 10
-  BoxSize: {x: 10.88, y: 1.9}
-  BoxPos: {x: 0, y: 6.47, z: 0}
+  X: 0
+  XRangePos: {x: 0, y: 0, z: 0}
+  Warning: {fileID: 0}
+  AtkObj: {fileID: 0}
+  WarningS: {fileID: 0}
+  PrefapLaser: {fileID: 0}
+  MAX: 0
+  MIN: 0
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0

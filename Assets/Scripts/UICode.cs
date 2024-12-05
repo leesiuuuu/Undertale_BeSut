@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -1052,6 +1053,7 @@ public class UICode : MonoBehaviour
             {
                 if (Page == 1 && i == 1)
                 {
+                    Page = 2;
                     //현재 비어있는 요소 갯수 저장
                     switch (ItemList.FindAll(x => x == "").Count)
                     {
@@ -1065,7 +1067,6 @@ public class UICode : MonoBehaviour
                             SecPage_Element = 3;
                             break;
                     }
-                    Page = 2;
                     i = 0;
                     ItemLocate += 5;
                     //비어있는 요소에 따른 UI 반응
@@ -1117,6 +1118,7 @@ public class UICode : MonoBehaviour
                     Page = 1;
                     i = 1;
                     ItemLocate -= 5;
+                    BeforeItemLocate -= 5;
                 }
                 else
                 {
@@ -1552,7 +1554,6 @@ public class UICode : MonoBehaviour
         HM.enabled = true;
         yield return null;
     }
-    
     void Faze2Init()
     {
         ItemLocate = 0;
@@ -1576,5 +1577,20 @@ public class UICode : MonoBehaviour
         ImageChanger(FightBtn, SeleteFight);
         HeartPos = FightBtnPos;
         Heart.SetActive(true);
+    }
+    public IEnumerator BossAttack(params string[] logs)
+    {
+        yield return new WaitForSeconds(1f);
+        for(int i = 0; i < logs.Length; i++)
+        {
+            DuringLogAppear(logs[i]);
+            yield return new WaitForSeconds(2.5f);
+        }
+        TalkBalloon.SetActive(false);
+    }
+    void DuringLogAppear(string log)
+    {
+        TalkBalloon.SetActive(true);
+        TalkBalloonText.Talk(0.2f, log);
     }
 }
