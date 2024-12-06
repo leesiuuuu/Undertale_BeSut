@@ -102,6 +102,7 @@ public class UICode : MonoBehaviour
 
     private int Damage;
 
+    private int MAX_ITEM_LOCATE;
     private int ItemLocate = 0;
 
     private Vector3 HeartPos;
@@ -115,7 +116,9 @@ public class UICode : MonoBehaviour
     //아이템 및 상호작용 선택 하트 위치
     private Vector3[ , ] ListPos = new Vector3[2, 3];
     //아이템 요소 있는지 없는지 확인
+
     private bool[ , ] ListELement = new bool[2, 3];
+
     private int i = 0, j = 0;
     //현재 Act 상황 메시지 출력 중인지 확인
     private bool isActDialogue = false;
@@ -173,6 +176,7 @@ public class UICode : MonoBehaviour
         ItemList.Add("뮤즈 룰스");
         ItemList.Add("뮤즈 룰스");
         ItemList.Add("특제 케-이크");
+        MAX_ITEM_LOCATE = ItemList.Count;
 
         //Act 리스트 요소 추가
         ActList.Add("야옹거리기");
@@ -306,138 +310,7 @@ public class UICode : MonoBehaviour
             {
                 if (!isItemDialogue)
                 {
-                    Ttext.text = "";
-                    ItemAndActText.SetActive(true);
-                    int Sum = ItemList.FindAll(n => n != "").Count();
-                    if(Sum > 6)
-                    {
-                        PageAdd = true;
-                        while(ItemList.Count < 12)
-                        {
-                            ItemList.Add("");
-                        }
-                    }
-                    while(ItemList.Count < 6)
-                    {
-                        ItemList.Add("");
-                    }
-                    //페이지 내에 있는 아이템 출력
-                    if(Page == 1)
-                    {
-                        for (int n = 0; n < 6; n++)
-                        {
-                            if (string.IsNullOrEmpty(ItemList[n]))
-                            {
-                                //아이템이 비어있을 시 조건 설정
-                                switch (n)
-                                {
-                                    case 0:
-                                        ListELement[0, 0] = true;
-                                        break;
-                                    case 1:
-                                        ListELement[1, 0] = true;
-                                        break;
-                                    case 2:
-                                        ListELement[0, 1] = true;
-                                        break;
-                                    case 3:
-                                        ListELement[1, 1] = true;
-                                        break;
-                                    case 4:
-                                        ListELement[0, 2] = true;
-                                        break;
-                                    case 5:
-                                        ListELement[1, 2] = true;
-                                        break;
-                                }
-                                GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "";
-                            }
-                            else
-                            {
-                                //비어있지 않는 요소는 false로 바꾸기
-                                switch (n)
-                                {
-                                    case 0:
-                                        ListELement[0, 0] = false;
-                                        break;
-                                    case 1:
-                                        ListELement[1, 0] = false;
-                                        break;
-                                    case 2:
-                                        ListELement[0, 1] = false;
-                                        break;
-                                    case 3:
-                                        ListELement[1, 1] = false;
-                                        break;
-                                    case 4:
-                                        ListELement[0, 2] = false;
-                                        break;
-                                    case 5:
-                                        ListELement[1, 2] = false;
-                                        break;
-                                }
-                                GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "* " + ItemList[n];
-                            }
-                        }
-                    }
-                    else
-                    {
-                        for (int e = 6; e < 12; e++)
-                        {
-                            if (string.IsNullOrEmpty(ItemList[e]))
-                            {
-                                //아이템이 비어있을 시 조건 설정
-                                switch (e)
-                                {
-                                    case 6:
-                                        ListELement[0, 0] = true;
-                                        break;
-                                    case 7:
-                                        ListELement[1, 0] = true;
-                                        break;
-                                    case 8:
-                                        ListELement[0, 1] = true;
-                                        break;
-                                    case 9:
-                                        ListELement[1, 1] = true;
-                                        break;
-                                    case 10:
-                                        ListELement[0, 2] = true;
-                                        break;
-                                    case 11:
-                                        ListELement[1, 2] = true;
-                                        break;
-                                }
-                                GameObject.Find("Element" + (e - 5)).GetComponent<TMP_Text>().text = "";
-                            }
-                            else
-                            {                                //비어있지 않는 요소는 false로 바꾸기
-                                switch (e)
-                                {
-                                    case 6:
-                                        ListELement[0, 0] = false;
-                                        break;
-                                    case 7:
-                                        ListELement[1, 0] = false;
-                                        break;
-                                    case 8:
-                                        ListELement[0, 1] = false;
-                                        break;
-                                    case 9:
-                                        ListELement[1, 1] = false;
-                                        break;
-                                    case 10:
-                                        ListELement[0, 2] = false;
-                                        break;
-                                    case 11:
-                                        ListELement[1, 2] = false;
-                                        break;
-                                }
-                                GameObject.Find("Element" + (e - 5)).GetComponent<TMP_Text>().text = "* " + ItemList[e];
-                            }
-                        }
-                    }
-
+                    ItemPageUdate();
                     InteractiveSelete_Item();
                 }
                 if (Input.GetKeyDown(KeyCode.Z))
@@ -445,7 +318,8 @@ public class UICode : MonoBehaviour
                     isItemDialogue = true;
                     ImageChanger(ItemBtn, NormalItem);
                     SoundManager.instance.SFXPlay("Selete", SeleteSound);
-                    IU.ItemUsed(Ttext, ItemAndActText, ItemList, ItemList[ItemLocate], Heart, ItemLocate);
+                    MAX_ITEM_LOCATE--;
+                    IU.ItemUsed(Ttext, ItemAndActText, ItemList, Heart, ItemLocate, MAX_ITEM_LOCATE);
                     StateManager.instance._Iteming = false;
                 }
             }
@@ -493,7 +367,7 @@ public class UICode : MonoBehaviour
                 SoundManager.instance.SFXPlay("Selete", SeleteSound);
             }
             //취소 코드
-            if (Input.GetKeyDown(KeyCode.X) && !StateManager.instance.Acting && StateManager.instance.Starting && !AttackSliding)
+            else if (Input.GetKeyDown(KeyCode.X) && !StateManager.instance.Acting && StateManager.instance.Starting && !AttackSliding)
             {
                 Ttext.color = new Color(255, 255, 255);
                 StateManager.instance.Acting = true;
@@ -1115,10 +989,11 @@ public class UICode : MonoBehaviour
             {
                 if (Page == 2 && i == 0)
                 {
+                    Debug.Log("Item Moved!");
                     Page = 1;
                     i = 1;
                     ItemLocate -= 5;
-                    BeforeItemLocate -= 5;
+                    ItemPageUdate();
                 }
                 else
                 {
@@ -1138,12 +1013,15 @@ public class UICode : MonoBehaviour
                 }
             }
         }
+        //요소가 존재하지 않을 때 발생
         if (ListELement[i, j])
         {
+            Debug.Log("Befored");
             HeartPos = Before;
             ItemLocate = BeforeItemLocate;
             i = Bf_i; j = Bf_j;
         }
+        //요소가 존재할 시 실행
         else
         {
             HeartPos = ListPos[i, j];
@@ -1592,5 +1470,139 @@ public class UICode : MonoBehaviour
     {
         TalkBalloon.SetActive(true);
         TalkBalloonText.Talk(0.2f, log);
+    }
+    void ItemPageUdate()
+    {
+        Ttext.text = "";
+        ItemAndActText.SetActive(true);
+        int Sum = ItemList.FindAll(n => n != "").Count();
+        if (Sum > 6)
+        {
+            PageAdd = true;
+            while (ItemList.Count < 12)
+            {
+                ItemList.Add("");
+            }
+        }
+        while (ItemList.Count < 6)
+        {
+            ItemList.Add("");
+        }
+        //페이지 내에 있는 아이템 출력
+        if (Page == 1)
+        {
+            for (int n = 0; n < 6; n++)
+            {
+                if (string.IsNullOrEmpty(ItemList[n]))
+                {
+                    //아이템이 비어있을 시 조건 설정
+                    switch (n)
+                    {
+                        case 0:
+                            ListELement[0, 0] = true;
+                            break;
+                        case 1:
+                            ListELement[1, 0] = true;
+                            break;
+                        case 2:
+                            ListELement[0, 1] = true;
+                            break;
+                        case 3:
+                            ListELement[1, 1] = true;
+                            break;
+                        case 4:
+                            ListELement[0, 2] = true;
+                            break;
+                        case 5:
+                            ListELement[1, 2] = true;
+                            break;
+                    }
+                    GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "";
+                }
+                else
+                {
+                    //비어있지 않는 요소는 false로 바꾸기
+                    switch (n)
+                    {
+                        case 0:
+                            ListELement[0, 0] = false;
+                            break;
+                        case 1:
+                            ListELement[1, 0] = false;
+                            break;
+                        case 2:
+                            ListELement[0, 1] = false;
+                            break;
+                        case 3:
+                            ListELement[1, 1] = false;
+                            break;
+                        case 4:
+                            ListELement[0, 2] = false;
+                            break;
+                        case 5:
+                            ListELement[1, 2] = false;
+                            break;
+                    }
+                    GameObject.Find("Element" + (n + 1)).GetComponent<TMP_Text>().text = "* " + ItemList[n];
+                }
+            }
+        }
+        else
+        {
+            for (int e = 6; e < 12; e++)
+            {
+                if (string.IsNullOrEmpty(ItemList[e]))
+                {
+                    //아이템이 비어있을 시 조건 설정
+                    switch (e)
+                    {
+                        case 6:
+                            ListELement[0, 0] = true;
+                            break;
+                        case 7:
+                            ListELement[1, 0] = true;
+                            break;
+                        case 8:
+                            ListELement[0, 1] = true;
+                            break;
+                        case 9:
+                            ListELement[1, 1] = true;
+                            break;
+                        case 10:
+                            ListELement[0, 2] = true;
+                            break;
+                        case 11:
+                            ListELement[1, 2] = true;
+                            break;
+                    }
+                    GameObject.Find("Element" + (e - 5)).GetComponent<TMP_Text>().text = "";
+                }
+                else
+                {                                //비어있지 않는 요소는 false로 바꾸기
+                    switch (e)
+                    {
+                        case 6:
+                            ListELement[0, 0] = false;
+                            break;
+                        case 7:
+                            ListELement[1, 0] = false;
+                            break;
+                        case 8:
+                            ListELement[0, 1] = false;
+                            break;
+                        case 9:
+                            ListELement[1, 1] = false;
+                            break;
+                        case 10:
+                            ListELement[0, 2] = false;
+                            break;
+                        case 11:
+                            ListELement[1, 2] = false;
+                            break;
+                    }
+                    GameObject.Find("Element" + (e - 5)).GetComponent<TMP_Text>().text = "* " + ItemList[e];
+                }
+            }
+        }
     }
 }

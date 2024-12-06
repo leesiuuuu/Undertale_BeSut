@@ -7,8 +7,13 @@ public class ItemUse : MonoBehaviour
     /// <summary>
     /// 아이템 사용 시 관련 로그를 출력해주고 아이템 효과를 적용시켜주는 클래스
     /// </summary>
-    public void ItemUsed(TMP_Text Ttext, GameObject ItemAndAct, List<string> ItemList, string ItemName, GameObject Heart, int index)
+    public void ItemUsed(TMP_Text Ttext, GameObject ItemAndAct, List<string> ItemList, GameObject Heart, int index, int maxItemLocate)
     {
+        if(index > maxItemLocate)
+        {
+            index = maxItemLocate;
+        }
+        string ItemName = ItemList[index];
         Heart.SetActive(false);
         ItemAndAct.SetActive(false);
         Ttext.text = "";
