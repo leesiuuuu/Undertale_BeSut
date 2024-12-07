@@ -5,6 +5,6 @@ public class RotateMagicJhin : MonoBehaviour
     public float Speed;
     void Update()
     {
-        transform.Rotate(new Vector3(0, 0, Speed));
+        transform.Rotate(0, 0, Speed * Time.deltaTime);
     }
 }

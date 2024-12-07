@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ShieldMove : JustMove
+public class ShieldMove : MonoBehaviour
 {
     public GameObject Shield;
     private Vector2 Locate;

@@ -1,7 +1,3 @@
-using JetBrains.Annotations;
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AchievementState
@@ -59,5 +55,9 @@ public class AchievementManager : MonoBehaviour
             if (state.key == key) return state;
         }
         return null;
+    }
+    private void DeleteAllAchi()
+    {
+
     }
 }
