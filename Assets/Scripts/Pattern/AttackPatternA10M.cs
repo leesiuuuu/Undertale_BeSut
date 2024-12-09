@@ -81,6 +81,24 @@ public class AttackPatternA10M : MonoBehaviour
                 yield return null;
             }
         }
+        yield return new WaitForSeconds(1.5f);
+        if (StateManager.instance.NormalFaze2)
+        {
+            int[] SpriteNum = { 6, 5 };
+            int[] logCount = { 0, 3 };
+            StartCoroutine(UC.BossSpriteChangeLog(SpriteNum, logCount, "어떻게....?",
+                "레이저를 막을 수 있는 방어막까지 소환하다니...",
+                "...좋아",
+                "이번이 정말 마지막이 되겠군."));
+        }
+        else
+        {
+            int[,] SpriteInfo =
+            {
+                {0, 8},
+                {3, 7}
+            };
+        }
     }
     public void SetTimeScale(float time)
     {

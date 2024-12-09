@@ -5,6 +5,8 @@ public class PatternManager : MonoBehaviour
 {
     public static PatternManager instance;
     public int PatternCount = 1;
+    public int PatternCountFaze2 = -1;
+    private int Before = 0;
     [Header("Faze1 AtkPtn Attributes")]
     public AttackPattern2M AtkPtn2M;
     public AttackPattern3M AtkPtn3M;
@@ -42,6 +44,7 @@ public class PatternManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            Before = PatternCountFaze2;
         }
         else
         {
@@ -105,43 +108,85 @@ public class PatternManager : MonoBehaviour
     public IEnumerator SeqPatternStart2(int TurnCount)
     {
         yield return new WaitForSeconds(0.5f);
-        switch(TurnCount)
+        if(TurnCount == Before)
         {
-            case 0:
-                AtkPtnA1M.enabled = true;
-                AtkPtnA1M.LoopTime1 = Random.Range(6, 10);
-                AtkPtnA1M.SpawnDelay = Random.Range(0.1f, 0.25f);
-                break;
-            case 1:
-                AtkPtnA2M.enabled = true;
-                break;
-            case 2:
-                AtkPtnA3M.enabled = true;
-                break;
-            case 3:
-                isSpeicalMove = true;
-                AtkPtnA4M.enabled = true;
-                break;
-            case 4:
-                AtkPtnA5M.enabled = true;
-                break;
-            case 5:
-                AtkPtnA6M.enabled = true;
-                break;
-            case 6:
-                isSpeicalMove = true;
-                AtkPtnA7M.enabled = true;
-                break;
-            case 7:
-                AtkPtnA8M.enabled = true;
-                break;
-            case 8:
-                isSpeicalMove = true;
-                AtkPtnA9M.enabled = true;
-                break;
-            case 9:
-                AtkPtnA10M.enabled = true;
-                break;
+            int RandomNum = Random.Range(0, Mathf.Clamp(TurnCount, 0, 8) + 1);
+            switch (RandomNum)
+            {
+                case 0:
+                    AtkPtnA1M.enabled = true;
+                    AtkPtnA1M.LoopTime1 = Random.Range(6, 10);
+                    AtkPtnA1M.SpawnDelay = Random.Range(0.1f, 0.25f);
+                    break;
+                case 1:
+                    AtkPtnA2M.enabled = true;
+                    break;
+                case 2:
+                    AtkPtnA3M.enabled = true;
+                    break;
+                case 3:
+                    isSpeicalMove = true;
+                    AtkPtnA4M.enabled = true;
+                    break;
+                case 4:
+                    AtkPtnA5M.enabled = true;
+                    break;
+                case 5:
+                    AtkPtnA6M.enabled = true;
+                    break;
+                case 6:
+                    isSpeicalMove = true;
+                    AtkPtnA7M.enabled = true;
+                    break;
+                case 7:
+                    AtkPtnA8M.enabled = true;
+                    break;
+                case 8:
+                    isSpeicalMove = true;
+                    AtkPtnA9M.enabled = true;
+                    break;
+            }
+        }
+        else
+        {
+            switch (TurnCount)
+            {
+                case 0:
+                    AtkPtnA1M.enabled = true;
+                    AtkPtnA1M.LoopTime1 = Random.Range(6, 10);
+                    AtkPtnA1M.SpawnDelay = Random.Range(0.1f, 0.25f);
+                    break;
+                case 1:
+                    AtkPtnA2M.enabled = true;
+                    break;
+                case 2:
+                    AtkPtnA3M.enabled = true;
+                    break;
+                case 3:
+                    isSpeicalMove = true;
+                    AtkPtnA4M.enabled = true;
+                    break;
+                case 4:
+                    AtkPtnA5M.enabled = true;
+                    break;
+                case 5:
+                    AtkPtnA6M.enabled = true;
+                    break;
+                case 6:
+                    isSpeicalMove = true;
+                    AtkPtnA7M.enabled = true;
+                    break;
+                case 7:
+                    AtkPtnA8M.enabled = true;
+                    break;
+                case 8:
+                    isSpeicalMove = true;
+                    AtkPtnA9M.enabled = true;
+                    break;
+                case 9:
+                    AtkPtnA10M.enabled = true;
+                    break;
+            }
         }
     }
     private int beforeCheck(int before)

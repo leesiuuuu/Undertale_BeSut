@@ -4631,6 +4631,9 @@ MonoBehaviour:
   bossHurtStand: {fileID: -943386708, guid: 26016c232262da84cb24466ceb5c30b5, type: 3}
   NormalBossStand: {fileID: 483174300, guid: cfb7dcb1b45726840864b8a60af7ebe7, type: 3}
   NormalBossUlt: {fileID: 1845718785, guid: cfb7dcb1b45726840864b8a60af7ebe7, type: 3}
+  NormalBossNNN: {fileID: -660896121, guid: aa588d335c2ea10419f1ea5fad983d91, type: 3}
+  bossBleedy: {fileID: -325247916, guid: aa588d335c2ea10419f1ea5fad983d91, type: 3}
+  bossNNN: {fileID: -842871495, guid: aa588d335c2ea10419f1ea5fad983d91, type: 3}
 --- !u!1 &1592521500
 GameObject:
   m_ObjectHideFlags: 0
@@ -5463,7 +5466,7 @@ MonoBehaviour:
   AtkPtnA7M: {fileID: 566701215}
   AtkPtnA8M: {fileID: 566701216}
   AtkPtnA9M: {fileID: 566701217}
-  AtkPtnA10M: {fileID: 0}
+  AtkPtnA10M: {fileID: 566701218}
   AttackBar: {fileID: 123357258}
   Slide: {fileID: 1954835025}
   DistanceChecker: {fileID: 2030273067}

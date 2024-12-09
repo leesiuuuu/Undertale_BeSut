@@ -32,6 +32,10 @@ public class BossManager : MonoBehaviour
     [Header("NormalSprite")]
     public Sprite NormalBossStand;
     public Sprite NormalBossUlt;
+    [Header("LastAtk")]
+    public Sprite NormalBossNNN;
+    public Sprite bossBleedy;
+    public Sprite bossNNN;
 
     private void Awake()
     {
@@ -111,6 +115,9 @@ public class BossManager : MonoBehaviour
     /// 3 = bossHurtStand
     /// 4 = NoramlBossStand
     /// 5 = NormalBossUlt;
+    /// 6 = NormalBossNNN;
+    /// 7 = bossBloody
+    /// 8 = bossNNN
     /// </summary>
     /// <param name="index"></param>
     public void ChangeSprite(int index)
@@ -129,6 +136,12 @@ public class BossManager : MonoBehaviour
                 BSR.sprite = NormalBossStand; break;
             case 5:
                 BSR.sprite = NormalBossUlt; break;
+            case 6:
+                BSR.sprite = NormalBossNNN; break;
+            case 7:
+                BSR.sprite = bossBleedy; break;
+            case 8:
+                BSR.sprite = bossNNN; break;
         }
     }
     public void StopMove()

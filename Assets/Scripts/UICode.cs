@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -430,7 +429,7 @@ public class UICode : MonoBehaviour
                     else
                     {
                         if (!StateManager.instance.Faze2) StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
-                        else StartCoroutine(PatternManager.instance.SeqPatternStart2(StateManager.instance.TurnCount));
+                        else StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
                     }
                 }
             }
@@ -686,7 +685,7 @@ public class UICode : MonoBehaviour
                         {
                             if (StateManager.instance.Faze2)
                             {
-                                StartCoroutine(PatternManager.instance.SeqPatternStart2(StateManager.instance.TurnCount));
+                                StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
                             }
                             StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
                             isCountStarted = true;
@@ -777,7 +776,7 @@ public class UICode : MonoBehaviour
                         if (!isCountStarted)
                         {
                             if(!StateManager.instance.Faze2) StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
-                            else StartCoroutine(PatternManager.instance.SeqPatternStart2(StateManager.instance.TurnCount));
+                            else StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
                             isCountStarted = true;
                         }
                     }
@@ -1296,7 +1295,7 @@ public class UICode : MonoBehaviour
         }
         if (StateManager.instance.Faze2)
         {
-            switch (StateManager.instance.TurnCount)
+            switch (PatternManager.instance.PatternCountFaze2)
             {
                 case 0:
                     AtkPtnA1M.enabled = false;
@@ -1417,6 +1416,8 @@ public class UICode : MonoBehaviour
         StateManager.instance._Fighting = false;
         StateManager.instance.Starting = false;
         StateManager.instance.Fighting = true;
+        //공격 시에만 추가해야 하기 때문에
+        PatternManager.instance.PatternCountFaze2++;
         Ttext.text = "";
         T_1.enabled = false;
         T_2.enabled = false;
@@ -1429,7 +1430,7 @@ public class UICode : MonoBehaviour
         Heart.SetActive(true);
         StartCoroutine("EnablePlayer", 0.3f);
         if (!StateManager.instance.Faze2) StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
-        else StartCoroutine(PatternManager.instance.SeqPatternStart2(StateManager.instance.TurnCount));
+        else StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
     }
     IEnumerator EnablePlayer()
     {
@@ -1468,6 +1469,27 @@ public class UICode : MonoBehaviour
             yield return new WaitForSeconds(Delay);
         }
         TalkBalloon.SetActive(false);
+    }
+    ///마지막에만 사용할 것. 기타 다른 상황에서는 사용 금지.
+    public IEnumerator BossSpriteChangeLog(int[] SpriteNumber, int[] logCount, params string[] logs)
+    {
+        TalkBalloonText.gameObject.GetComponent<TextMeshPro>().text = "";
+        for (int i = 0; i < logs.Length; i++)
+        {
+            DuringLogAppear(logs[i]);
+            for (int j = 0; j < logCount.Length; j++)
+            {
+                if (logCount[j] == i)
+                {
+                    BossManager.instance.ChangeSprite(SpriteNumber[j]);
+                    break;
+                }
+            }
+            yield return new WaitForSeconds(logs[i].Length * 0.2f + 1);
+        }
+        TalkBalloon.SetActive(false);
+        StateManager.instance.Fighting = false;
+        MyTurnBack();
     }
     void DuringLogAppear(string log)
     {
