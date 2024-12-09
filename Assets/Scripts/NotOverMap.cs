@@ -1,13 +1,15 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class NotOverMap : MonoBehaviour
 {
     private Vector3 LastPosition;
+    private void Start()
+    {
+        
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.gameObject.name == "Heart" && StateManager.instance.Fighting)
+        if(collision.gameObject.tag == "Player" && StateManager.instance.Fighting)
         {
             Debug.Log("Entered!");
             LastPosition = collision.transform.position;
@@ -15,8 +17,9 @@ public class NotOverMap : MonoBehaviour
     }
     private void OnTriggerStay2D(Collider2D other)
     {
-        if(other.gameObject.name == "Heart" && StateManager.instance.Fighting)
+        if(other.gameObject.tag == "Player" && StateManager.instance.Fighting)
         {
+            Debug.Log(IsInsideTrigger(other)); 
             if (!IsInsideTrigger(other)) other.transform.position = LastPosition;
             else LastPosition = other.transform.position;
         }

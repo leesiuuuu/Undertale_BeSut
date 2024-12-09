@@ -1,5 +1,3 @@
-using TMPro;
-using UnityEngine.UI;
 using UnityEngine;
 using System.Collections;
 
@@ -23,6 +21,11 @@ public class HeartMove : MonoBehaviour
     private int damage = 8;
     public float MAX_COOLTIME = 3f;
     private bool NotStartFaze2 = true;
+    [SerializeField]
+    private ShieldMove SM;
+    private bool OnceToogle = false;
+    [SerializeField]
+    private GameObject ShieldBarr;
 
     bool _Once = false;
 
@@ -33,6 +36,10 @@ public class HeartMove : MonoBehaviour
         if (Shield)
         {
             ShieldObj.SetActive(true);
+        }
+        if (!OnceToogle && StateManager.instance._10Ptn)
+        {
+            ShieldBarr.SetActive(true);
         }
     }
     private void Start()
@@ -61,6 +68,24 @@ public class HeartMove : MonoBehaviour
             }
         }
         MoveVelocity = Vector3.zero;
+        //레이저 방어막 생성 패턴
+        if (Input.GetKeyDown(KeyCode.V) && StateManager.instance._10Ptn)
+        {
+            //Off
+            if (OnceToogle)
+            {
+                ShieldBarr.SetActive(false);
+                SM.enabled = false;
+                OnceToogle = false;
+            }
+            //On
+            else
+            {
+                ShieldBarr.SetActive(true);
+                SM.enabled = true;
+                OnceToogle = true;
+            }
+        }
         //2페이즈 4패턴 실행 시 움직임 방식 변경
         if (PatternManager.instance.isSpeicalMove)
         {
@@ -152,6 +177,7 @@ public class HeartMove : MonoBehaviour
     private void OnDisable()
     {
         ShieldObj.SetActive(false);
+        ShieldBarr.SetActive(false);
     }
     IEnumerator Shake(GameObject obj, float Duration = 1f, float Power = 1f)
     {

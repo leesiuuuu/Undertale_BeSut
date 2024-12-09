@@ -100,7 +100,7 @@ MonoBehaviour:
   EndPos: {x: 4.22, y: -7.06, z: 0}
   ease: 10
   Duration: 0.5
-  Delay: 5
+  Delay: 8
   Delete: 1
 --- !u!1 &3241057241883551641
 GameObject:

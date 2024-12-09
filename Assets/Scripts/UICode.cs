@@ -63,6 +63,7 @@ public class UICode : MonoBehaviour
     public AttackPatternA7M AtkPtnA7M;
     public AttackPatternA8M AtkPtnA8M;
     public AttackPatternA9M AtkPtnA9M;
+    public AttackPatternA10M AtkPtnA10M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
     public GameObject Slide;
@@ -1324,6 +1325,9 @@ public class UICode : MonoBehaviour
                 case 8:
                     AtkPtnA9M.enabled = false;
                     break;
+                case 9:
+                    AtkPtnA10M.enabled = false;
+                    break;
             }
         }
         else
@@ -1456,12 +1460,12 @@ public class UICode : MonoBehaviour
         HeartPos = FightBtnPos;
         Heart.SetActive(true);
     }
-    public IEnumerator BossAttack(params string[] logs)
+    public IEnumerator BossAttack(float Delay, params string[] logs)
     {
         for(int i = 0; i < logs.Length; i++)
         {
             DuringLogAppear(logs[i]);
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(Delay);
         }
         TalkBalloon.SetActive(false);
     }

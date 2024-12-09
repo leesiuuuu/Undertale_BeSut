@@ -1,3 +1,4 @@
+using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class StateManager : MonoBehaviour
@@ -26,6 +27,7 @@ public class StateManager : MonoBehaviour
     public bool BetrayalFaze2 = false;
     [Space(20)]
     public bool GameDone = false;
+    public bool _10Ptn = false;
     void Awake()
     {
         if(instance == null)
@@ -107,8 +109,9 @@ public class StateManager : MonoBehaviour
         try
         {
             PlayerPrefs.DeleteKey("BetrayalFaze2");
-        } catch 
+        } catch (System.Exception e)
         {
+            Debug.Log("Error Appeared! : " + e);
             return;
         }
     }
