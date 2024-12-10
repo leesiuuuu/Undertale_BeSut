@@ -1736,7 +1736,7 @@ MonoBehaviour:
   _Mercying: 0
   Talking: 0
   NoLieStack: 0
-  TurnCount: 8
+  TurnCount: 0
   NoKill: 0
   Faze2: 1
   NormalFaze2: 1
@@ -2338,6 +2338,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PatternCount: 0
+  PatternCountFaze2: 8
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
@@ -2354,6 +2355,7 @@ MonoBehaviour:
   AtkPtnA9M: {fileID: 566701217}
   AtkPtnA10M: {fileID: 566701218}
   WhiteFade: {fileID: 1447209073}
+  RandomNum: -1
   isSpeicalMove: 0
   Arrow: {fileID: 1983057795}
 --- !u!4 &737269436

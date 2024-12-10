@@ -1295,38 +1295,74 @@ public class UICode : MonoBehaviour
         }
         if (StateManager.instance.Faze2)
         {
-            switch (PatternManager.instance.PatternCountFaze2)
+            if (PatternManager.instance.PatternCountFaze2 == PatternManager.instance.RandomNum)
             {
-                case 0:
-                    AtkPtnA1M.enabled = false;
-                    break;
-                case 1:
-                    AtkPtnA2M.enabled = false;
-                    break;
-                case 2:
-                    AtkPtnA3M.enabled = false;
-                    break;
-                case 3:
-                    AtkPtnA4M.enabled = false;
-                    break;
-                case 4:
-                    AtkPtnA5M.enabled = false;
-                    break;
-                case 5:
-                    AtkPtnA6M.enabled = false;
-                    break;
-                case 6:
-                    AtkPtnA7M.enabled = false;
-                    break;
-                case 7:
-                    AtkPtnA8M.enabled = false;
-                    break;
-                case 8:
-                    AtkPtnA9M.enabled = false;
-                    break;
-                case 9:
-                    AtkPtnA10M.enabled = false;
-                    break;
+                switch (PatternManager.instance.RandomNum)
+                {
+                    case 0:
+                        AtkPtnA1M.enabled = false;
+                        break;
+                    case 1:
+                        AtkPtnA2M.enabled = false;
+                        break;
+                    case 2:
+                        AtkPtnA3M.enabled = false;
+                        break;
+                    case 3:
+                        AtkPtnA4M.enabled = false;
+                        break;
+                    case 4:
+                        AtkPtnA5M.enabled = false;
+                        break;
+                    case 5:
+                        AtkPtnA6M.enabled = false;
+                        break;
+                    case 6:
+                        AtkPtnA7M.enabled = false;
+                        break;
+                    case 7:
+                        AtkPtnA8M.enabled = false;
+                        break;
+                    case 8:
+                        AtkPtnA9M.enabled = false;
+                        break;
+                }
+            }
+            else
+            {
+                switch (PatternManager.instance.PatternCountFaze2)
+                {
+                    case 0:
+                        AtkPtnA1M.enabled = false;
+                        break;
+                    case 1:
+                        AtkPtnA2M.enabled = false;
+                        break;
+                    case 2:
+                        AtkPtnA3M.enabled = false;
+                        break;
+                    case 3:
+                        AtkPtnA4M.enabled = false;
+                        break;
+                    case 4:
+                        AtkPtnA5M.enabled = false;
+                        break;
+                    case 5:
+                        AtkPtnA6M.enabled = false;
+                        break;
+                    case 6:
+                        AtkPtnA7M.enabled = false;
+                        break;
+                    case 7:
+                        AtkPtnA8M.enabled = false;
+                        break;
+                    case 8:
+                        AtkPtnA9M.enabled = false;
+                        break;
+                    case 9:
+                        AtkPtnA10M.enabled = false;
+                        break;
+                }
             }
         }
         else

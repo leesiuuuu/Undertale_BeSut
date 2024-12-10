@@ -31,9 +31,9 @@ public class PatternManager : MonoBehaviour
     //public AudioClip WhiteSound;
     private float TimeElapsed = 0f;
 
+    public int RandomNum = -1;
     [HideInInspector]
     public bool isSpeicalMove = false;
-
 
     private int beforePatter = 1;
 
@@ -110,7 +110,7 @@ public class PatternManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if(TurnCount == Before)
         {
-            int RandomNum = Random.Range(0, Mathf.Clamp(TurnCount, 0, 8) + 1);
+            RandomNum = Random.Range(0, Mathf.Clamp(TurnCount, 0, 8) + 1);
             switch (RandomNum)
             {
                 case 0:
