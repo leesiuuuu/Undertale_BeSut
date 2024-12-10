@@ -1251,6 +1251,7 @@ public class UICode : MonoBehaviour
                 StateManager.instance.NoKill = false;
                 StateManager.instance.Faze2 = true;
                 StateManager.instance.Starting = false;
+                AttackSliding = false;
                 SoundManager.instance.BG2Play();
                 Faze2Init();
                 Stop = false;
@@ -1521,7 +1522,7 @@ public class UICode : MonoBehaviour
                     break;
                 }
             }
-            yield return new WaitForSeconds(logs[i].Length * 0.2f + 1);
+            yield return new WaitForSeconds((logs[i].Length - 3) * 0.2f + 1);
         }
         TalkBalloon.SetActive(false);
         StateManager.instance.Fighting = false;

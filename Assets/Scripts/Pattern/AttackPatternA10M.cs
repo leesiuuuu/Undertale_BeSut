@@ -84,8 +84,8 @@ public class AttackPatternA10M : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         if (StateManager.instance.NormalFaze2)
         {
-            int[] SpriteNum = { 6, 5 };
-            int[] logCount = { 0, 3 };
+            int[] SpriteNum = { 6, 5, 8, 2};
+            int[] logCount = { 0, 3, 6, 7};
             StartCoroutine(UC.BossSpriteChangeLog(SpriteNum, logCount, "어떻게....?",
                 "레이저를 막을 수 있는 방어막까지 소환하다니...",
                 "...좋아",
@@ -93,11 +93,15 @@ public class AttackPatternA10M : MonoBehaviour
         }
         else
         {
-            int[,] SpriteInfo =
-            {
-                {0, 8},
-                {3, 7}
-            };
+            int[] SpriteNum = { 8, 7, 8, 2 };
+            int[] logCount = { 0, 3 ,5, 6};
+            StartCoroutine(UC.BossSpriteChangeLog(SpriteNum, logCount, "어떻게....?",
+                "레이저를 막을 수 있는 방어막까지 소환하다니...",
+                "...",
+                ".....몸의 한계가 느껴져...",
+                "오래 못 버틸 것 같군.",
+                "둘 중 하나는 죽게 되겠지.",
+                "마지막 데스 게임을 시작해보자고."));
         }
     }
     public void SetTimeScale(float time)

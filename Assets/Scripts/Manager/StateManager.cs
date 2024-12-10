@@ -1,4 +1,3 @@
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 public class StateManager : MonoBehaviour
@@ -80,21 +79,35 @@ public class StateManager : MonoBehaviour
         {
             if (NormalFaze2)
             {
-                switch (TurnCount)
+                if (_10Ptn)
                 {
-                    case 1:
-                        Dialogue = "* 네이트 코릴은 당신을 죽이고 싶어 하는\n  것처럼 보인다."; break;
-                    case 2:
-                        Dialogue = "* 당신은 싸우기 싫었다."; break;
-                    case 3:
-                        Dialogue = "* 당신은 잘못된 선택을 한 것 같았다."; break;
-                    default:
-                        Dialogue = "* 당신은 빠르게 끝내고 싶다고 생각했다."; break;
+                    Dialogue = "* 마지막이 다가오고 있다.";
+                }
+                else
+                {
+                    switch (TurnCount)
+                    {
+                        case 1:
+                            Dialogue = "* 네이트 코릴은 당신을 죽이고 싶어 하는\n  것처럼 보인다."; break;
+                        case 2:
+                            Dialogue = "* 당신은 싸우기 싫었다."; break;
+                        case 3:
+                            Dialogue = "* 당신은 잘못된 선택을 한 것 같았다."; break;
+                        default:
+                            Dialogue = "* 당신은 빠르게 끝내고 싶다고 생각했다."; break;
+                    }
                 }
             }
             else
             {
-                Dialogue = "* 거짓에는 항상 책임이 따른다.";
+                if (_10Ptn)
+                {
+                    Dialogue = "* 마지막이 다가오고 있다.";
+                }
+                else
+                {
+                    Dialogue = "* 거짓에는 항상 책임이 따른다.";
+                }
             }
         }
         return Dialogue;

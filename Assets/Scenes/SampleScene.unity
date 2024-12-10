@@ -1739,8 +1739,8 @@ MonoBehaviour:
   TurnCount: 0
   NoKill: 0
   Faze2: 1
-  NormalFaze2: 1
-  BetrayalFaze2: 0
+  NormalFaze2: 0
+  BetrayalFaze2: 1
   GameDone: 0
   _10Ptn: 0
 --- !u!4 &429638836

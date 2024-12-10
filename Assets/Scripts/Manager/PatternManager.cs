@@ -110,7 +110,9 @@ public class PatternManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         if(TurnCount == Before)
         {
-            RandomNum = Random.Range(0, Mathf.Clamp(TurnCount, 0, 8) + 1);
+            int TC = TurnCount;
+            if (TurnCount == -1) TC = 0;
+            RandomNum = Random.Range(0, TC + 1);
             switch (RandomNum)
             {
                 case 0:
