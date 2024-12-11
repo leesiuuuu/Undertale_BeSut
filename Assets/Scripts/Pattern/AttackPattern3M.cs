@@ -44,7 +44,7 @@ public class AttackPattern3M : MonoBehaviour
         this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
-        yield return null;
+        yield break;
     }
     private void OnDrawGizmos()
     {

@@ -28,5 +28,6 @@ public class AttackPatternA3M : MonoBehaviour
         this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
+        yield break;
     }
 }

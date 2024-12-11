@@ -1,4 +1,5 @@
 //Chat GPT Code
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Laser_Ex : MonoBehaviour
@@ -25,6 +26,8 @@ public class Laser_Ex : MonoBehaviour
 
     private GameObject Player;
     private HeartMove HM_Player;
+
+    public int XYCheck = 1; //0 = 수직 1 = 수평
 
 
     public float damageInterval = 0.05f; // 데미지를 줄 간격
@@ -78,7 +81,10 @@ public class Laser_Ex : MonoBehaviour
 
         for (int i = 0; i < segmentCount; i++)
         {
-            Vector3 offset = new Vector3(0, (i - segmentCount / 2) * segmentOffset, 0);
+            Vector3 offset = Vector3.zero;
+            if(XYCheck == 1) offset = new Vector3(0, (i - segmentCount / 2) * segmentOffset, 0);
+            else offset = new Vector3((i - segmentCount / 2) * segmentOffset, 0, 0);
+
             Vector2 start = laserFirePoint.position + offset;
 
             RaycastHit2D hit = Physics2D.Raycast(start, transform.right, currentLaserDistance, ~ignoreLayers);

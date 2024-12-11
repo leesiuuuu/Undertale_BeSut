@@ -40,6 +40,7 @@ public class AttackPattern5M : MonoBehaviour
         yield return new WaitForSeconds(1);
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
+        yield break;
     }
 
     private void OnDrawGizmos()

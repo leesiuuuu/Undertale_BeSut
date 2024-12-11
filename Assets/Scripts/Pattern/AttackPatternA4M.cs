@@ -41,5 +41,6 @@ public class AttackPatternA4M : MonoBehaviour
         StateManager.instance.Fighting = false;
         PatternManager.instance.isSpeicalMove = false;
         UC.MyTurnBack();
+        yield break;
     }
 }

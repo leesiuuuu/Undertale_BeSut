@@ -67,6 +67,7 @@ public class AttackPattern1M : MonoBehaviour
         this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
+        yield break;
     }
     IEnumerator TimerSet(float Duration)
     {

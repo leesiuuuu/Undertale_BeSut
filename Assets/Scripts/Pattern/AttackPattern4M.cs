@@ -88,5 +88,6 @@ public class AttackPattern4M : MonoBehaviour
         Plaeyr.GetComponent<HeartMove>().Pattern3Start = false;
         Plaeyr.GetComponent<HeartMove>().NoCool = false;
         UC.MyTurnBack();
+        yield break;
     }
 }

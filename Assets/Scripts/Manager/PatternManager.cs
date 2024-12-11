@@ -1,4 +1,5 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 public class PatternManager : MonoBehaviour
@@ -25,6 +26,7 @@ public class PatternManager : MonoBehaviour
     public AttackPatternA8M AtkPtnA8M;
     public AttackPatternA9M AtkPtnA9M;
     public AttackPatternA10M AtkPtnA10M;
+    public AttackPatternA11M AtkPtnA11M;
 
     [Header("FadeInAnimation")]
     public GameObject WhiteFade;
@@ -186,6 +188,9 @@ public class PatternManager : MonoBehaviour
                     break;
                 case 9:
                     AtkPtnA10M.enabled = true;
+                    break;
+                case 10:
+                    AtkPtnA11M.enabled = true;
                     break;
             }
             Before = PatternCountFaze2;

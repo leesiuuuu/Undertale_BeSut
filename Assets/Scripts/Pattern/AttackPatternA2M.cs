@@ -94,6 +94,7 @@ public class AttackPatternA2M : MonoBehaviour
         this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
+        yield break;
     }
 
     private void OnDrawGizmos()

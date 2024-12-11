@@ -103,6 +103,7 @@ public class AttackPatternA10M : MonoBehaviour
                 "둘 중 하나는 죽게 되겠지.",
                 "마지막 데스 게임을 시작해보자고."));
         }
+        yield break;
     }
     public void SetTimeScale(float time)
     {

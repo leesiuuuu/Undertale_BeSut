@@ -4,6 +4,9 @@ using UnityEngine;
 public class AttackPatternA5 : MonoBehaviour
 {
     public float Rotate;
+    public float SpawnTime;
+    public float DeSpawnTime;
+    public float MaintainTime;
     public AudioClip BoomSound;
     private bool isUp = false;
     private bool once = false;
@@ -22,11 +25,11 @@ public class AttackPatternA5 : MonoBehaviour
     {
         if (!isUp)
         {
-            StartCoroutine(ScaleUp(gameObject, 1, 1));
+            StartCoroutine(ScaleUp(gameObject, SpawnTime, 1));
         }
         else
         {
-            StartCoroutine(ScaleDown(gameObject, 1, 0.5f));
+            StartCoroutine(ScaleDown(gameObject, DeSpawnTime, 0.5f));
         }
     }
     IEnumerator Shake(GameObject obj, float Duration = 1f, float Power = 1f)
@@ -56,7 +59,7 @@ public class AttackPatternA5 : MonoBehaviour
             obj.transform.localScale = Vector3.Lerp(obj.transform.localScale, EndVector, Time.deltaTime);
             yield return null;
         }
-        yield return new WaitForSeconds(0.7f);
+        yield return new WaitForSeconds(MaintainTime);
         isUp = true;
     }
     IEnumerator ScaleDown(GameObject obj, float Duration, float Delay)

@@ -1450,6 +1450,7 @@ public class UICode : MonoBehaviour
         AtkPtnA10M.enabled = false;
         StateManager.instance.Fighting = false;
         MyTurnBack();
+        yield break;
     }
     void DuringLogAppear(string log)
     {

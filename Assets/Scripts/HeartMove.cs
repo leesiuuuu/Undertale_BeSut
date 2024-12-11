@@ -37,7 +37,7 @@ public class HeartMove : MonoBehaviour
         {
             ShieldObj.SetActive(true);
         }
-        if (!OnceToogle && StateManager.instance._10Ptn)
+        if (OnceToogle && StateManager.instance._10Ptn)
         {
             ShieldBarr.SetActive(true);
         }

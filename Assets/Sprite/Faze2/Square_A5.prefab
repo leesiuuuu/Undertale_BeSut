@@ -144,4 +144,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rotate: 0
+  SpawnTime: 1
+  DeSpawnTime: 1
+  MaintainTime: 0.7
   BoomSound: {fileID: 8300000, guid: 296693222a656244190726d8820dc908, type: 3}

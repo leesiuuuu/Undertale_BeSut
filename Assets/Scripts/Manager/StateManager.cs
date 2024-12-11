@@ -26,7 +26,7 @@ public class StateManager : MonoBehaviour
     public bool BetrayalFaze2 = false;
     [Space(20)]
     public bool GameDone = false;
-    public bool _10Ptn = false;
+    public bool _10Ptn = false;                         
     void Awake()
     {
         if(instance == null)

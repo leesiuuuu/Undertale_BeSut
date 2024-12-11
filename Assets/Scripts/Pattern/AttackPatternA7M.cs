@@ -51,6 +51,7 @@ public class AttackPatternA7M : MonoBehaviour
         StateManager.instance.Fighting = false;
         PatternManager.instance.isSpeicalMove = false;
         UC.MyTurnBack();
+        yield break;
     }
     IEnumerator Pattern7_1()
     {

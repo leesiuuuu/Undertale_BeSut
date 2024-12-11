@@ -670,12 +670,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013512857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: da3067ddf23cba44c878d2a74477d1dd, type: 3}
+  m_Script: {fileID: 11500000, guid: 532a22e45b1040142847ba84f46117f8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  BigLaser: {fileID: 2244981768405140863, guid: 7c168672fea445a42b0121a6cd032731, type: 3}
-  Player: {fileID: 943184718}
-  CF: {fileID: 2014713424}
+  LaserPortal: {fileID: 3080226620600772368, guid: 029ffc32c2d92f74f80c85d5c89363f9, type: 3}
+  BoxRange: {x: 3.07, y: 1.99}
+  Damager: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
+  AC: {fileID: 8300000, guid: 4f2f54e8e37d6f6479854da85fdc5475, type: 3}
+  UC: {fileID: 0}
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0
