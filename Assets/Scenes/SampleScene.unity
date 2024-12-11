@@ -1875,6 +1875,7 @@ GameObject:
   - component: {fileID: 566701217}
   - component: {fileID: 566701218}
   - component: {fileID: 566701219}
+  - component: {fileID: 566701220}
   m_Layer: 0
   m_Name: PatternChecnker
   m_TagString: Untagged
@@ -2202,6 +2203,23 @@ MonoBehaviour:
   Damager: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
   AC: {fileID: 8300000, guid: 4f2f54e8e37d6f6479854da85fdc5475, type: 3}
   UC: {fileID: 2077749599}
+--- !u!114 &566701220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566701202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c4805e1ee7db434d99b6c147ff5e29d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LaserPortal: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
+  Lines: {fileID: 2124813699973766873, guid: a4cdb8ae17c736f4398f173d305f6153, type: 3}
+  Damager: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
+  AC: {fileID: 8300000, guid: 4f2f54e8e37d6f6479854da85fdc5475, type: 3}
+  UC: {fileID: 2077749599}
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2356,7 +2374,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PatternCount: 0
-  PatternCountFaze2: 9
+  PatternCountFaze2: 10
   Before: 0
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
@@ -2374,6 +2392,7 @@ MonoBehaviour:
   AtkPtnA9M: {fileID: 566701217}
   AtkPtnA10M: {fileID: 566701218}
   AtkPtnA11M: {fileID: 566701219}
+  AtkPtnA12M: {fileID: 566701220}
   WhiteFade: {fileID: 1447209073}
   RandomNum: -1
   isSpeicalMove: 0

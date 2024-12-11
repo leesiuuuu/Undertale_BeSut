@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &75124095529753875
+--- !u!1 &5012773647786752401
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,7 +8,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 7646972327060779080}
+  - component: {fileID: 1704747501107051886}
   m_Layer: 7
   m_Name: Pos
   m_TagString: Untagged
@@ -16,22 +16,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7646972327060779080
+--- !u!4 &1704747501107051886
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 75124095529753875}
+  m_GameObject: {fileID: 5012773647786752401}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 7169555981045298481}
+  m_Father: {fileID: 2484749038767592572}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2244981768405140863
+--- !u!1 &6189764112520983241
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -39,80 +39,9 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4025548564519462217}
-  - component: {fileID: 8609412923474205533}
-  - component: {fileID: 3398062569979728166}
-  m_Layer: 0
-  m_Name: LaserPortal_Big
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4025548564519462217
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244981768405140863}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.22, y: -7.06, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 5936170612296470707}
-  - {fileID: 7169555981045298481}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8609412923474205533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244981768405140863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b1f607fe4bf9540b394aa27d81e966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPos: {x: 4.22, y: -7.06, z: 0}
-  EndPos: {x: 4.22, y: -1.39, z: 0}
-  ease: 11
-  Duration: 0.5
-  Delay: 0
-  Delete: 0
---- !u!114 &3398062569979728166
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2244981768405140863}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29b1f607fe4bf9540b394aa27d81e966, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  StartPos: {x: 4.22, y: -1.39, z: 0}
-  EndPos: {x: 4.22, y: -7.06, z: 0}
-  ease: 10
-  Duration: 0.5
-  Delay: 8
-  Delete: 1
---- !u!1 &3241057241883551641
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 7169555981045298481}
-  - component: {fileID: 4547052506917476796}
-  - component: {fileID: 8157140029441694281}
+  - component: {fileID: 2484749038767592572}
+  - component: {fileID: 7318695208971050117}
+  - component: {fileID: 5244190509030291883}
   m_Layer: 7
   m_Name: Laser_1
   m_TagString: Untagged
@@ -120,30 +49,30 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &7169555981045298481
+--- !u!4 &2484749038767592572
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3241057241883551641}
+  m_GameObject: {fileID: 6189764112520983241}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.3043804, y: 1.1514988, z: 1.1514988}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7646972327060779080}
-  m_Father: {fileID: 4025548564519462217}
+  - {fileID: 1704747501107051886}
+  m_Father: {fileID: 2494473864081909223}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
---- !u!120 &4547052506917476796
+--- !u!120 &7318695208971050117
 LineRenderer:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3241057241883551641}
+  m_GameObject: {fileID: 6189764112520983241}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -240,22 +169,22 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
---- !u!114 &8157140029441694281
+--- !u!114 &5244190509030291883
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3241057241883551641}
+  m_GameObject: {fileID: 6189764112520983241}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2d1d012c913f024f9d4570786d6b1df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defDistanceRay: 200
-  laserFirePoint: {fileID: 7646972327060779080}
-  m_LR: {fileID: 4547052506917476796}
-  segmentCount: 70
+  defDistanceRay: 1000
+  laserFirePoint: {fileID: 1704747501107051886}
+  m_LR: {fileID: 7318695208971050117}
+  segmentCount: 15
   segmentOffset: 0.02
   ignoreLayers:
     serializedVersion: 2
@@ -267,7 +196,7 @@ MonoBehaviour:
   LaserUnexpandingDelay: 0
   XYCheck: 0
   damageInterval: 0.5
---- !u!1 &8777898403642965187
+--- !u!1 &6688029586169097288
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -275,9 +204,74 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5936170612296470707}
-  - component: {fileID: 8307335094466548367}
-  - component: {fileID: 5328514336030122187}
+  - component: {fileID: 1418248168872579103}
+  m_Layer: 0
+  m_Name: LaserPortal_Round
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1418248168872579103
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6688029586169097288}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 2494473864081909223}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6759081253525235787
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2494473864081909223}
+  m_Layer: 0
+  m_Name: LaserPortal_Big
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2494473864081909223
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6759081253525235787}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: 0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.62, y: 0.62, z: 0.62}
+  m_ConstrainProportionsScale: 1
+  m_Children:
+  - {fileID: 367782190286611629}
+  - {fileID: 2484749038767592572}
+  m_Father: {fileID: 1418248168872579103}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+--- !u!1 &8054093745611674581
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 367782190286611629}
+  - component: {fileID: 6243727132380885509}
+  - component: {fileID: 6463555857945883801}
   m_Layer: 7
   m_Name: Laser
   m_TagString: Laser
@@ -285,28 +279,28 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5936170612296470707
+--- !u!4 &367782190286611629
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8777898403642965187}
+  m_GameObject: {fileID: 8054093745611674581}
   serializedVersion: 2
   m_LocalRotation: {x: 0.46705553, y: 0.17849128, z: 0.8089639, w: 0.30915597}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 3}
   m_ConstrainProportionsScale: 1
   m_Children: []
-  m_Father: {fileID: 4025548564519462217}
+  m_Father: {fileID: 2494473864081909223}
   m_LocalEulerAnglesHint: {x: 0, y: 60, z: 138.17}
---- !u!212 &8307335094466548367
+--- !u!212 &6243727132380885509
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8777898403642965187}
+  m_GameObject: {fileID: 8054093745611674581}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -352,13 +346,13 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5328514336030122187
+--- !u!114 &6463555857945883801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8777898403642965187}
+  m_GameObject: {fileID: 8054093745611674581}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8e013ed8e95bfaf43af3dc8f96a7daf0, type: 3}

@@ -39,7 +39,7 @@ public class AttackPatternA7M : MonoBehaviour
             int RandomNum = Random.Range(0, 3);
             GameObject Clone = Instantiate(LaserPortal);
             Clone.GetComponent<PosMove>().EndPos.y = YPos[RandomNum];
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.7f);
             Clone.GetComponent<PosMove>().StartPos.y = YPos[RandomNum];
             yield return new WaitForSeconds(2f);
         }

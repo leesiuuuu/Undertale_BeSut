@@ -29,9 +29,10 @@ public class AttackPatternA4M : MonoBehaviour
         for(int i = 0; i < RandomCount; i++)
         {
             int RandomNum = Random.Range(0, 3);
+            bool LR = (Random.value < 0.5f);
             GameObject Clone = Instantiate(LaserPortal);
             Clone.GetComponent<PosMove>().EndPos.y = YPos[RandomNum];
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.7f);
             Clone.GetComponent<PosMove>().StartPos.y = YPos[RandomNum];
             yield return new WaitForSeconds(2f);
         }

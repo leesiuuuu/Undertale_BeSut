@@ -17,7 +17,7 @@ public class CircleExer : MonoBehaviour
             var x = circleR * Mathf.Sin(rad);
             var y = circleR * Mathf.Cos(rad);
             Barrier.transform.position = transform.position + new Vector3(x, y);
-            Barrier.transform.rotation = Quaternion.Euler(Barrier.transform.rotation.x, Barrier.transform.rotation.y, deg * -1); //가운데를 바라보게 각도 조절
+            Barrier.transform.rotation = Quaternion.Euler(Barrier.transform.rotation.x, Barrier.transform.rotation.y, Barrier.transform.rotation.z + deg * -1); //가운데를 바라보게 각도 조절
         }
         else
         {

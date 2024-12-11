@@ -483,7 +483,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943184718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef70b4365c394f54ea9a85a66ce5915f, type: 3}
   m_Name: 
@@ -505,7 +505,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circleR: 3
-  deg: 0
+  deg: 90
   objSpeed: 100
   Barrier: {fileID: 0}
 --- !u!114 &943184727
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943184718}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fea957efcc9dfd459eed6fde1af5dbe, type: 3}
   m_Name: 
@@ -670,11 +670,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013512857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 532a22e45b1040142847ba84f46117f8, type: 3}
+  m_Script: {fileID: 11500000, guid: 8c4805e1ee7db434d99b6c147ff5e29d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserPortal: {fileID: 3080226620600772368, guid: 029ffc32c2d92f74f80c85d5c89363f9, type: 3}
-  BoxRange: {x: 3.07, y: 1.99}
+  LaserPortal: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
+  Lines: {fileID: 2124813699973766873, guid: a4cdb8ae17c736f4398f173d305f6153, type: 3}
   Damager: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
   AC: {fileID: 8300000, guid: 4f2f54e8e37d6f6479854da85fdc5475, type: 3}
   UC: {fileID: 0}
