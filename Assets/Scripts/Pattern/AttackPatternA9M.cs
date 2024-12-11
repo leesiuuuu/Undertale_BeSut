@@ -58,6 +58,7 @@ public class AttackPatternA9M : MonoBehaviour
         yield return new WaitForSeconds(1f);
         Destroy(n);
         //³¡
+        this.enabled = false;
         StateManager.instance.Fighting = false;
         PatternManager.instance.isSpeicalMove = false;
         UC.MyTurnBack();

@@ -83,6 +83,7 @@ public class AttackPattern4M : MonoBehaviour
             }
             yield return new WaitForSeconds(1.2f);
         }
+        this.enabled = false;
         StateManager.instance.Fighting = false;
         Plaeyr.GetComponent<HeartMove>().Pattern3Start = false;
         Plaeyr.GetComponent<HeartMove>().NoCool = false;

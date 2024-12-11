@@ -91,6 +91,7 @@ public class AttackPatternA2M : MonoBehaviour
             }
             yield return new WaitForSeconds(0.75f);
         }
+        this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
     }

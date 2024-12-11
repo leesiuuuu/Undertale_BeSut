@@ -25,6 +25,7 @@ public class AttackPatternA3M : MonoBehaviour
         GameObject Clone = Instantiate(Random.value > 0.5 ? BtmAtker : TopAtker);
         Clone.GetComponent<PosMove>().Duration = 0.5f;
         yield return new WaitForSeconds(0.5f);
+        this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
     }

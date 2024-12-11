@@ -41,6 +41,7 @@ public class AttackPattern3M : MonoBehaviour
             SoundManager.instance.SFXPlay("Laser", AC3);
             yield return new WaitForSeconds(1.5f);
         }
+        this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
         yield return null;

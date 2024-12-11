@@ -2,7 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class UICode : MonoBehaviour
@@ -38,6 +41,7 @@ public class UICode : MonoBehaviour
     public GameObject Heart;
     public GameObject TalkBalloon;
     public BossTalkCode TalkBalloonText;
+    public ScaleMOve scalemove;
     [Header("Scripts")]
     public TextBoxToFightBox T1;
     public TextBoxToFightBox T2;
@@ -47,21 +51,6 @@ public class UICode : MonoBehaviour
     public HeartMove HM;
     public ItemUse IU;
     [Space(20f)]
-    public AttackPattern2M AtkPtn2M;
-    public AttackPattern3M AtkPtn3M;
-    public AttackPattern1M AtkPtn1M;
-    public AttackPattern4M AtkPtn4M;
-    public AttackPattern5M AtkPtn5M;
-    [Space(20f)]
-    public AttackPatternA1M AtkPtnA1M;
-    public AttackPatternA2M AtkPtnA2M;
-    public AttackPatternA3M AtkPtnA3M;
-    public AttackPatternA4M AtkPtnA4M;
-    public AttackPatternA5M AtkPtnA5M;
-    public AttackPatternA6M AtkPtnA6M;
-    public AttackPatternA7M AtkPtnA7M;
-    public AttackPatternA8M AtkPtnA8M;
-    public AttackPatternA9M AtkPtnA9M;
     public AttackPatternA10M AtkPtnA10M;
     [Header("Attack Sprite")]
     public GameObject AttackBar;
@@ -165,7 +154,9 @@ public class UICode : MonoBehaviour
     void Start()
     {
         StateManager.instance.GameDone = false;
-
+        scalemove.enabled = true;
+        //남아있는 요소 확인
+        if(ItemList.Count > 0 ) ItemList.Clear();
         //리스트 요소 추가
         ItemList.Add("자연산 커피");
         ItemList.Add("마법 롤케이크");
@@ -179,6 +170,7 @@ public class UICode : MonoBehaviour
         MAX_ITEM_LOCATE = ItemList.Count;
 
         //Act 리스트 요소 추가
+        if(ActList.Count > 0) ActList.Clear();
         ActList.Add("야옹거리기");
         ActList.Add("욕하기");
         ActList.Add("항복하기");
@@ -216,7 +208,6 @@ public class UICode : MonoBehaviour
         Item = false;
         Mercy = false;
         Heart.SetActive(true);
-        AtkPtn2M.enabled = false;
         HeartPos = FightBtnPos;
         Cursor.visible = false;
 
@@ -429,7 +420,11 @@ public class UICode : MonoBehaviour
                     else
                     {
                         if (!StateManager.instance.Faze2) StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
-                        else StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
+                        else
+                        {
+                            PatternManager.instance.Before = PatternManager.instance.PatternCountFaze2;
+                            StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
+                        }
                     }
                 }
             }
@@ -685,6 +680,7 @@ public class UICode : MonoBehaviour
                         {
                             if (StateManager.instance.Faze2)
                             {
+                                PatternManager.instance.Before = PatternManager.instance.PatternCountFaze2;
                                 StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
                             }
                             StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
@@ -729,7 +725,7 @@ public class UICode : MonoBehaviour
                             case 0:
                                 DialogueAdder("아직도 목숨을 구걸하다니.", "그렇게 살고 싶나?");
                                 break;
-                            case 1:
+                            default:
                                 DialogueAdder("더 이상 대답할 이유는 없다.");
                                 break;
                         }
@@ -776,7 +772,11 @@ public class UICode : MonoBehaviour
                         if (!isCountStarted)
                         {
                             if(!StateManager.instance.Faze2) StartCoroutine(PatternManager.instance.SeqPatternStart(StateManager.instance.TurnCount));
-                            else StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
+                            else
+                            {
+                                PatternManager.instance.Before = PatternManager.instance.PatternCountFaze2;
+                                StartCoroutine(PatternManager.instance.SeqPatternStart2(PatternManager.instance.PatternCountFaze2));
+                            }
                             isCountStarted = true;
                         }
                     }
@@ -791,6 +791,28 @@ public class UICode : MonoBehaviour
             Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 0xp와 0골드를 얻었다!");
             StateManager.instance.GameDone = false;
             GameDoneLogAdd = true;
+        }
+        //게임 종료 코드
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            StartCoroutine(ExitGame());
+        }
+    }
+    //추후에 더 다룰 예정
+    IEnumerator ExitGame()
+    {
+        float DownTime = 0f;
+        while (!Input.GetKeyUp(KeyCode.Escape))
+        {
+            DownTime += Time.deltaTime;
+            if (DownTime > 1.3f)
+            {
+                //DownTime = 0f;
+                Debug.Log("Game Exit!");
+                break;
+                //Application.Quit();
+            }
+            yield return null;
         }
     }
 
@@ -1059,7 +1081,7 @@ public class UICode : MonoBehaviour
     private IEnumerator ActAttacking()
     {
         Damage = 0;
-        IsMiss = (Random.value < 0.5f);
+        IsMiss = (Random.value < 0.7f);
         bool Stop = false;
         Heart.SetActive(false);
         AttackBar.SetActive(true);
@@ -1081,7 +1103,7 @@ public class UICode : MonoBehaviour
                 }
                 else if(StateManager.instance.BetrayalFaze2 || StateManager.instance.NormalFaze2)
                 {
-                    Damage = (int)(DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x) * 1.5f);
+                    Damage = (int)(DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x) * 1.3f);
                 }
                 else
                 {
@@ -1294,106 +1316,6 @@ public class UICode : MonoBehaviour
         {
             StateManager.instance.SaveBetrayalFaze2();
         }
-        if (StateManager.instance.Faze2)
-        {
-            if (PatternManager.instance.PatternCountFaze2 == PatternManager.instance.RandomNum)
-            {
-                switch (PatternManager.instance.RandomNum)
-                {
-                    case 0:
-                        AtkPtnA1M.enabled = false;
-                        break;
-                    case 1:
-                        AtkPtnA2M.enabled = false;
-                        break;
-                    case 2:
-                        AtkPtnA3M.enabled = false;
-                        break;
-                    case 3:
-                        AtkPtnA4M.enabled = false;
-                        break;
-                    case 4:
-                        AtkPtnA5M.enabled = false;
-                        break;
-                    case 5:
-                        AtkPtnA6M.enabled = false;
-                        break;
-                    case 6:
-                        AtkPtnA7M.enabled = false;
-                        break;
-                    case 7:
-                        AtkPtnA8M.enabled = false;
-                        break;
-                    case 8:
-                        AtkPtnA9M.enabled = false;
-                        break;
-                }
-            }
-            else
-            {
-                switch (PatternManager.instance.PatternCountFaze2)
-                {
-                    case 0:
-                        AtkPtnA1M.enabled = false;
-                        break;
-                    case 1:
-                        AtkPtnA2M.enabled = false;
-                        break;
-                    case 2:
-                        AtkPtnA3M.enabled = false;
-                        break;
-                    case 3:
-                        AtkPtnA4M.enabled = false;
-                        break;
-                    case 4:
-                        AtkPtnA5M.enabled = false;
-                        break;
-                    case 5:
-                        AtkPtnA6M.enabled = false;
-                        break;
-                    case 6:
-                        AtkPtnA7M.enabled = false;
-                        break;
-                    case 7:
-                        AtkPtnA8M.enabled = false;
-                        break;
-                    case 8:
-                        AtkPtnA9M.enabled = false;
-                        break;
-                    case 9:
-                        AtkPtnA10M.enabled = false;
-                        break;
-                }
-            }
-        }
-        else
-        {
-            switch (StateManager.instance.TurnCount)
-            {
-                case 1:
-                    AtkPtn2M.enabled = false;
-                    break;
-                case 2:
-                    AtkPtn3M.enabled = false;
-                    break;
-                case 3:
-                    AtkPtn1M.enabled = false;
-                    break;
-                case 4:
-                    AtkPtn4M.enabled = false;
-                    break;
-                case 5:
-                    AtkPtn5M.enabled = false;
-                    break;
-                default:
-                    AtkPtn1M.enabled = false;
-                    AtkPtn2M.enabled = false;
-                    AtkPtn3M.enabled = false;
-                    AtkPtn4M.enabled = false;
-                    AtkPtn5M.enabled = false;
-                    break;
-            }
-        }
         isActDialogue = false;
         isItemDialogue = false;
         isMercyDialogue = false;
@@ -1454,7 +1376,7 @@ public class UICode : MonoBehaviour
         StateManager.instance.Starting = false;
         StateManager.instance.Fighting = true;
         //공격 시에만 추가해야 하기 때문에
-        PatternManager.instance.PatternCountFaze2++;
+        PatternManager.instance.Before = PatternManager.instance.PatternCountFaze2++;
         Ttext.text = "";
         T_1.enabled = false;
         T_2.enabled = false;
@@ -1507,7 +1429,7 @@ public class UICode : MonoBehaviour
         }
         TalkBalloon.SetActive(false);
     }
-    ///마지막에만 사용할 것. 기타 다른 상황에서는 사용 금지.
+    ///로그 출력 마지막에만 사용할 것. 기타 다른 상황에서는 사용 금지.
     public IEnumerator BossSpriteChangeLog(int[] SpriteNumber, int[] logCount, params string[] logs)
     {
         TalkBalloonText.gameObject.GetComponent<TextMeshPro>().text = "";
@@ -1525,6 +1447,7 @@ public class UICode : MonoBehaviour
             yield return new WaitForSeconds((logs[i].Length - 3) * 0.2f + 1);
         }
         TalkBalloon.SetActive(false);
+        AtkPtnA10M.enabled = false;
         StateManager.instance.Fighting = false;
         MyTurnBack();
     }
@@ -1666,5 +1589,10 @@ public class UICode : MonoBehaviour
                 }
             }
         }
+    }
+    //씬 재로드 시 불러올 함수, 초기 상태로 완전히 되돌려놓을 것.
+    void AllInit()
+    {
+
     }
 }

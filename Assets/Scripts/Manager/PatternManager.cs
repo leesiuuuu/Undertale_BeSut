@@ -6,7 +6,7 @@ public class PatternManager : MonoBehaviour
     public static PatternManager instance;
     public int PatternCount = 1;
     public int PatternCountFaze2 = -1;
-    private int Before = 0;
+    public int Before = 0;
     [Header("Faze1 AtkPtn Attributes")]
     public AttackPattern2M AtkPtn2M;
     public AttackPattern3M AtkPtn3M;
@@ -44,7 +44,6 @@ public class PatternManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Before = PatternCountFaze2;
         }
         else
         {
@@ -189,6 +188,7 @@ public class PatternManager : MonoBehaviour
                     AtkPtnA10M.enabled = true;
                     break;
             }
+            Before = PatternCountFaze2;
         }
     }
     private int beforeCheck(int before)

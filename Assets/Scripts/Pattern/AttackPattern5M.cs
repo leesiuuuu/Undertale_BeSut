@@ -36,6 +36,7 @@ public class AttackPattern5M : MonoBehaviour
             clone.GetComponent<AttackPattern5_2>().Nigg(RandomX, AtkObj, WarningS);
             yield return new WaitForSeconds(Random.Range(0.2f, 1f));
         }
+        this.enabled = false;
         yield return new WaitForSeconds(1);
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();

@@ -64,6 +64,7 @@ public class AttackPatternA5M : MonoBehaviour
         }
         yield return new WaitForSeconds(2.4f);
         //턴 전환 코드
+        this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
     }

@@ -72,6 +72,7 @@ public class AttackPatternA1M : MonoBehaviour
         StartCoroutine(Jhin2Add());
         StartCoroutine(BarrierDisappear());
         yield return new WaitForSeconds(0.8f);
+        this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
 

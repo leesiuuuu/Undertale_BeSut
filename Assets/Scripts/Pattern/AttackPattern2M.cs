@@ -62,6 +62,7 @@ public class AttackPattern2M : MonoBehaviour
             ++CopyedCount;
             if (CopyedCount > MAX_COPY_COUNT)
             {
+                this.enabled = false;
                 StateManager.instance.Fighting = false;
                 Arrow.SetActive(false);
                 UC.MyTurnBack();

@@ -47,6 +47,7 @@ public class AttackPatternA7M : MonoBehaviour
         StopCoroutine(Pattern7_1());
         yield return new WaitForSeconds(0.9f);
         Destroy(n);
+        this.enabled = false;
         StateManager.instance.Fighting = false;
         PatternManager.instance.isSpeicalMove = false;
         UC.MyTurnBack();
