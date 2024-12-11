@@ -36,6 +36,8 @@ public class AchievementManager : MonoBehaviour
         PlayerPrefs.SetInt("InitState", 1);
         PlayerPrefs.Save();
     }
+    //업적을 달성했을 때 업적을 저장해줌.
+    //클리어가 1이면 업적 클리어, 그렇지 않으면 업적 클리어 X
     public void SaveAchi(string key, int clear)
     {
         if(PlayerPrefs.HasKey(key))
@@ -55,6 +57,18 @@ public class AchievementManager : MonoBehaviour
             if (state.key == key) return state;
         }
         return null;
+    }
+    //업적 달성 여부를 로드, 만약 값을 찾을 수 없으면 -1을 반환함.
+    public int LoadAchi(string Key)
+    {
+        if (PlayerPrefs.HasKey(Key))
+        {
+            return PlayerPrefs.GetInt(Key);
+        }
+        else
+        {
+            return -1;
+        }
     }
     private void DeleteAllAchi()
     {
