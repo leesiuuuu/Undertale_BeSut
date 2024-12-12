@@ -1,24 +1,64 @@
 using UnityEngine;
+using TMPro;
 
 public class AchievementUI : MonoBehaviour
 {
-    // Update is called once per frame
-    void Update()
+    public AchievementSO ASO;
+
+    public SpriteRenderer Icon;
+    public TextMeshPro TMP1;
+    public TextMeshPro TMP2;
+
+    public Sprite Lock;
+
+    public SpriteRenderer[] SR;
+    public TextMeshPro[] TMPN;
+    private void Start()
     {
-        
+        SR = GetComponentsInChildren<SpriteRenderer>();
+        TMPN = GetComponentsInChildren<TextMeshPro>();
+        PlayerPrefs.SetInt(ASO.key, 0);
+        if (PlayerPrefs.GetInt(ASO.key) == 1)
+        {
+            Icon.sprite = ASO.Icon;
+            TMP1.text = ASO.Title;
+            TMP2.text = ASO.Description;
+        }
+        else
+        {
+            Icon.sprite = Lock;
+            TMP1.text = "????";
+            TMP2.text = "??????????????";
+        }
+        StateDeSelete();
+    }
+    public void StateSelete()
+    {
+        for (int i = 0; i < SR.Length; i++)
+        {
+            if (SR[i].gameObject.name != "Black" && SR[i] != null)
+            {
+                SR[i].color = new Color(1, 1, 1, 1f);
+            }
+        }
+        for (int i = 0; i < TMPN.Length; i++)
+        {
+            TMPN[i].color = new Color(1, 1, 1, 1f);
+        }
+    }
+    public void StateDeSelete()
+    {
+        for (int i = 0; i < SR.Length; i++)
+        {
+            if (SR[i].gameObject.name != "Black" && SR[i] != null)
+            {
+                SR[i].color = new Color(1, 1, 1, 0.5f);
+            }
+        }
+        for (int i = 0; i < TMPN.Length; i++)
+        {
+            TMPN[i].color = new Color(1, 1, 1, 0.5f);
+        }
     }
 }
-public class AchiList
-{
-    Sprite Icon;
-    string Title;
-    string context;
-    string ID;
-    public AchiList(Sprite Icon, string Title, string context, string ID)
-    {
-        this.Icon = Icon;
-        this.Title = Title;
-        this.context = context;
-        this.ID = ID;
-    }
-}
+

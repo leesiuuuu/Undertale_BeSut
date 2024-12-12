@@ -1444,7 +1444,7 @@ public class UICode : MonoBehaviour
                     break;
                 }
             }
-            yield return new WaitForSeconds((logs[i].Length - 3) * 0.2f + 1);
+            yield return new WaitForSeconds((logs[i].Length - 3) * 0.2f + 1); 
         }
         TalkBalloon.SetActive(false);
         AtkPtnA10M.enabled = false;

@@ -58,18 +58,6 @@ public class AchievementManager : MonoBehaviour
         }
         return null;
     }
-    //업적 달성 여부를 로드, 만약 값을 찾을 수 없으면 -1을 반환함.
-    public int LoadAchi(string Key)
-    {
-        if (PlayerPrefs.HasKey(Key))
-        {
-            return PlayerPrefs.GetInt(Key);
-        }
-        else
-        {
-            return -1;
-        }
-    }
     private void DeleteAllAchi()
     {
 
