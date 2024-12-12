@@ -596,7 +596,7 @@ Canvas:
   m_GameObject: {fileID: 966343483}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 1
+  m_RenderMode: 2
   m_Camera: {fileID: 2014713422}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -618,8 +618,8 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 966343483}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 50}
+  m_LocalScale: {x: 0.020833334, y: 0.020833334, z: 0.020833334}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -627,8 +627,8 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_SizeDelta: {x: 640, y: 480}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1013512857
 GameObject:
   m_ObjectHideFlags: 0
@@ -670,13 +670,27 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013512857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c4805e1ee7db434d99b6c147ff5e29d, type: 3}
+  m_Script: {fileID: 11500000, guid: c2817707138ab2946abb22dc3e332725, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   LaserPortal: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
   Lines: {fileID: 2124813699973766873, guid: a4cdb8ae17c736f4398f173d305f6153, type: 3}
-  Damager: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
-  AC: {fileID: 8300000, guid: 4f2f54e8e37d6f6479854da85fdc5475, type: 3}
+  Damager_Main: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
+  AC: {fileID: 8300000, guid: 98c040b6af7e4394db49bdbe7ed44383, type: 3}
+  Box1Range: {x: 3.88, y: 2.43}
+  Pos1: {x: -4.74, y: 3.85, z: 0}
+  Box1_1Range: {x: 3.99, y: 2.04}
+  Pos1_1: {x: 4.67, y: 3.99, z: 0}
+  Box2Range: {x: 3.97, y: 2.08}
+  Pos2: {x: -4.58, y: -4.39, z: 0}
+  Box2_1Range: {x: 3.62, y: 2.19}
+  Pos2_1: {x: 4.93, y: -4.15, z: 0}
+  Duration: 20
+  PlayerTransform: {fileID: 943184723}
+  Damager: {fileID: 4221207430557407648, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
+  Atk1: {fileID: 8300000, guid: 2f5003a255dcb6a47abf4e3256d5d004, type: 3}
+  MAX: 0
+  MIN: 0
   UC: {fileID: 0}
 --- !u!1 &1629250323
 GameObject:

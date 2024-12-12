@@ -96,7 +96,7 @@ public class Laser_Ex : MonoBehaviour
                     if(damageTimer <= 0)
                     {
                         Debug.Log("Hit!");
-                        //HM_Player.Damaged(1);
+                        HM_Player.Damaged(1);
                         damageTimer += damageInterval;
                     }
                     Draw2DRay(i, start, (Vector2)start + (Vector2)transform.right * currentLaserDistance);

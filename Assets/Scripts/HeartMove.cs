@@ -213,7 +213,6 @@ public class HeartMove : MonoBehaviour
         else
         {
             PlayerManager.instance.HPChanged();
-            //animator.SetBool("Hurted", true);
         }
     }
 }

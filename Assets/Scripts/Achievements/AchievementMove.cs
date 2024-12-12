@@ -8,14 +8,21 @@ public class AchievementMove : MonoBehaviour
     int index = 0;
     int before = 0;
     int MAX_INDEX_NUM = 10;
+    bool once = false;
     void Start()
     {
+        once = false;
         AchiUIs = GetComponentsInChildren<AchievementUI>();
     }
 
     float y = 0;
     void Update()
     {
+        if (!once)
+        {
+            AchiUIs[0].StateSelete();
+            once = true;
+        }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             y = Mathf.Clamp(y+=3f, 0, 27f);
