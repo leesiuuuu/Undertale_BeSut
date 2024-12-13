@@ -27,6 +27,7 @@ public class AttackPatternA10M : MonoBehaviour
         PosMove ClonePM = Clone.GetComponent<PosMove>();
         Laser_Ex LE = Clone.GetComponentInChildren<Laser_Ex>();
         LE._LaserDelay = 5f;
+        LE.XYCheck = 1;
         ClonePM.Delay = 2f;
         yield return new WaitForSeconds(2f);
         _Camera.gameObject.transform.position = new Vector3(0, 0, -50f);

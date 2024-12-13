@@ -483,7 +483,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943184718}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ef70b4365c394f54ea9a85a66ce5915f, type: 3}
   m_Name: 
@@ -515,7 +515,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 943184718}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9fea957efcc9dfd459eed6fde1af5dbe, type: 3}
   m_Name: 
@@ -670,28 +670,44 @@ MonoBehaviour:
   m_GameObject: {fileID: 1013512857}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c2817707138ab2946abb22dc3e332725, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ec85c341aa5c6443afbb1dacbfb1fe9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LaserPortal: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
-  Lines: {fileID: 2124813699973766873, guid: a4cdb8ae17c736f4398f173d305f6153, type: 3}
-  Damager_Main: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
-  AC: {fileID: 8300000, guid: 98c040b6af7e4394db49bdbe7ed44383, type: 3}
-  Box1Range: {x: 3.88, y: 2.43}
-  Pos1: {x: -4.74, y: 3.85, z: 0}
-  Box1_1Range: {x: 3.99, y: 2.04}
-  Pos1_1: {x: 4.67, y: 3.99, z: 0}
-  Box2Range: {x: 3.97, y: 2.08}
-  Pos2: {x: -4.58, y: -4.39, z: 0}
-  Box2_1Range: {x: 3.62, y: 2.19}
-  Pos2_1: {x: 4.93, y: -4.15, z: 0}
-  Duration: 20
+  UC: {fileID: 0}
+  Square_A5: {fileID: 4354811480786773564, guid: bfbf115707823374db99b0c9a80f97c6, type: 3}
+  SquareCreateSound: {fileID: 0}
+  LaserPortal_Big: {fileID: 3080226620600772368, guid: 029ffc32c2d92f74f80c85d5c89363f9, type: 3}
+  Left: {fileID: 6643931122511095392, guid: d23e64910437fb8488f3c6c3c7166010, type: 3}
+  Right: {fileID: 6643931122511095392, guid: abd758f5a34533846b5d68e7fbbfdca5, type: 3}
+  Up: {fileID: 6643931122511095392, guid: fe4831999ff0e6d4cbc189bf5bb78130, type: 3}
+  Down: {fileID: 2931691071131444729, guid: 8d9d34f36f0315c4fbcba4ed7b95df7f, type: 3}
+  Box1Range: {x: 3.5, y: 2}
+  Pos1: {x: -5, y: 4, z: 0}
+  Box1_1Range: {x: 3.5, y: 2}
+  Pos1_1: {x: 5, y: 4, z: 0}
+  Box2Range: {x: 3.5, y: 2}
+  Pos2: {x: -5, y: -4, z: 0}
+  Box2_1Range: {x: 3.5, y: 2}
+  Pos2_1: {x: 5, y: -4, z: 0}
+  Duration: 10
+  isCreateDone: 0
   PlayerTransform: {fileID: 943184723}
-  Damager: {fileID: 4221207430557407648, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
-  Atk1: {fileID: 8300000, guid: 2f5003a255dcb6a47abf4e3256d5d004, type: 3}
+  PlayerFollowSprite: {fileID: 4221207430557407648, guid: fccce63b2e361af47a20fdea7069bbdb, type: 3}
+  PFSCreateSound: {fileID: 0}
   MAX: 0
   MIN: 0
-  UC: {fileID: 0}
+  BoxRange: {x: 3.12, y: 2.36}
+  AtkObj: {fileID: 2320087288255682590, guid: 6ded27778aec9074e919b1800d47a909, type: 3}
+  SafeZoneEffect: {fileID: 7876757205389237024, guid: 6ab78856bb60bc74bbe0677b0d637912, type: 3}
+  XRangePos1: {x: 0, y: -0.73, z: 0}
+  X1: 3.5
+  OutSound: {fileID: 0}
+  Effect: {fileID: 7876757205389237024, guid: 6ab78856bb60bc74bbe0677b0d637912, type: 3}
+  AttackObj: {fileID: 4879247256689600154, guid: 6abb4027a0de4484f85bbec408181120, type: 3}
+  Plaeyr: {fileID: 943184718}
+  RepeatCount: 8
+  Obj4Se: {fileID: 0}
+  LaserPortal_Small: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0

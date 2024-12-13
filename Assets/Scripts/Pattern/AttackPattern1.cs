@@ -38,7 +38,7 @@ public class AttackPattern1 : MonoBehaviour
             rb.gravityScale = 0;
             if (!ONnce1)
             {
-                SoundManager.instance.SFXPlay("Fire", Fire);
+                //SoundManager.instance.SFXPlay("Fire", Fire);
                 ONnce1 = true;
             }
             rb.AddForce(direction1 * Power, ForceMode2D.Impulse);

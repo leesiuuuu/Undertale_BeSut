@@ -49,7 +49,7 @@ public class AttackPatternA5 : MonoBehaviour
         gameObject.GetComponent<Collider2D>().enabled = true;
         if (!once)
         {
-            SoundManager.instance.SFXPlay("SFXPldd", BoomSound);
+            //SoundManager.instance.SFXPlay("SFXPldd", BoomSound);
             once = true;
         }
             Vector3 EndVector = new Vector3(25.1195f, 0.6f, 1);

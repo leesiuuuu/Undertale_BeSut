@@ -26,7 +26,8 @@ public class StateManager : MonoBehaviour
     public bool BetrayalFaze2 = false;
     [Space(20)]
     public bool GameDone = false;
-    public bool _10Ptn = false;                         
+    public bool _10Ptn = false;
+    public bool Last = false;
     void Awake()
     {
         if(instance == null)
@@ -102,7 +103,8 @@ public class StateManager : MonoBehaviour
             {
                 if (_10Ptn)
                 {
-                    Dialogue = "* 마지막이 다가오고 있다.";
+                    if (!Last) Dialogue = "* 마지막이 다가오고 있다.";
+                    else Dialogue = "* 네이트 코릴은 모든 힘을 다 쓴 것 같다.";
                 }
                 else
                 {

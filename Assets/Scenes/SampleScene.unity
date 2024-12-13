@@ -1877,6 +1877,7 @@ GameObject:
   - component: {fileID: 566701219}
   - component: {fileID: 566701220}
   - component: {fileID: 566701221}
+  - component: {fileID: 566701222}
   m_Layer: 0
   m_Name: PatternChecnker
   m_TagString: Untagged
@@ -2252,6 +2253,25 @@ MonoBehaviour:
   MAX: 0
   MIN: 0
   UC: {fileID: 2077749599}
+--- !u!114 &566701222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566701202}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38798d92e22f4044d84871ce80e26484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LaserPortal: {fileID: 3080226620600772368, guid: 029ffc32c2d92f74f80c85d5c89363f9, type: 3}
+  Left: {fileID: 6643931122511095392, guid: d23e64910437fb8488f3c6c3c7166010, type: 3}
+  Right: {fileID: 6643931122511095392, guid: abd758f5a34533846b5d68e7fbbfdca5, type: 3}
+  Up: {fileID: 6643931122511095392, guid: fe4831999ff0e6d4cbc189bf5bb78130, type: 3}
+  Down: {fileID: 2931691071131444729, guid: 8d9d34f36f0315c4fbcba4ed7b95df7f, type: 3}
+  Ques: {fileID: 4603213232470731883, guid: ecc55e332e75bf64bb4e564781c3964f, type: 3}
+  UC: {fileID: 2077749599}
 --- !u!1 &625849683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2406,7 +2426,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PatternCount: 0
-  PatternCountFaze2: 11
+  PatternCountFaze2: 12
   Before: 0
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
@@ -2426,6 +2446,7 @@ MonoBehaviour:
   AtkPtnA11M: {fileID: 566701219}
   AtkPtnA12M: {fileID: 566701220}
   AtkPtnA13M: {fileID: 566701221}
+  AtkPtnA14M: {fileID: 566701222}
   WhiteFade: {fileID: 1447209073}
   RandomNum: -1
   isSpeicalMove: 0
@@ -4518,7 +4539,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: 
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 08a885c6adaa5f345bb3797217fb0fd0, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6499a30d5884c7e4f819759eb446ea60, type: 2}
   m_sharedMaterial: {fileID: 2655367951620145834, guid: 08a885c6adaa5f345bb3797217fb0fd0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -4585,7 +4606,7 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_renderer: {fileID: 1534476193}
   m_maskType: 0
 --- !u!23 &1534476193
