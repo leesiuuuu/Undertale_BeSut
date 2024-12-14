@@ -121,6 +121,22 @@ public class AttackPatternA15M : MonoBehaviour
     [SerializeField]
     private GameObject LaserPortal_Small;
 
+    [Space(20)]
+    [Header("P5")]
+    [SerializeField]
+    private float X;
+    [SerializeField]
+    private Vector3 XRangePos;
+    private float Y = -2.171f;
+
+    public GameObject Warning;
+    public GameObject AtkObj_A5;
+
+    public AudioClip WarningS;
+
+    public float MAX_P5;
+    public float MIN_P5;
+
 
 
     private void OnEnable()
@@ -145,6 +161,9 @@ public class AttackPatternA15M : MonoBehaviour
         Pos[1] = new Vector3(-4.6f, -1.3f, 0); //오른쪽
         Pos[2] = new Vector3(0, 2.4f, 0); //위
         Pos[3] = new Vector3(0, -3.9f, 0); //아래
+
+        MAX_P5 = 1f;
+        MIN_P5 = 0.2f;
         StartCoroutine(Pattern15());
     }
     IEnumerator Pattern15()
@@ -160,19 +179,24 @@ public class AttackPatternA15M : MonoBehaviour
             UC.BossAttack(2, "이제 끝내자.",
                 "너도 솔직히 질리잖아? 안그래?");
         }*/
+
+        //Plaeyr.GetComponent<HeartMove>().NoCool = true;
+        //Plaeyr.GetComponent<HeartMove>().Pattern3Start = true;
         yield return new WaitForSeconds(4f);
         //보스 살짝 투명하게 해주는 코드 추가
         StartCoroutine(LaserBoom());
         StartCoroutine(Pattern12_2());
         yield return new WaitForSeconds(10f);
+        flag[1] = true;
         StartCoroutine(StartAttack());
         yield return new WaitForSeconds(10f);
-        flag[1] = true;
         StartCoroutine(SquareAppearence());
         StartCoroutine(Pattern12_1());
         isCreateDone = true;
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         flag[0] = true;
+        flag[6] = true;
+        yield return new WaitForSeconds(4f);
         StartCoroutine(AtkPtn41());
     }
     //큰 레이저 발사
@@ -373,12 +397,10 @@ public class AttackPatternA15M : MonoBehaviour
         }
         yield break;
     }
-    //랜덤한 위치로 특정 타이밍에 맞춰 이동
+    //랜덤한 위치로 특정 타이밍에 맞춰 이동(추가로 연계 패턴 구현 코드 추가)
     IEnumerator AtkPtn41()
     {
-        //Plaeyr.GetComponent<HeartMove>().NoCool = true;
-        //Plaeyr.GetComponent<HeartMove>().Pattern3Start = true;
-        LoopTime = (int)Random.Range(3, 6);
+        LoopTime = (int)Random.Range(4, 6);
         Times = new float[LoopTime];
         dir = new int[LoopTime];
         for (int n = 0; n < RepeatCount; n++)
@@ -394,16 +416,15 @@ public class AttackPatternA15M : MonoBehaviour
             for (int j = 0; j < Times.Length; j++)
             {
                 LastRotate = dir[j];
-                Instantiate(AttackObj);
+                Debug.Log(LastRotate);
+                GameObject Obj = Instantiate(AttackObj);
+                Obj.GetComponent<AttackPattern4>().RotateSetting(LastRotate);
                 yield return new WaitForSeconds(Times[j]);
             }
             yield return new WaitForSeconds(1.2f);
         }
-        this.enabled = false;
-        StateManager.instance.Fighting = false;
-        Plaeyr.GetComponent<HeartMove>().Pattern3Start = false;
-        Plaeyr.GetComponent<HeartMove>().NoCool = false;
-        UC.MyTurnBack();
+        flag[2] = true;
+        StartCoroutine(CreateDamager());
         yield break;
     }
     void RotateInit()
@@ -434,6 +455,30 @@ public class AttackPatternA15M : MonoBehaviour
                 break;
         }
     }
+    //랜덤한 위치에서 솟아오르는 오브젝트 소환(연계 패턴 구현 코드 추가)
+    IEnumerator CreateDamager()
+    {
+        flag[6] = false;
+        flag[4] = true;
+        StartCoroutine(Pattern12_1());
+        int RandomNum = Random.Range(15, 30);
+        for (int i = 0; i < RandomNum; i++)
+        {
+            float RandomX = Random.Range((X / 2) * -1, X / 2);
+            //위험 오브젝트 나타나게 하는 코드 추가
+            Vector2 Pos = transform.position + new Vector3(RandomX, Y + 1.47f, 0);
+            GameObject clone = Instantiate(Warning, Pos, Quaternion.identity);
+            clone.GetComponent<AttackPattern5_2>().Nigg(RandomX, AtkObj, WarningS);
+            yield return new WaitForSeconds(Random.Range(0.2f, 1f));
+        }
+        yield return new WaitForSeconds(1f);
+        flag[6] = true;
+        flag[4] = false;
+        flag[1] = false;
+        StartCoroutine(Attacker());
+        StartCoroutine(Pattern12_2());
+        yield break;
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
@@ -448,5 +493,8 @@ public class AttackPatternA15M : MonoBehaviour
 
         Gizmos.color = Color.white;
         Gizmos.DrawWireCube(XRangePos1, new Vector2(X1, 0.1f));
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(XRangePos, new Vector2(X, 0.1f));
     }
 }

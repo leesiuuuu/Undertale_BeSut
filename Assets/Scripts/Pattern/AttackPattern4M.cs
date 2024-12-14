@@ -65,7 +65,7 @@ public class AttackPattern4M : MonoBehaviour
         LoopTime = (int)Random.Range(3, 6);
         Times = new float[LoopTime];
         dir = new int[LoopTime];
-        for(int n = 0; n <RepeatCount; n++)
+        for(int n = 0; n < RepeatCount; n++)
         {
             for (int i = 0; i < LoopTime; i++)
             {

@@ -166,7 +166,7 @@ public class PosMove : MonoBehaviour
                         t = easeInOutBounce(t);
                         break;
                 }
-                transform.position = Vector3.Lerp(StartPos, EndPos, t);
+                transform.localPosition = Vector3.Lerp(StartPos, EndPos, t);
             }
             else
             {

@@ -15,7 +15,25 @@ public class AttackPattern4 : MonoBehaviour
     void Start()
     {
         direction = Vector3.zero;
-        switch (AttackPattern4M.LastRotate)
+        //이게 메인 코드 입니당
+        //RotateSetting(StateManager.instance._10Ptn ? AttackPatternA15M.LastRotate : AttackPattern4M.LastRotate);
+        RotateSetting(AttackPatternA15M.LastRotate);
+    }
+    void Update()
+    {
+        if(Timer1 < EndTime)
+        {
+            Timer1 += Time.deltaTime;
+            transform.position += direction * 0.001f * Power;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+    public void RotateSetting(int LastRotate)
+    {
+        switch (LastRotate)
         {
             case 0:
                 transform.rotation = Quaternion.Euler(0, 0, 0);
@@ -38,18 +56,6 @@ public class AttackPattern4 : MonoBehaviour
                 transform.position = new Vector3(-8.14f, -1.49f, 0);
                 break;
         }
-        SoundManager.instance.SFXPlay("SD", SD);
-    }
-    void Update()
-    {
-        if(Timer1 < EndTime)
-        {
-            Timer1 += Time.deltaTime;
-            transform.position += direction * 0.001f * Power;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        //SoundManager.instance.SFXPlay("SD", SD);
     }
 }

@@ -639,6 +639,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1013512859}
   - component: {fileID: 1013512860}
+  - component: {fileID: 1013512861}
   m_Layer: 0
   m_Name: PatternChecker
   m_TagString: Untagged
@@ -668,7 +669,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1013512857}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7ec85c341aa5c6443afbb1dacbfb1fe9, type: 3}
   m_Name: 
@@ -705,9 +706,29 @@ MonoBehaviour:
   Effect: {fileID: 7876757205389237024, guid: 6ab78856bb60bc74bbe0677b0d637912, type: 3}
   AttackObj: {fileID: 4879247256689600154, guid: 6abb4027a0de4484f85bbec408181120, type: 3}
   Plaeyr: {fileID: 943184718}
-  RepeatCount: 8
+  RepeatCount: 4
   Obj4Se: {fileID: 0}
   LaserPortal_Small: {fileID: 2244981768405140863, guid: 8182fc5c31c968447b982f3d55bbbe94, type: 3}
+  X: 2.89
+  XRangePos: {x: 0, y: -2.53, z: 0}
+  Warning: {fileID: 3393336386172641305, guid: 76327d564c8193344870f4bd89389a3f, type: 3}
+  AtkObj_A5: {fileID: 2320087288255682590, guid: 6ded27778aec9074e919b1800d47a909, type: 3}
+  WarningS: {fileID: 0}
+  MAX_P5: 0
+  MIN_P5: 0
+--- !u!114 &1013512861
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1013512857}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 410be3011a2dca44290feded0cc72abb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Last: {fileID: 1805388004557836056, guid: 6c5ae8fd98dbb224f9072f0ca100bc8f, type: 3}
 --- !u!1 &1629250323
 GameObject:
   m_ObjectHideFlags: 0
