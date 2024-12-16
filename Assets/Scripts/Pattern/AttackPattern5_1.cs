@@ -15,7 +15,7 @@ public class AttackPattern5_1 : MonoBehaviour
     private bool Donw = false;
     private void Start()
     {
-        //SoundManager.instance.SFXPlay("AtkSound", AtkSound);
+        SoundManager.instance.SFXPlay("AtkSound", AtkSound);
     }
     private void Update()
     {

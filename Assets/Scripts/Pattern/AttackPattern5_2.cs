@@ -12,7 +12,7 @@ public class AttackPattern5_2 : MonoBehaviour
             yield return new WaitForSeconds(0.05f);
             GetComponent<SpriteRenderer>().color = new Color(255, 2552, 255, 0);
             yield return new WaitForSeconds(0.05f);
-            //SoundManager.instance.SFXPlay("Warning", SF);
+            SoundManager.instance.SFXPlay("Warning", SF);
         }
         GameObject Clone = Instantiate(AtkObj);
         Clone.GetComponent<AttackPattern5_1>().StartPos.x = N;

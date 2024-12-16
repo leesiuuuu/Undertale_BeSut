@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
 public class AttackPatternA15M : MonoBehaviour
 {
@@ -87,7 +85,6 @@ public class AttackPatternA15M : MonoBehaviour
     private Vector3 XRangePos1;
     [SerializeField] private float X1;
 
-    public AudioClip OutSound;
     [Space(20)]
     [Header("P4")]
     public GameObject Effect;
@@ -137,6 +134,12 @@ public class AttackPatternA15M : MonoBehaviour
     public float MAX_P5;
     public float MIN_P5;
 
+    [Space(20)]
+    [Header("LastP")]
+    [SerializeField]
+
+    private GameObject Last;
+
 
 
     private void OnEnable()
@@ -155,6 +158,8 @@ public class AttackPatternA15M : MonoBehaviour
         MAX = 2f;
         isCreateDone = false;
 
+        Plaeyr = GameObject.Find("Heart");
+        PlayerTransform = Plaeyr.transform;
 
 
         Pos[0] = new Vector3(4.6f, -1.3f, 0); //왼쪽
@@ -169,20 +174,20 @@ public class AttackPatternA15M : MonoBehaviour
     IEnumerator Pattern15()
     {
         yield return new WaitForSeconds(0.5f);
-/*        if (StateManager.instance.NormalFaze2)
+        if (StateManager.instance.NormalFaze2)
         {
-            UC.BossAttack(2, "끝이다.",
-            "내 모든 것을 쏟아부어주마.");
+            StartCoroutine(UC.BossAttack(2, "끝이다.",
+            "내 모든 것을 쏟아부어주마."));
         }
-        else
+        else if(StateManager.instance.BetrayalFaze2)
         {
-            UC.BossAttack(2, "이제 끝내자.",
-                "너도 솔직히 질리잖아? 안그래?");
-        }*/
+            StartCoroutine(UC.BossAttack(2, "이제 끝내자.",
+                "너도 솔직히 질리잖아? 안그래?"));
+        }
 
-        //Plaeyr.GetComponent<HeartMove>().NoCool = true;
-        //Plaeyr.GetComponent<HeartMove>().Pattern3Start = true;
-        yield return new WaitForSeconds(4f);
+        Plaeyr.GetComponent<HeartMove>().NoCool = true;
+        Plaeyr.GetComponent<HeartMove>().Pattern3Start = true;
+        yield return new WaitForSeconds(5f);
         //보스 살짝 투명하게 해주는 코드 추가
         StartCoroutine(LaserBoom());
         StartCoroutine(Pattern12_2());
@@ -191,7 +196,6 @@ public class AttackPatternA15M : MonoBehaviour
         StartCoroutine(StartAttack());
         yield return new WaitForSeconds(10f);
         StartCoroutine(SquareAppearence());
-        StartCoroutine(Pattern12_1());
         isCreateDone = true;
         yield return new WaitForSeconds(5f);
         flag[0] = true;
@@ -280,7 +284,7 @@ public class AttackPatternA15M : MonoBehaviour
             {
                 RandomNum = Random.Range(0, 3);
             }
-            //SoundManager.instance.SFXPlay("Create", SquareCreateSound);
+            SoundManager.instance.SFXPlay("Create", SquareCreateSound);
             GameObject Clone = Instantiate(Square_A5, new Vector3(BoxX[RandomNum], 0, 0), Quaternion.identity);
             Clone.GetComponent<AttackPatternA5>().Rotate = 90;
             Clone.GetComponent<AttackPatternA5>().SpawnTime = 0.3f;
@@ -327,7 +331,7 @@ public class AttackPatternA15M : MonoBehaviour
 
         Vector3 RandomPos = Pos + new Vector3(BoxX, BoxY, 0);
 
-        //SoundManager.instance.SFXPlay("Atk1", PFSCreateSound);
+        SoundManager.instance.SFXPlay("Atk1", PFSCreateSound);
         GameObject clone = Instantiate(PlayerFollowSprite, RandomPos, Quaternion.identity);
         clone.GetComponent<Rigidbody2D>().gravityScale = 0;
 
@@ -363,7 +367,7 @@ public class AttackPatternA15M : MonoBehaviour
             float BoxX = Random.Range((BoxRange.x / 2) * -1, BoxRange.x / 2);
             float BoxY = Random.Range((BoxRange.y / 2) * -1, BoxRange.y / 2);
             Vector3 RandomPosition = transform.position + new Vector3(BoxX, BoxY, 0);
-            //SoundManager.instance.SFXPlay("Create", SquareCreateSound);
+            SoundManager.instance.SFXPlay("Create", SquareCreateSound);
             GameObject Clone = Instantiate(Square_A5, RandomPosition, Quaternion.identity);
             Clone.GetComponent<AttackPatternA5>().Rotate = Random.Range(0f, 360f);
             Clone.GetComponent<AttackPatternA5>().SpawnTime = 0.3f;
@@ -372,30 +376,6 @@ public class AttackPatternA15M : MonoBehaviour
             yield return new WaitForSeconds(1.5f);
 
         }
-    }
-    //특정 위치 제외 모든 곳에서 공격 오브젝트 소환
-    IEnumerator Pattern2()
-    {
-        int HardPatternCount = Random.Range(4, 7);
-        for (int m = 0; m < HardPatternCount; m++)
-        {
-            int ExPos = Random.Range(0, 8);
-            GameObject Effect = Instantiate(SafeZoneEffect, new Vector3(PosArray[ExPos], XRangePos1.y), Quaternion.identity);
-            Destroy(Effect, 0.2f);
-            yield return new WaitForSeconds(1f);
-            for (int __i = 0; __i < 8; __i++)
-            {
-                Vector3 Pos = new Vector3(PosArray[__i], -0.7f);
-                if (__i == ExPos)
-                {
-                    //SoundManager.instance.SFXPlay("Up!", OutSound);
-                    continue;
-                }
-                else Instantiate(AtkObj, Pos, Quaternion.identity);
-            }
-            yield return new WaitForSeconds(0.75f);
-        }
-        yield break;
     }
     //랜덤한 위치로 특정 타이밍에 맞춰 이동(추가로 연계 패턴 구현 코드 추가)
     IEnumerator AtkPtn41()
@@ -435,22 +415,22 @@ public class AttackPatternA15M : MonoBehaviour
         {
             case 0:
                 Clone = Instantiate(Effect, UpPoint, Quaternion.identity);
-                //SoundManager.instance.SFXPlay("Obj4Se", Obj4Se);
+                SoundManager.instance.SFXPlay("Obj4Se", Obj4Se);
                 Destroy(Clone, 0.2f);
                 break;
             case 1:
                 Clone = Instantiate(Effect, DownPoint, Quaternion.identity);
-                //SoundManager.instance.SFXPlay("Obj4Se", Obj4Se);
+                SoundManager.instance.SFXPlay("Obj4Se", Obj4Se);
                 Destroy(Clone, 0.2f);
                 break;
             case 2:
                 Clone = Instantiate(Effect, LeftPoint, Quaternion.identity);
-                //SoundManager.instance.SFXPlay("Obj4Se", Obj4Se);
+                SoundManager.instance.SFXPlay("Obj4Se", Obj4Se);
                 Destroy(Clone, 0.2f);
                 break;
             case 3:
                 Clone = Instantiate(Effect, RightPoint, Quaternion.identity);
-                //SoundManager.instance.SFXPlay("Obj4Se", Obj4Se);
+                SoundManager.instance.SFXPlay("Obj4Se", Obj4Se);
                 Destroy(Clone, 0.2f);
                 break;
         }
@@ -477,6 +457,44 @@ public class AttackPatternA15M : MonoBehaviour
         flag[1] = false;
         StartCoroutine(Attacker());
         StartCoroutine(Pattern12_2());
+        yield return new WaitForSeconds(10f);
+        flag[3] = true;
+        flag[4] = true;
+        flag[1] = true;
+        StartCoroutine(Ex_1());
+        yield break;
+    }
+    //마지막 패턴, 모든 방향으로 공격 오브젝트가 이동한다.
+    IEnumerator Ex_1()
+    {
+        BossManager.instance.StopMove();
+        BossManager.instance.ChangeSprite(0);
+        float y = 0f;
+        float x = 0f;
+        for (int i = 0; i <= 360; i += 5)
+        {
+            Vector3 pos = new Vector3(
+                x,
+                y,
+                Last.transform.position.z);
+            if (i < 180)
+            {
+                x -= 0.00878f;
+                y -= 0.0472f;
+            }
+            else
+            {
+                x += 0.00878f;
+                y += 0.0472f;
+            }
+            Instantiate(Last, pos, Quaternion.Euler(0, 0, i));
+            yield return new WaitForSeconds(0.3f);
+        }
+        yield return new WaitForSeconds(3f);
+        this.enabled = false;
+        StateManager.instance.Fighting = false;
+        UC.MyTurnBack();
+        StateManager.instance.Last = true;
         yield break;
     }
     private void OnDrawGizmos()

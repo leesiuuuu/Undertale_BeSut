@@ -16,8 +16,8 @@ public class AttackPattern4 : MonoBehaviour
     {
         direction = Vector3.zero;
         //이게 메인 코드 입니당
-        //RotateSetting(StateManager.instance._10Ptn ? AttackPatternA15M.LastRotate : AttackPattern4M.LastRotate);
-        RotateSetting(AttackPatternA15M.LastRotate);
+        RotateSetting(StateManager.instance._10Ptn ? AttackPatternA15M.LastRotate : AttackPattern4M.LastRotate);
+        //RotateSetting(AttackPatternA15M.LastRotate);
     }
     void Update()
     {
@@ -56,6 +56,6 @@ public class AttackPattern4 : MonoBehaviour
                 transform.position = new Vector3(-8.14f, -1.49f, 0);
                 break;
         }
-        //SoundManager.instance.SFXPlay("SD", SD);
+        SoundManager.instance.SFXPlay("SD", SD);
     }
 }

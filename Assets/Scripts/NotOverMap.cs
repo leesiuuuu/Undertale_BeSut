@@ -19,7 +19,6 @@ public class NotOverMap : MonoBehaviour
     {
         if(other.gameObject.tag == "Player" && StateManager.instance.Fighting)
         {
-            Debug.Log(IsInsideTrigger(other)); 
             if (!IsInsideTrigger(other)) other.transform.position = LastPosition;
             else LastPosition = other.transform.position;
         }
