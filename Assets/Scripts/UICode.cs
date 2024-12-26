@@ -2,8 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -68,6 +66,7 @@ public class UICode : MonoBehaviour
     public List<string> ActList = new List<string>();
     [Header("Effect")]
     public GameObject AttackEffect;
+    public GameObject BlackFade;
 
     //출력 대사
     private string Dialogue;
@@ -220,16 +219,26 @@ public class UICode : MonoBehaviour
         //UI 키 이동 코드
         if (StateManager.instance.Acting)
         {
-            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            if (!StateManager.instance.Last)
             {
-                SoundManager.instance.SFXPlay("Move", MoveSound);
-                StateChangeLeft();
+                if (Input.GetKeyDown(KeyCode.LeftArrow))
+                {
+                    SoundManager.instance.SFXPlay("Move", MoveSound);
+                    StateChangeLeft();
+                }
+                else if (Input.GetKeyDown(KeyCode.RightArrow))
+                {
+                    SoundManager.instance.SFXPlay("Move", MoveSound);
+                    StateChangeRight();
+                }
             }
-            else if (Input.GetKeyDown(KeyCode.RightArrow))
-            {
-                SoundManager.instance.SFXPlay("Move", MoveSound);
-                StateChangeRight();
-            }
+        }
+        //마지막에는 공격만 할 수 있게 함
+        else if (StateManager.instance.Last && StateManager.instance.logAppear)
+        {
+            ActBtn.color = new Color(1, 1, 1, 0.3f);
+            ItemBtn.color = new Color(1, 1, 1, 0.3f);
+            MercyBtn.color = new Color(1, 1, 1, 0.3f);
         }
         //UI 선택 시 Text 변경 코드
         else if(StateManager.instance.Starting && !AttackSliding)
@@ -788,9 +797,11 @@ public class UICode : MonoBehaviour
         {
             Ttext.text = "";
             Ttext.color = new Color(255, 255, 255);
-            Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 0xp와 0골드를 얻었다!");
+            if(StateManager.instance.Last) Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 128xp와 999골드를 얻었다!");
+            else Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 0xp와 0골드를 얻었다!");
             StateManager.instance.GameDone = false;
             GameDoneLogAdd = true;
+            StartCoroutine(EndScene());
         }
         //게임 종료 코드
         if(Input.GetKeyDown(KeyCode.Escape))
@@ -815,7 +826,6 @@ public class UICode : MonoBehaviour
             yield return null;
         }
     }
-
     void StateChangeRight()
     {
         if (Fight)
@@ -1101,9 +1111,13 @@ public class UICode : MonoBehaviour
                     Damage = BossManager.instance.bossHP - 1;
                     SpriteChangeEvent = true;
                 }
-                else if(StateManager.instance.BetrayalFaze2 || StateManager.instance.NormalFaze2)
+                else if((StateManager.instance.BetrayalFaze2 || StateManager.instance.NormalFaze2) && !StateManager.instance.Last)
                 {
                     Damage = (int)(DistanceCheck.DistancetoDamage(DistanceChecker.transform.position.x, Slide.transform.position.x) * 1.3f);
+                }
+                else if (StateManager.instance.Last)
+                {
+                    Damage = BossManager.instance.bossHP;
                 }
                 else
                 {
@@ -1115,7 +1129,7 @@ public class UICode : MonoBehaviour
         if (Stop)
         {
             //공격 후 데미지 UI 생성 및 전투 창 넘어가기
-            if (StateManager.instance.Faze2 && IsMiss)
+            if (StateManager.instance.Faze2 && IsMiss && !StateManager.instance.Last)
             {
                 StartCoroutine(BossManager.instance.BossMoveToLeftOrRight(BossManager.instance.MissAnimDuration));
             }
@@ -1149,7 +1163,6 @@ public class UICode : MonoBehaviour
             {
                 Debug.Log("Faze 2(Normal)");
                 StateManager.instance.NormalFaze2 = true;
-                StateManager.instance.DeleteBetrayalFaze2();
                 yield return new WaitForSeconds(1.2f);
                 AttackBar.SetActive(false);
                 Slide.SetActive(false);
@@ -1206,6 +1219,7 @@ public class UICode : MonoBehaviour
 
             }
             else if (BossManager.instance.bossHP > 1) Invoke("FightAndAttack", 0.7f);
+            else if (BossManager.instance.bossHP <= 0) Invoke("GameEnd", 0.7f);
             //2페이즈 조건문
             else
             {
@@ -1215,7 +1229,6 @@ public class UICode : MonoBehaviour
                 }
                 Debug.Log("For 2 Faze...");
                 StateManager.instance.BetrayalFaze2 = true;
-                StateManager.instance.SaveBetrayalFaze2();
                 SoundManager.instance.StopBG();
                 yield return new WaitForSeconds(1.2f);
                 AttackBar.SetActive(false);
@@ -1312,10 +1325,6 @@ public class UICode : MonoBehaviour
         PageAdd = false;
         i = 0;
         j = 0;
-        if (!StateManager.instance.BetrayalFaze2)
-        {
-            StateManager.instance.SaveBetrayalFaze2();
-        }
         isActDialogue = false;
         isItemDialogue = false;
         isMercyDialogue = false;
@@ -1357,7 +1366,7 @@ public class UICode : MonoBehaviour
             BossManager.instance.ChangeSprite(0);
             SpriteChangeEvent = false;
         }
-        if (StateManager.instance.Faze2 && IsMiss)
+        if (StateManager.instance.Faze2 && IsMiss && !StateManager.instance.Last)
         {
             BossManager.instance.BossMiss("MISS");
         }
@@ -1595,5 +1604,22 @@ public class UICode : MonoBehaviour
     void AllInit()
     {
 
+    }
+    void GameEnd()
+    {
+        AttackBar.SetActive(false);
+        AttackSliding = false;
+        Slide.SetActive(false);
+        BossManager.instance.BossDisappear();
+        StateManager.instance.GameDone = true;
+        StartCoroutine(EndScene());
+    }
+    IEnumerator EndScene()
+    {
+        yield return new WaitForSeconds(2f);
+        BlackFade.SetActive(true);
+        yield return new WaitForSeconds(0.5f);
+        SceneManager.LoadScene("EndingScene");
+        yield break;
     }
 }

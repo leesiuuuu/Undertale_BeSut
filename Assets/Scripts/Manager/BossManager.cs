@@ -106,6 +106,7 @@ public class BossManager : MonoBehaviour
             yield return null;
         }
         obj.transform.position = origin;
+        yield break;
     }
 
     /// <summary>
@@ -169,6 +170,13 @@ public class BossManager : MonoBehaviour
         }
         
     }
+    public void BossDisappear()
+    {
+        Transition t = Boss.AddComponent<Transition>();
+        t.FadeIn = false;
+        t.Duration = 1f;
+
+    }
     public IEnumerator BossMoveToLeftOrRight(float Duration)
     {
         //true = left false = right
@@ -179,6 +187,7 @@ public class BossManager : MonoBehaviour
         float TimeElapsed = 0;
 
         yield return StartCoroutine(Miss(TimeElapsed, Duration, StartPos, EndPos));
+        yield break;
     }
     private IEnumerator Miss(float TimeElapsed, float Duration, Vector2 StartPos, Vector2 EndPos)
     {
@@ -204,6 +213,7 @@ public class BossManager : MonoBehaviour
             yield return null;
         }
         BM.enabled = true;
+        yield break;
     }
     private float easeOutQuint(float x)
     {
@@ -213,4 +223,5 @@ public class BossManager : MonoBehaviour
     {
         return x * x * x * x * x;
     }
+
 }

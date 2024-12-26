@@ -174,6 +174,7 @@ public class AttackPatternA15M : MonoBehaviour
     IEnumerator Pattern15()
     {
         yield return new WaitForSeconds(0.5f);
+        /*
         if (StateManager.instance.NormalFaze2)
         {
             StartCoroutine(UC.BossAttack(2, "끝이다.",
@@ -184,7 +185,9 @@ public class AttackPatternA15M : MonoBehaviour
             StartCoroutine(UC.BossAttack(2, "이제 끝내자.",
                 "너도 솔직히 질리잖아? 안그래?"));
         }
-
+        */
+        /*
+        StateManager.instance.Last = true;
         Plaeyr.GetComponent<HeartMove>().NoCool = true;
         Plaeyr.GetComponent<HeartMove>().Pattern3Start = true;
         yield return new WaitForSeconds(5f);
@@ -202,6 +205,12 @@ public class AttackPatternA15M : MonoBehaviour
         flag[6] = true;
         yield return new WaitForSeconds(4f);
         StartCoroutine(AtkPtn41());
+        */
+        StateManager.instance.Last = true;
+        this.enabled = false;
+        StateManager.instance.Fighting = false;
+        UC.MyTurnBack();
+        yield break;
     }
     //큰 레이저 발사
     IEnumerator LaserBoom()
@@ -487,14 +496,16 @@ public class AttackPatternA15M : MonoBehaviour
                 x += 0.00878f;
                 y += 0.0472f;
             }
-            Instantiate(Last, pos, Quaternion.Euler(0, 0, i));
+            GameObject n = Instantiate(Last, pos, Quaternion.Euler(0, 0, i));
+            Destroy(n, 2);
             yield return new WaitForSeconds(0.3f);
         }
         yield return new WaitForSeconds(3f);
+        BossManager.instance.StopMove();
+        BossManager.instance.ChangeSprite(0);
         this.enabled = false;
         StateManager.instance.Fighting = false;
         UC.MyTurnBack();
-        StateManager.instance.Last = true;
         yield break;
     }
     private void OnDrawGizmos()

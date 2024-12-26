@@ -82,7 +82,8 @@ public class StateManager : MonoBehaviour
             {
                 if (_10Ptn)
                 {
-                    Dialogue = "* 마지막이 다가오고 있다.";
+                    if(!Last) Dialogue = "* 마지막이 다가오고 있다.";
+                    else Dialogue = "* 네이트 코릴은 모든 힘을 다 쓴 것 같다.";
                 }
                 else
                 {
@@ -113,21 +114,5 @@ public class StateManager : MonoBehaviour
             }
         }
         return Dialogue;
-    }
-
-    public void SaveBetrayalFaze2()
-    {
-        PlayerPrefs.SetInt("BetrayalFaze2", BetrayalFaze2 ? 1 : 0);
-    }
-    public void DeleteBetrayalFaze2()
-    {
-        try
-        {
-            PlayerPrefs.DeleteKey("BetrayalFaze2");
-        } catch (System.Exception e)
-        {
-            Debug.Log("Error Appeared! : " + e);
-            return;
-        }
     }
 }

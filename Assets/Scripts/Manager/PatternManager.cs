@@ -109,6 +109,7 @@ public class PatternManager : MonoBehaviour
             PatternCount++;
             yield return null;
         }
+        yield break;
     }
     public IEnumerator SeqPatternStart2(int TurnCount)
     {
@@ -213,6 +214,7 @@ public class PatternManager : MonoBehaviour
             }
             Before = PatternCountFaze2;
         }
+        yield break;
     }
     private int beforeCheck(int before)
     {
@@ -258,6 +260,7 @@ public class PatternManager : MonoBehaviour
         }
         StateManager.instance.TurnCount = 0;
         PatternCount = 0;
+        yield break;
     }
     private float Linear(float x)
     {
