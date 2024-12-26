@@ -223,5 +223,4 @@ public class BossManager : MonoBehaviour
     {
         return x * x * x * x * x;
     }
-
 }

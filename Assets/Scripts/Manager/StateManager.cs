@@ -21,9 +21,10 @@ public class StateManager : MonoBehaviour
     public bool NoKill = false;
     public bool Faze2 = false;
     [Space(20)]
-    //2페이즈 넘어가는 루트
+    //2페이즈 넘어가는 루트, 엔딩을 분별하는 조건
     public bool NormalFaze2 = false;
     public bool BetrayalFaze2 = false;
+    public bool MercyEnd = false;
     [Space(20)]
     public bool GameDone = false;
     public bool _10Ptn = false;
@@ -114,5 +115,12 @@ public class StateManager : MonoBehaviour
             }
         }
         return Dialogue;
+    }
+    public string EndingDialogue()
+    {
+        if (MercyEnd) return "히든 엔딩\n돌아온 기억";
+        else if (BetrayalFaze2) return "엔딩 2.\n배신";
+        else if (NormalFaze2) return "엔딩 1.\n외로운 죽음";
+        else return null;
     }
 }

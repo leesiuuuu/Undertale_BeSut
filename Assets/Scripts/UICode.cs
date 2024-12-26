@@ -801,6 +801,7 @@ public class UICode : MonoBehaviour
             else Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 0xp와 0골드를 얻었다!");
             StateManager.instance.GameDone = false;
             GameDoneLogAdd = true;
+            StateManager.instance.MercyEnd = true;
             StartCoroutine(EndScene());
         }
         //게임 종료 코드
@@ -1599,11 +1600,6 @@ public class UICode : MonoBehaviour
                 }
             }
         }
-    }
-    //씬 재로드 시 불러올 함수, 초기 상태로 완전히 되돌려놓을 것.
-    void AllInit()
-    {
-
     }
     void GameEnd()
     {

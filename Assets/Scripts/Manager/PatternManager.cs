@@ -266,4 +266,11 @@ public class PatternManager : MonoBehaviour
     {
         return x;
     }
+    public void InitScript()
+    {
+        RandomNum = -1;
+        isSpeicalMove = false;
+        TimeElapsed = 0f;
+
+    }
 }
