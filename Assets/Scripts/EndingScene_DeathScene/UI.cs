@@ -10,6 +10,8 @@ public class UI : MonoBehaviour
     private TextMeshPro GoMainText;
     private GoMain GM;
 
+    bool nomove = false;
+
     private void Start()
     {
         GM = GetComponent<GoMain>();
@@ -30,11 +32,12 @@ public class UI : MonoBehaviour
                     break;
                 case 1:
                     Debug.Log("Go Main");
-                    GM.GoMainScene();
+                    StartCoroutine(GM.GoMainScene());
+                    nomove = true;
                     break;
             }
         }
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKeyDown(KeyCode.X) && !nomove)
         {
             if(buttonPress == 1)
             {

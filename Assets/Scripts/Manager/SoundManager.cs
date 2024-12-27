@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -5,9 +6,19 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager instance;
     public AudioMixer audioMixer;
-    public AudioSource BGSound;
-    public AudioSource BG2Sound;
-    public AudioSource StartMenu;
+    public AudioClip BG_1;
+    public AudioClip BG_2;
+    public AudioClip StartMenu;
+    public AudioClip DeathMenu;
+
+    [HideInInspector]
+    public AudioSource b1;
+    [HideInInspector]
+    public AudioSource b2;
+    [HideInInspector]
+    public AudioSource sm;
+    [HideInInspector]
+    public AudioSource dm;
     void Awake()
     {
         if (instance == null)
@@ -30,27 +41,46 @@ public class SoundManager : MonoBehaviour
         audiosource.Play();
         Destroy(go, clip.length);
     }
-    public void BGPlay(AudioClip clip)
+    public void BGPlay()
     {
-        BGSound.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
-        BGSound.clip = clip;
-        BGSound.loop = true;
-        BGSound.volume = 0.1f;
-        BGSound.Play();
+        GameObject S1 = new GameObject("BG1");
+        b1 = S1.AddComponent<AudioSource>();
+        b1.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
+        b1.clip = BG_1;
+        b1.loop = true;
+        b1.volume = 1f;
+        b1.Play();
     }
     public void BG2Play()
     {
-        BG2Sound.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
-        BG2Sound.loop = true;
-        BG2Sound.volume = 1f;
-        BG2Sound.Play();
+        GameObject S2 = new GameObject("BG2");
+        b2 = S2.AddComponent<AudioSource>();
+        b2.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
+        b2.clip = BG_2;
+        b2.loop = true;
+        b2.volume = 1f;
+        b2.Play();
     }
     public void StartMenuPlay()
     {
-        StartMenu.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
-        StartMenu.loop = true;
-        StartMenu.volume = 1f;
-        StartMenu.Play();
+        GameObject S1 = new GameObject("StartMenu");
+        DontDestroyOnLoad(S1);
+        sm = S1.AddComponent<AudioSource>();
+        sm.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
+        sm.clip = StartMenu;
+        sm.loop = true;
+        sm.volume = 1f;
+        sm.Play();
+    }
+    public void DeathMenuPlay()
+    {
+        GameObject S1 = new GameObject("DeathMenu");
+        dm = S1.AddComponent<AudioSource>();
+        dm.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
+        dm.clip = DeathMenu;
+        dm.loop = true;
+        dm.volume = 1f;
+        dm.Play();
     }
     public void Volume(float val)
     {
@@ -66,14 +96,31 @@ public class SoundManager : MonoBehaviour
     }
     public void StopBG()
     {
-        BGSound.Stop();
+        b1.Stop();
     }
     public void StopBG2()
     {
-        BG2Sound.Stop();
+        b2.Stop();
     }
     public void StopStartMenu()
     {
-        StartMenu.Stop();
+        sm.Stop();
+    }
+    public void StopDeathMenu()
+    {
+        dm.Stop();
+    }
+    public IEnumerator SoundFadeOut(AudioSource AS, float Duration)
+    {
+        float ElapsedTime = 0f;
+        while(ElapsedTime < Duration)
+        {
+            ElapsedTime += Time.deltaTime;
+            float t = ElapsedTime / Duration;
+            AS.volume = 1-t;
+            yield return null;
+        }
+        AS.Stop();
+        yield break;
     }
 }

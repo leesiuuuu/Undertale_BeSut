@@ -1,5 +1,8 @@
+using System;
 using System.Collections.Generic;
+using System.Net.Sockets;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ButtonInfo
 {
@@ -54,6 +57,8 @@ public class ButtonSelete : MonoBehaviour
     int CurrentNumber = 0;
     int LeastNumber;
 
+    public AudioClip SeleteSound;
+
     List<ButtonInfo> ButtonInfos = new List<ButtonInfo>();
     List<Vector2> HeartObjPos = new List<Vector2>();
 
@@ -61,32 +66,34 @@ public class ButtonSelete : MonoBehaviour
     public Button[] Btns;
 
     List<Button> Sprites = new List<Button>();
-    private void Start()
+    private void Awake()
     {
         MAX_BTN_COUNT = HeartObjPosArray.Length;
 
-        for(int i = 0; i < Btns.Length; i++)
+        for (int i = 0; i < Btns.Length; i++)
         {
             Sprites.Add(Btns[i]);
         }
 
-        for(int i = 0; i < MAX_BTN_COUNT; i++)
+        for (int i = 0; i < MAX_BTN_COUNT; i++)
         {
-            ButtonInfos.Add(new ButtonInfo($"Btn{i}", (i == 0) ? true : false, i, Sprites[i]));
+            ButtonInfos.Add(new ButtonInfo($"Btn{i}", false, i, Sprites[i]));
         }
 
-        for(int i = 0; i < MAX_BTN_COUNT; i++)
+        for (int i = 0; i < MAX_BTN_COUNT; i++)
         {
             HeartObjPos.Add(HeartObjPosArray[i]);
         }
-
+        if (PlayerPrefs.HasKey("CurrentNum")) CurrentNumber = PlayerPrefs.GetInt("CurrentNum");
+        else CurrentNumber = 0;
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
     void Update()
     {
         LeastNumber = CurrentNumber;
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            //사운드 코드 추가
+            SoundManager.instance.SFXPlay("Selete", SeleteSound);
             if (CurrentNumber <= 0)
             {
                 CurrentNumber = MAX_BTN_COUNT - 1;
@@ -98,7 +105,7 @@ public class ButtonSelete : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            //사운드 코드 추가
+            SoundManager.instance.SFXPlay("Selete", SeleteSound);
             if (CurrentNumber >= MAX_BTN_COUNT - 1)
             {
                 CurrentNumber = 0;
@@ -117,6 +124,7 @@ public class ButtonSelete : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.Z))
         {
+            SaveCurrentNumber();
             FindBtnWithID(CurrentNumber).GetBtn().SetPressed(true);
         }
         BtnSeleteActivate();
@@ -144,7 +152,7 @@ public class ButtonSelete : MonoBehaviour
                 return HeartObjPos[button.GetNumber()];
             }
         }
-        return Vector2.zero;
+        return HeartObjPos[0];
     }
     void BtnSeleteActivate()
     {
@@ -170,27 +178,46 @@ public class ButtonSelete : MonoBehaviour
                     case 0:
                         BtnManager.instance.StartGame();
                         buttonInfo.GetBtn().SetPressed(false);
+                        SceneManager.sceneLoaded -= OnSceneLoaded;
                         break;
                     case 1:
                         BtnManager.instance.TutorialGame();
                         buttonInfo.GetBtn().SetPressed(false);
+                        SceneManager.sceneLoaded -= OnSceneLoaded;
                         break;
                     case 2:
                         BtnManager.instance.SettingGame();
                         buttonInfo.GetBtn().SetPressed(false);
+                        SceneManager.sceneLoaded -= OnSceneLoaded;
                         break;
                     case 3:
                         BtnManager.instance.AchiGame();
                         buttonInfo.GetBtn().SetPressed(false);
+                        SceneManager.sceneLoaded -= OnSceneLoaded;
                         break;
                     case 4:
                         BtnManager.instance.ExitGame();
                         buttonInfo.GetBtn().SetPressed(false);
+                        SceneManager.sceneLoaded -= OnSceneLoaded;
                         break;
                     default:
                         break;
                 }
             }
+        }
+    }
+    void SaveCurrentNumber()
+    {
+        PlayerPrefs.SetInt("CurrentNum", CurrentNumber);   
+    }
+    void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if(scene.name == "StartScene")
+        {
+            Debug.Log("호출됨!");
+            FindBtnWithID(PlayerPrefs.GetInt("CurrentNum")).SetSeleteState(true);
+            transform.position = HeartObjPosArray[PlayerPrefs.GetInt("CurrentNum")];
+            BtnSeleteActivate();
         }
     }
 }

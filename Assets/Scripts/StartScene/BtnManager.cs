@@ -18,6 +18,10 @@ public class BtnManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    private void Start()
+    {
+        SoundManager.instance.StartMenuPlay();
+    }
     public void StartGame() 
     {
         Debug.Log("Game Start!");
@@ -35,11 +39,13 @@ public class BtnManager : MonoBehaviour
     }
     public void ExitGame() 
     {
+        PlayerPrefs.DeleteKey("CurrentNum");
         Debug.Log("Game Exit!");
     }
     public void AchiGame()
     {
         Debug.Log("Achi Window!");
+        SceneManager.LoadScene("AchiScene");
     }
     public void MoveTutorial()
     {
@@ -49,5 +55,8 @@ public class BtnManager : MonoBehaviour
     public void CancelTutorial() { }
     public void ShieldTutorial() { }
     public void QQQTutorial() { }
-    public void ExitTutorial() { }
+    public void ExitTutorial()
+    {
+        SceneManager.LoadScene("StartScene");
+    }
 }

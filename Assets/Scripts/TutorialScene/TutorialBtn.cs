@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TutorialBtn : MonoBehaviour
 {
@@ -84,6 +85,10 @@ public class TutorialBtn : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             FindBtnWithID(CurrentNumber).GetBtn().SetPressed(true);
+        }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            SceneManager.LoadScene("StartScene");
         }
         BtnSeleteActivate();
         BtnPressedCheck();

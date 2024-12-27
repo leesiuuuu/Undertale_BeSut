@@ -185,6 +185,8 @@ public class UICode : MonoBehaviour
         i = 0;
         j = 0;
 
+        SoundManager.instance.BGPlay();
+
         SliderAniamtor = Slide.GetComponent<Animator>();
         T1.enabled = false;
         T2.enabled = false;
@@ -1612,9 +1614,10 @@ public class UICode : MonoBehaviour
     }
     IEnumerator EndScene()
     {
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(5f);
         BlackFade.SetActive(true);
-        yield return new WaitForSeconds(0.5f);
+        StartCoroutine(SoundManager.instance.SoundFadeOut(SoundManager.instance.b1, 1f));
+        yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("EndingScene");
         yield break;
     }
