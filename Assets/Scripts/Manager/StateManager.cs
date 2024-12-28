@@ -118,9 +118,17 @@ public class StateManager : MonoBehaviour
     }
     public string EndingDialogue()
     {
-        if (MercyEnd) return "히든 엔딩\n돌아온 기억";
+        if (MercyEnd)
+        {
+            StartCoroutine(AchievementManager.instance.AchiUIAppearence(8));
+            return "히든 엔딩\n돌아온 기억";
+        }
         else if (BetrayalFaze2) return "엔딩 2.\n배신";
-        else if (NormalFaze2) return "엔딩 1.\n외로운 죽음";
+        else if (NormalFaze2)
+        {
+            StartCoroutine(AchievementManager.instance.AchiUIAppearence(7));
+            return "엔딩 1.\n외로운 죽음"; 
+        }
         else return null;
     }
 }

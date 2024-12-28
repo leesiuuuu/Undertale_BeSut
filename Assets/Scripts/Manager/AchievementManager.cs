@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class AchievementState
@@ -18,6 +19,9 @@ public class AchievementManager : MonoBehaviour
 
     public AchievementSO[] achievementSOs;
 
+    public GameObject UIClear;
+    public GameObject UICanvas;
+
     private void Awake()
     {
         if (instance == null) { instance = this; DontDestroyOnLoad(gameObject); }
@@ -25,7 +29,7 @@ public class AchievementManager : MonoBehaviour
     }
     public void InitAchi()
     {
-        if (PlayerPrefs.GetInt("InitState", 0) == 1) return;
+        if (PlayerPrefs.GetInt("InitState", 0) == 1 && !PlayerPrefs.HasKey("InitState")) return;
         //PlayerPrefs 내부 값 초기화
         for(int i = 0; i < achievementStates.Length; i++)
         {
@@ -35,6 +39,17 @@ public class AchievementManager : MonoBehaviour
         }
         PlayerPrefs.SetInt("InitState", 1);
         PlayerPrefs.Save();
+    }
+    public IEnumerator AchiUIAppearence(int n)
+    {
+        GameObject Clone = Instantiate(UIClear);
+        GameObject canvas = Instantiate(UICanvas);
+        Clone.GetComponent<UIAppear>().ASO = achievementSOs[n];
+        Clone.transform.SetParent(canvas.transform, false);
+        SaveAchi(achievementSOs[n].key, 1);
+        yield return new WaitForSeconds(5);
+        Destroy(canvas);
+        yield break;
     }
     //업적을 달성했을 때 업적을 저장해줌.
     //클리어가 1이면 업적 클리어, 그렇지 않으면 업적 클리어 X
@@ -57,9 +72,5 @@ public class AchievementManager : MonoBehaviour
             if (state.key == key) return state;
         }
         return null;
-    }
-    private void DeleteAllAchi()
-    {
-
     }
 }

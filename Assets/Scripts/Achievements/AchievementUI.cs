@@ -17,7 +17,6 @@ public class AchievementUI : MonoBehaviour
     {
         SR = GetComponentsInChildren<SpriteRenderer>();
         TMPN = GetComponentsInChildren<TextMeshPro>();
-        PlayerPrefs.SetInt(ASO.key, 0);
         if (PlayerPrefs.GetInt(ASO.key) == 1)
         {
             Icon.sprite = ASO.Icon;

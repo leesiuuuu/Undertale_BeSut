@@ -803,7 +803,7 @@ public class UICode : MonoBehaviour
             else Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 0xp와 0골드를 얻었다!");
             StateManager.instance.GameDone = false;
             GameDoneLogAdd = true;
-            StateManager.instance.MercyEnd = true;
+            if(!StateManager.instance.NormalFaze2 && !StateManager.instance.BetrayalFaze2) StateManager.instance.MercyEnd = true;
             StartCoroutine(EndScene());
         }
         //게임 종료 코드
