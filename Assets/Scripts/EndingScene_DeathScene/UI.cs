@@ -18,6 +18,8 @@ public class UI : MonoBehaviour
         TMP.text = "";
         TMP.text = StateManager.instance.EndingDialogue();
         if (TMP.text == null) Debug.LogWarning("Ending Dialogue is null!");
+        if (PlayerManager.instance.HP == PlayerManager.instance.MAX_HP) StartCoroutine(AchievementManager.instance.AchiUIAppearence(6));
+        else if (PlayerManager.instance.HP <= 10) StartCoroutine(AchievementManager.instance.AchiUIAppearence(1));
     }
     // Update is called once per frame
     void Update()

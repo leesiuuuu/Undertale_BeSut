@@ -16,6 +16,7 @@ public class KeyMove_Selere : MonoBehaviour
     bool flag = false;
     private void Start()
     {
+        if (StateManager.instance.Last) StartCoroutine(AchievementManager.instance.AchiUIAppearence(5));
         flag = false;
     }
     // Update is called once per frame

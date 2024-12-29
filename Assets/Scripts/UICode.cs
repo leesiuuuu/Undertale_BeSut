@@ -150,9 +150,6 @@ public class UICode : MonoBehaviour
     private bool SpriteChangeEvent = false;
     //피할건지 판단
     private bool IsMiss;
-
-    //키 플래그(키 입력 없을 시 꺼져있기)
-    private bool keyflag = false;
     void Start()
     {
         StateManager.instance.GameDone = false;
@@ -1135,6 +1132,7 @@ public class UICode : MonoBehaviour
                 Slide.SetActive(false);
                 FirstTurnAct = false;
                 isBossDialogue = true;
+                StartCoroutine(AchievementManager.instance.AchiUIAppearence(10));
                 zClick = 1;
                 DialogueAdder("역시...");
                 while (zClick <= 3){
@@ -1218,6 +1216,7 @@ public class UICode : MonoBehaviour
                 {
                     yield return null;
                 }
+                StartCoroutine(AchievementManager.instance.AchiUIAppearence(4));
                 Debug.Log("For 2 Faze...");
                 StateManager.instance.BetrayalFaze2 = true;
                 SoundManager.instance.StopBG();

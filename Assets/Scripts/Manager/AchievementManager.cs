@@ -27,6 +27,7 @@ public class AchievementManager : MonoBehaviour
         if (instance == null) { instance = this; DontDestroyOnLoad(gameObject); }
         else Destroy(instance);
     }
+    //StartScene에서 호출할 메서드
     public void InitAchi()
     {
         if (PlayerPrefs.GetInt("InitState", 0) == 1 && !PlayerPrefs.HasKey("InitState")) return;
@@ -42,13 +43,15 @@ public class AchievementManager : MonoBehaviour
     }
     public IEnumerator AchiUIAppearence(int n)
     {
+        if (PlayerPrefs.GetInt(achievementSOs[n].key) == 1) yield break;
         GameObject Clone = Instantiate(UIClear);
         GameObject canvas = Instantiate(UICanvas);
         DontDestroyOnLoad(canvas);
+        canvas.GetComponent<Canvas>().worldCamera = Camera.main;
         Clone.GetComponent<UIAppear>().ASO = achievementSOs[n];
         Clone.transform.SetParent(canvas.transform, false);
         SaveAchi(achievementSOs[n].key, 1);
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(9);
         Destroy(canvas);
         yield break;
     }
