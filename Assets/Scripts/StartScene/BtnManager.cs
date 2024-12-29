@@ -36,6 +36,7 @@ public class BtnManager : MonoBehaviour
     public void SettingGame() 
     {
         Debug.Log("Game Setting!");
+        SceneManager.LoadScene("SettingScene");
     }
     public void ExitGame() 
     {

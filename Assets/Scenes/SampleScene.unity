@@ -1487,12 +1487,12 @@ MonoBehaviour:
   NoLieStack: 0
   TurnCount: 0
   NoKill: 0
-  Faze2: 1
-  NormalFaze2: 1
+  Faze2: 0
+  NormalFaze2: 0
   BetrayalFaze2: 0
   MercyEnd: 0
   GameDone: 0
-  _10Ptn: 1
+  _10Ptn: 0
   Last: 0
 --- !u!4 &429638836
 Transform:
@@ -2232,7 +2232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PatternCount: 0
-  PatternCountFaze2: 13
+  PatternCountFaze2: 0
   Before: 0
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
@@ -5714,10 +5714,10 @@ SceneRoots:
   - {fileID: 2030273068}
   - {fileID: 1435277735}
   - {fileID: 429638836}
+  - {fileID: 1644951218}
   - {fileID: 36608981}
   - {fileID: 566701204}
   - {fileID: 737269436}
   - {fileID: 625849684}
   - {fileID: 1541074128}
   - {fileID: 1447209075}
-  - {fileID: 1644951218}

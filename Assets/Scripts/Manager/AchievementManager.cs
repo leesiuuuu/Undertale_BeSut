@@ -44,6 +44,7 @@ public class AchievementManager : MonoBehaviour
     {
         GameObject Clone = Instantiate(UIClear);
         GameObject canvas = Instantiate(UICanvas);
+        DontDestroyOnLoad(canvas);
         Clone.GetComponent<UIAppear>().ASO = achievementSOs[n];
         Clone.transform.SetParent(canvas.transform, false);
         SaveAchi(achievementSOs[n].key, 1);

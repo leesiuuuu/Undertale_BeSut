@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -26,6 +27,7 @@ public class AttackPattern2M : MonoBehaviour
         MAX_COPY_COUNT = (int)Random.Range(6, 10);
         CopyedCount = 0;
         Debug.Log(CopyedCount);
+        StartCoroutine(Patttern2M());
     }
     protected void Posinit(GameObject go, int Num)
     {
@@ -55,24 +57,38 @@ public class AttackPattern2M : MonoBehaviour
                 break;
         }
     }
-    private void Update()
+    IEnumerator Patttern2M()
     {
-        if (!GameObject.FindWithTag("AttackSprite") && CopyedCount <= MAX_COPY_COUNT)
+        while (CopyedCount <= MAX_COPY_COUNT)
         {
-            ++CopyedCount;
-            if (CopyedCount > MAX_COPY_COUNT)
+            if (!GameObject.FindWithTag("AttackSprite"))
             {
-                this.enabled = false;
-                StateManager.instance.Fighting = false;
-                Arrow.SetActive(false);
-                UC.MyTurnBack();
+                if (CopyedCount < MAX_COPY_COUNT)
+                {
+                    ++CopyedCount;
+                    GameObject clone = Instantiate(AttackObject);
+                    Posinit(clone, Random.Range(0, 4));
+                    RotateInit();
+                    yield return new WaitForSeconds(1f);
+                }
+                else
+                {
+                    break;
+                }
             }
             else
             {
-                GameObject clone = Instantiate(AttackObject);
+                yield return new WaitForSeconds(0.1f);
             }
         }
+        yield return new WaitForSeconds(0.5f);
+        this.enabled = false;
+        StateManager.instance.Fighting = false;
+        Arrow.SetActive(false);
+        UC.MyTurnBack();
+        yield break;
     }
+
     public void ReturnRandomValue(int value)
     {
         LastRotate = value;

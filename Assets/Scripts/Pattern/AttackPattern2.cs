@@ -39,17 +39,14 @@ public class AttackPattern2 : AttackPattern2M
                 break;
             case 1:
                 MoveObject.transform.rotation = Quaternion.Euler(0, 0, 180);
-                //Arrow1.transform.rotation = Quaternion.Euler(0, 0, 180);
                 direction = Vector3.right;
                 break;
             case 2:
                 MoveObject.transform.rotation = Quaternion.Euler(0, 0, -90);
-                //Arrow1.transform.rotation = Quaternion.Euler(0, 0, -90);
                 direction = Vector3.up;
                 break;
             case 3:
                 MoveObject.transform.rotation = Quaternion.Euler(0, 0, 90);
-                //Arrow1.transform.rotation = Quaternion.Euler(0, 0, 90);
                 direction = Vector3.down;
                 break;
         }

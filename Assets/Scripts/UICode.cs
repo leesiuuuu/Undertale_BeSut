@@ -150,6 +150,9 @@ public class UICode : MonoBehaviour
     private bool SpriteChangeEvent = false;
     //피할건지 판단
     private bool IsMiss;
+
+    //키 플래그(키 입력 없을 시 꺼져있기)
+    private bool keyflag = false;
     void Start()
     {
         StateManager.instance.GameDone = false;
@@ -257,6 +260,7 @@ public class UICode : MonoBehaviour
                     Ttext.text = "";
                     StartCoroutine(ActAttacking());
                 }
+                else if (Input.GetKeyDown(KeyCode.X)) BackKey();
             }
             else if (StateManager.instance._Acting)
             {
@@ -307,6 +311,7 @@ public class UICode : MonoBehaviour
                     }
                     StateManager.instance._Acting = false;
                 }
+                else if (Input.GetKeyDown(KeyCode.X)) BackKey();
             }
             else if (StateManager.instance._Iteming)
             {
@@ -324,6 +329,7 @@ public class UICode : MonoBehaviour
                     IU.ItemUsed(Ttext, ItemAndActText, ItemList, Heart, ItemLocate, MAX_ITEM_LOCATE);
                     StateManager.instance._Iteming = false;
                 }
+                else if (Input.GetKeyDown(KeyCode.X)) BackKey();
             }
             else if (StateManager.instance._Mercying)
             {
@@ -356,6 +362,7 @@ public class UICode : MonoBehaviour
                     StateManager.instance.Fighting = true;
                     StateManager.instance._Mercying = false;
                 }
+                else if (Input.GetKeyDown(KeyCode.X)) BackKey();
             }
         }
         if (!StateManager.instance.logAppear)
@@ -369,25 +376,6 @@ public class UICode : MonoBehaviour
                 SoundManager.instance.SFXPlay("Selete", SeleteSound);
             }
             //취소 코드
-            else if (Input.GetKeyDown(KeyCode.X) && !StateManager.instance.Acting && StateManager.instance.Starting && !AttackSliding)
-            {
-                Ttext.color = new Color(255, 255, 255);
-                StateManager.instance.Acting = true;
-                StateManager.instance.Starting = false;
-                ActState(false);
-                ActCancel();
-                Page = 1;
-                PageAdd = false;
-                ItemLocate = 0;
-                Bf_i = 0;
-                Bf_j = 0;
-                i = 0;
-                j = 0;
-                Ttext.text = "";
-                ItemAndActText.SetActive(false);
-                Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
-                SoundManager.instance.SFXPlay("Move", MoveSound);
-            }
         }
         //보스 전투 턴 넘어가는 코드
         if(StateManager.instance.Starting && StateManager.instance.Acting && !StateManager.instance.GameDone)
@@ -1620,5 +1608,24 @@ public class UICode : MonoBehaviour
         yield return new WaitForSeconds(1f);
         SceneManager.LoadScene("EndingScene");
         yield break;
+    }
+    void BackKey()
+    {
+        Ttext.color = new Color(255, 255, 255);
+        StateManager.instance.Acting = true;
+        StateManager.instance.Starting = false;
+        ActState(false);
+        ActCancel();
+        Page = 1;
+        PageAdd = false;
+        ItemLocate = 0;
+        Bf_i = 0;
+        Bf_j = 0;
+        i = 0;
+        j = 0;
+        Ttext.text = "";
+        ItemAndActText.SetActive(false);
+        Ttext.gameObject.GetComponent<TalkBox>().Talk(0, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, Dialogue));
+        SoundManager.instance.SFXPlay("Move", MoveSound);
     }
 }

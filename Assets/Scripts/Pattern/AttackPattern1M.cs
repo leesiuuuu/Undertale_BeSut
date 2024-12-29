@@ -73,6 +73,7 @@ public class AttackPattern1M : MonoBehaviour
     {
         yield return new WaitForSeconds(Duration);
         isCreateDone = true;
+        yield break;
     }
     private void OnDrawGizmos()
     {
