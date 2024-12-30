@@ -1,13 +1,14 @@
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class KeyMove_Selere : MonoBehaviour
 {
     [SerializeField]
-    private Text Re;
+    private TMP_Text Re;
     [SerializeField]
-    private Text GM;
+    private TMP_Text GM;
     [SerializeField]
     private SceneMove sm;
 
@@ -22,17 +23,17 @@ public class KeyMove_Selere : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.DownArrow) && !GM.TryGetComponent(out Transition_Text tt) && Moveable)
+        if (Input.GetKeyDown(KeyCode.DownArrow) && !GM.TryGetComponent(out Transition_TMP tt) && Moveable)
         {
             if (!flag) flag = true;
             flagUpdate();
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow) && !GM.TryGetComponent(out Transition_Text Tt) && Moveable)
+        else if (Input.GetKeyDown(KeyCode.UpArrow) && !GM.TryGetComponent(out Transition_TMP Tt) && Moveable)
         {
             if(flag) flag = false;
             flagUpdate();
         }
-        if (Input.GetKeyDown(KeyCode.Z))
+        else if (Input.GetKeyDown(KeyCode.Z) && !GM.TryGetComponent(out Transition_TMP tT) && Moveable)
         {
             CheckFlag();
         }
