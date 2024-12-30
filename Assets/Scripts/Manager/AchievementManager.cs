@@ -15,7 +15,7 @@ public class AchievementState
 public class AchievementManager : MonoBehaviour
 {
     public static AchievementManager instance;
-    public AchievementState[] achievementStates;
+    private AchievementState[] achievementStates = new AchievementState[11];
 
     public AchievementSO[] achievementSOs;
 
@@ -30,13 +30,14 @@ public class AchievementManager : MonoBehaviour
     //StartScene에서 호출할 메서드
     public void InitAchi()
     {
-        if (PlayerPrefs.GetInt("InitState", 0) == 1 && !PlayerPrefs.HasKey("InitState")) return;
+        if (PlayerPrefs.GetInt("InitState") == 1 && PlayerPrefs.HasKey("InitState")) return;
         //PlayerPrefs 내부 값 초기화
-        for(int i = 0; i < achievementStates.Length; i++)
+        for(int i = 0; i < achievementSOs.Length; i++)
         {
             achievementStates[i] = new AchievementState(achievementSOs[i].key, 
                 PlayerPrefs.HasKey(achievementSOs[i].key) ? PlayerPrefs.GetInt(achievementSOs[i].key) : 0);
             PlayerPrefs.SetInt(achievementStates[i].key, achievementStates[i].isClear);
+            PlayerPrefs.Save();
         }
         PlayerPrefs.SetInt("InitState", 1);
         PlayerPrefs.Save();
@@ -50,7 +51,6 @@ public class AchievementManager : MonoBehaviour
         canvas.GetComponent<Canvas>().worldCamera = Camera.main;
         Clone.GetComponent<UIAppear>().ASO = achievementSOs[n];
         Clone.transform.SetParent(canvas.transform, false);
-        SaveAchi(achievementSOs[n].key, 1);
         yield return new WaitForSeconds(9);
         Destroy(canvas);
         yield break;

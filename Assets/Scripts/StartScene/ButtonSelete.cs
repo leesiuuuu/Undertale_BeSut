@@ -209,6 +209,7 @@ public class ButtonSelete : MonoBehaviour
     void SaveCurrentNumber()
     {
         PlayerPrefs.SetInt("CurrentNum", CurrentNumber);
+        PlayerPrefs.Save();
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {

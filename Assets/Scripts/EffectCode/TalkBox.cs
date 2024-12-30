@@ -11,7 +11,7 @@ public class TalkBox : MonoBehaviour
     public AudioClip Log;
     void Start()
     {
-        Talk(Delay, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount + 1, dialogue));
+        Talk(Delay, StateManager.instance.DialogueChanger(StateManager.instance.TurnCount, dialogue));
     }
     public void Talk(float DelayTime, string dialogue1)
     {

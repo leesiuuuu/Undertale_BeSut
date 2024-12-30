@@ -1,6 +1,7 @@
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -19,7 +20,6 @@ public class PlayerManager : MonoBehaviour
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -37,5 +37,9 @@ public class PlayerManager : MonoBehaviour
         Text.text = HP + " / 92";
         float HPDetail1 = (PlayerManager.instance.HP / (float)PlayerManager.instance.MAX_HP);
         UI.fillAmount = HPDetail1;
+    }
+    public void Death()
+    {
+        SceneManager.LoadScene("DeathScene");
     }
 }

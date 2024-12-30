@@ -35,6 +35,7 @@ public class UICode : MonoBehaviour
     public AudioClip DamagedSound;
     [Header("Text")]
     public TMP_Text Ttext;
+    public Text ExitText;
     [Header("Sprite")]
     public GameObject Heart;
     public GameObject TalkBalloon;
@@ -150,7 +151,9 @@ public class UICode : MonoBehaviour
     private bool SpriteChangeEvent = false;
     //피할건지 판단
     private bool IsMiss;
-    void Start()
+
+    private bool isOnce123 = false;
+    private void Awake()
     {
         StateManager.instance.GameDone = false;
         scalemove.enabled = true;
@@ -177,6 +180,8 @@ public class UICode : MonoBehaviour
         ActList.Add("");
         ActList.Add("");
         
+        StateManager.instance.ManagerInit();
+
         ItemAndActText.SetActive(false);
 
         ItemLocate = 0;
@@ -211,8 +216,10 @@ public class UICode : MonoBehaviour
         Heart.SetActive(true);
         HeartPos = FightBtnPos;
         Cursor.visible = false;
-
-        StateManager.instance.TurnCount++;
+    }
+    private void Start()
+    {
+        AchievementManager.instance.InitAchi();
     }
 
     // Update is called once per frame
@@ -648,6 +655,11 @@ public class UICode : MonoBehaviour
                             LastState = "";
                             break;
                     }
+                    if (isAct1Check > 1 && !StateManager.instance.Faze2 && !isOnce123)
+                    {
+                        StartCoroutine(AchievementManager.instance.AchiUIAppearence(2));
+                        isOnce123 = true;
+                    }
                     T_1.enabled = false;
                     T_2.enabled = false;
                     T1.enabled = true;
@@ -791,6 +803,7 @@ public class UICode : MonoBehaviour
             if(!StateManager.instance.NormalFaze2 && !StateManager.instance.BetrayalFaze2) StateManager.instance.MercyEnd = true;
             StartCoroutine(EndScene());
         }
+        if (PlayerManager.instance.HP <= 0) PlayerManager.instance.Death();
         //게임 종료 코드
         if(Input.GetKeyDown(KeyCode.Escape))
         {
@@ -801,18 +814,29 @@ public class UICode : MonoBehaviour
     IEnumerator ExitGame()
     {
         float DownTime = 0f;
+        float TimeElapsed = 0f;
+        float Duration = 1f;
+        StartCoroutine(ExitText.GetComponent<Quitting>().Quit());
         while (!Input.GetKeyUp(KeyCode.Escape))
         {
             DownTime += Time.deltaTime;
-            if (DownTime > 1.3f)
+            if (TimeElapsed <= Duration) TimeElapsed += Time.deltaTime;
+            float t = TimeElapsed / Duration;
+            ExitText.color = new Color(1, 1, 1, t);
+            if (DownTime > 1f)
             {
-                //DownTime = 0f;
+                DownTime = 0f;
                 Debug.Log("Game Exit!");
-                break;
-                //Application.Quit();
+                ExitText.color = new Color(1, 1, 1, 0);
+                StopCoroutine(ExitText.GetComponent<Quitting>().Quit());
+                Application.Quit();
+                yield break;
             }
             yield return null;
         }
+        StopCoroutine(ExitText.GetComponent<Quitting>().Quit());
+        ExitText.color = new Color(1, 1, 1, 0);
+        yield break;
     }
     void StateChangeRight()
     {
@@ -1415,6 +1439,9 @@ public class UICode : MonoBehaviour
         isAct2Check = 0;
         isAct3Check = 0;
         isAct4Check = 0;
+        StateManager.instance.TurnCount = 0;
+        PatternManager.instance.PatternCountFaze2 = 0;
+        PatternManager.instance.RandomNum = -1;
         ImageChanger(FightBtn, SeleteFight);
         HeartPos = FightBtnPos;
         Heart.SetActive(true);

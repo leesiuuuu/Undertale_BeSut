@@ -381,7 +381,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 1
   FadeIn: 1
-  Delay: 3.2
+  Delay: 3.5
 --- !u!1 &728137723
 GameObject:
   m_ObjectHideFlags: 0
@@ -476,7 +476,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 1
   FadeIn: 1
-  Delay: 4.5
+  Delay: 5
 --- !u!1 &746262552
 GameObject:
   m_ObjectHideFlags: 0
@@ -873,7 +873,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 1
   FadeIn: 1
-  Delay: 4.5
+  Delay: 5
 --- !u!1 &1157534392
 GameObject:
   m_ObjectHideFlags: 0
@@ -969,7 +969,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Duration: 1
   FadeIn: 1
-  Delay: 4
+  Delay: 4.5
 --- !u!1 &1712875685
 GameObject:
   m_ObjectHideFlags: 0

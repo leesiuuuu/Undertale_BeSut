@@ -1,12 +1,13 @@
 using System.Collections;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class UIAppear : MonoBehaviour
 {
     public AchievementSO ASO;
-    public Text Title;
-    public Text Description;
+    public TMP_Text Title;
+    public TMP_Text Description;
     public Image icon;
     private string key;
 

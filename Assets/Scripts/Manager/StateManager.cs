@@ -15,7 +15,7 @@ public class StateManager : MonoBehaviour
     [Header("BossState")]
     public bool Talking = false;
     public int NoLieStack = 0;
-    public int TurnCount = 0;
+    public int TurnCount = 1;
     //완전한 불살 루트를 거쳤을 때 나타남.
     //그러나, 공격을 할 시 2페이즈 켜짐
     public bool NoKill = false;
@@ -130,5 +130,27 @@ public class StateManager : MonoBehaviour
             return "엔딩 1.\n외로운 죽음"; 
         }
         else return null;
+    }
+    public void ManagerInit()
+    {
+        Fighting = false;
+        Acting = false;
+        Starting = false;
+        logAppear = false;
+        _Fighting = false;
+        _Acting = false;
+        _Iteming = false;
+        _Mercying = false;
+        Talking = false;
+        NoLieStack = 0;
+        TurnCount = 1;
+        NoKill = false;
+        Faze2 = false;
+        NormalFaze2 = false;
+        BetrayalFaze2 = false;
+        MercyEnd = false;
+        GameDone = false;
+        _10Ptn = false;
+        Last = false;
     }
 }

@@ -49,7 +49,6 @@ public class PatternManager : MonoBehaviour
         if(instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -87,7 +86,7 @@ public class PatternManager : MonoBehaviour
                         case 1:
                             AtkPtn1M.enabled = true;
                             AtkPtn1M.Duration = Random.Range(AtkPtn1M.Duration - 2, AtkPtn1M.Duration + 5);
-                            AtkPtn1M.MAX = Random.Range(AtkPtn1M.MIN - 0.2f, AtkPtn1M.MAX - 0.7f);
+                            AtkPtn1M.MAX = Random.Range(AtkPtn1M.MIN, AtkPtn1M.MAX - 0.3f);
                             break;
                         case 2:
                             AtkPtn2M.enabled = true;
@@ -114,7 +113,7 @@ public class PatternManager : MonoBehaviour
     public IEnumerator SeqPatternStart2(int TurnCount)
     {
         yield return new WaitForSeconds(0.5f);
-        if(TurnCount == Before)
+        if(TurnCount == Before && TurnCount != 0)
         {
             int TC = TurnCount;
             if (TurnCount == -1) TC = 0;
@@ -265,12 +264,5 @@ public class PatternManager : MonoBehaviour
     private float Linear(float x)
     {
         return x;
-    }
-    public void InitScript()
-    {
-        RandomNum = -1;
-        isSpeicalMove = false;
-        TimeElapsed = 0f;
-
     }
 }

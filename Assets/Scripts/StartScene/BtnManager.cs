@@ -41,6 +41,8 @@ public class BtnManager : MonoBehaviour
     public void ExitGame() 
     {
         PlayerPrefs.DeleteKey("CurrentNum");
+        PlayerPrefs.Save();
+        Application.Quit();
         Debug.Log("Game Exit!");
     }
     public void AchiGame()

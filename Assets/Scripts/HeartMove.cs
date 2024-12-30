@@ -42,7 +42,7 @@ public class HeartMove : MonoBehaviour
             ShieldBarr.SetActive(true);
         }
     }
-    private void Start()
+    private void Awake()
     {
         CoolTime = 0f;
         ShieldObj = transform.GetChild(0).gameObject;
@@ -203,7 +203,7 @@ public class HeartMove : MonoBehaviour
         SoundManager.instance.SFXPlay("Hurt", HurtClip);
         if(LaserDamage == 0)
         {
-            StartCoroutine(Shake(gameObject, 0.5f, 1f));
+            StartCoroutine(Shake(gameObject, 0.5f, 0.5f));
             isInvin = true;
             PlayerManager.instance.HPChanged();
             animator.SetBool("Hurted", true);

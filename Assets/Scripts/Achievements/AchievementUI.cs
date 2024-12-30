@@ -13,21 +13,30 @@ public class AchievementUI : MonoBehaviour
 
     public SpriteRenderer[] SR;
     public TextMeshPro[] TMPN;
+
+    public bool exit;
     private void Start()
     {
         SR = GetComponentsInChildren<SpriteRenderer>();
         TMPN = GetComponentsInChildren<TextMeshPro>();
-        if (PlayerPrefs.GetInt(ASO.key) == 1)
+        if (!exit)
         {
-            Icon.sprite = ASO.Icon;
-            TMP1.text = ASO.Title;
-            TMP2.text = ASO.Description;
+            if (PlayerPrefs.GetInt(ASO.key) == 1)
+            {
+                Icon.sprite = ASO.Icon;
+                TMP1.text = ASO.Title;
+                TMP2.text = ASO.Description;
+            }
+            else
+            {
+                Icon.sprite = Lock;
+                TMP1.text = "????";
+                TMP2.text = "??????????????";
+            }
         }
         else
         {
-            Icon.sprite = Lock;
-            TMP1.text = "????";
-            TMP2.text = "??????????????";
+
         }
         StateDeSelete();
     }

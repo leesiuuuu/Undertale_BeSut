@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class AchievementMove : MonoBehaviour
@@ -7,11 +8,12 @@ public class AchievementMove : MonoBehaviour
     private AchievementUI[] AchiUIs;
     int index = 0;
     int before = 0;
-    int MAX_INDEX_NUM = 10;
+    int MAX_INDEX_NUM = 11;
     bool once = false;
     void Start()
     {
         once = false;
+        AchiUIs = new AchievementUI[MAX_INDEX_NUM];
         AchiUIs = GetComponentsInChildren<AchievementUI>();
     }
 
@@ -23,15 +25,19 @@ public class AchievementMove : MonoBehaviour
             AchiUIs[0].StateSelete();
             once = true;
         }
-        if (Input.GetKeyDown(KeyCode.DownArrow))
+        if (Input.GetKeyDown(KeyCode.DownArrow) && !Input.GetKeyDown(KeyCode.UpArrow))
         {
-            y = Mathf.Clamp(y+=3f, 0, 27f);
+            y = Mathf.Clamp(y+=3f, 0, 30f);
             index = Mathf.Clamp(++index, 0, MAX_INDEX_NUM);
         }
-        else if (Input.GetKeyDown(KeyCode.UpArrow)) 
+        else if (Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKeyDown(KeyCode.DownArrow))
         {
-            y = Mathf.Clamp(y-=3f, 0, 27f);
+            y = Mathf.Clamp(y-=3f, 0, 30f);
             index = Mathf.Clamp(--index, 0, MAX_INDEX_NUM); 
+        }
+        else if (Input.GetKeyDown(KeyCode.Z) && index == 11)
+        {
+            SceneManager.LoadScene("StartScene");
         }
         UpdateState();
         before = index;
