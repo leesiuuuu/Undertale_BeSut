@@ -228,7 +228,7 @@ public class UICode : MonoBehaviour
         //UI 키 이동 코드
         if (StateManager.instance.Acting)
         {
-            if (!StateManager.instance.Last)
+            if (!StateManager.instance.Last && !GameDoneLogAdd)
             {
                 if (Input.GetKeyDown(KeyCode.LeftArrow))
                 {
@@ -250,7 +250,7 @@ public class UICode : MonoBehaviour
             MercyBtn.color = new Color(1, 1, 1, 0.3f);
         }
         //UI 선택 시 Text 변경 코드
-        else if(StateManager.instance.Starting && !AttackSliding)
+        else if(StateManager.instance.Starting && !AttackSliding && !GameDoneLogAdd)
         {
             if (StateManager.instance._Fighting)
             {
