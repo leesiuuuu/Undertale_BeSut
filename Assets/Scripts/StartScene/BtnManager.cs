@@ -18,15 +18,11 @@ public class BtnManager : MonoBehaviour
             Destroy(gameObject);
         }
     }
-    private void Start()
-    {
-        SoundManager.instance.StartMenuPlay();
-    }
     public void StartGame() 
     {
         Debug.Log("Game Start!");
-        //씬 이동 로직 추가
-        Destroy(gameObject);
+        //씬 이동 로직 추가;
+        SceneManager.LoadScene("SampleScene");
     }
     public void TutorialGame() 
     {

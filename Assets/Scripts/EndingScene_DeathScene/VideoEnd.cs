@@ -8,6 +8,7 @@ public class VideoEnd : MonoBehaviour
 
     private void Start()
     {
+        VP.SetDirectAudioVolume(0, PlayerPrefs.HasKey("vol") ? PlayerPrefs.GetFloat("vol") : 1f);
         VP.loopPointReached += OnVideoEnd;
     }
     void OnVideoEnd(VideoPlayer vp)

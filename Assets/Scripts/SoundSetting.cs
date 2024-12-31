@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
@@ -20,8 +21,15 @@ public class SoundSetting : MonoBehaviour
         GoMainSeleted = false;
         GoMain.color = Color.white;
         slider = GetComponent<Slider>();
-        slider.value = PlayerPrefs.GetFloat("vol");
         bg = GameObject.Find("Background");
+    }
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("vol"))
+        {
+            slider.value = PlayerPrefs.GetFloat("vol");
+            SoundManager.instance.Volume(PlayerPrefs.GetFloat("vol"));
+        }
     }
     void Update()
     {

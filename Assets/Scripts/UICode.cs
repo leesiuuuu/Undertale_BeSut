@@ -155,6 +155,7 @@ public class UICode : MonoBehaviour
     private bool isOnce123 = false;
     private void Awake()
     {
+        SoundManager.instance.StopStartMenu();
         StateManager.instance.GameDone = false;
         scalemove.enabled = true;
         //남아있는 요소 확인
@@ -1632,6 +1633,8 @@ public class UICode : MonoBehaviour
         BlackFade.SetActive(true);
         StartCoroutine(SoundManager.instance.SoundFadeOut(SoundManager.instance.b1, 1f));
         yield return new WaitForSeconds(1f);
+        if (StateManager.instance.Faze2) SoundManager.instance.StopBG2();
+        else SoundManager.instance.StopBG();
         SceneManager.LoadScene("EndingScene");
         yield break;
     }

@@ -213,9 +213,13 @@ public class ButtonSelete : MonoBehaviour
     }
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+
         if(scene.name == "StartScene")
         {
-            Debug.Log("»£√‚µ !");
+            if (GameObject.Find("StartMenu") == null)
+            {
+                SoundManager.instance.StartMenuPlay();
+            }
             FindBtnWithID(PlayerPrefs.GetInt("CurrentNum")).SetSeleteState(true);
             transform.position = HeartObjPosArray[PlayerPrefs.GetInt("CurrentNum")];
             BtnSeleteActivate();

@@ -153,4 +153,16 @@ public class StateManager : MonoBehaviour
         _10Ptn = false;
         Last = false;
     }
+    public void BetrayalFaze2Save()
+    {
+        if (!PlayerPrefs.HasKey("bf"))
+        {
+            PlayerPrefs.SetInt("bf", 1);
+            PlayerPrefs.Save();
+        }
+        else
+        {
+            return;
+        }
+    }
 }

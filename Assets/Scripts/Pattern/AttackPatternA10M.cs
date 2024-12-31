@@ -13,6 +13,9 @@ public class AttackPatternA10M : MonoBehaviour
     private GameObject _Camera;
     private Camera _camera;
 
+    [SerializeField]
+    private GameObject VKey;
+
     private void OnEnable()
     {
         _camera = _Camera.GetComponent<Camera>();
@@ -53,15 +56,20 @@ public class AttackPatternA10M : MonoBehaviour
             yield return null; // 다음 프레임까지 대기
         }
         yield return new WaitForSeconds(1.02f);
-        SetTimeScale(0.005f);
+        SetTimeScale(0.001f);
+        StartCoroutine(SoundManager.instance.SoundSlow(SoundManager.instance.b2, 0.5f));
         StateManager.instance._10Ptn = true;
+        VKey.SetActive(true);
+        VKey.GetComponent<Animator>().updateMode = AnimatorUpdateMode.UnscaledTime;
         while (true)
         {
-
             //v키 입력 감지 시
             if (Input.GetKeyDown(KeyCode.V))
             {
                 SetTimeScale(1);
+                StartCoroutine(SoundManager.instance.SoundSlow(SoundManager.instance.b2, 0.5f, false));
+                VKey.SetActive(false);
+                Destroy(VKey);
                 elapsed = 0;
                 //선형 보간 이동
                 while (elapsed < duration)
@@ -104,6 +112,7 @@ public class AttackPatternA10M : MonoBehaviour
                 "둘 중 하나는 죽게 되겠지.",
                 "마지막 데스 게임을 시작해보자고."));
         }
+        StateManager.instance.BetrayalFaze2Save();
         yield break;
     }
     public void SetTimeScale(float time)

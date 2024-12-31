@@ -1246,7 +1246,7 @@ MonoBehaviour:
   BG_1: {fileID: 8300000, guid: 9f3e7a9c5934dd244844b7b6a077dbc3, type: 3}
   BG_2: {fileID: 8300000, guid: 6a8651da44f6bc44981c147ab55abbc3, type: 3}
   StartMenu: {fileID: 8300000, guid: 32022d420a099914b9f8fd6880d7aec3, type: 3}
-  DeathMenu: {fileID: 0}
+  DeathMenu: {fileID: 8300000, guid: f88af9e4a1ff5c348a6d63a22f80ffbd, type: 3}
   b1: {fileID: 0}
   b2: {fileID: 0}
   sm: {fileID: 0}

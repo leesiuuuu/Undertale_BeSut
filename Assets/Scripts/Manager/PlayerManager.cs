@@ -40,6 +40,8 @@ public class PlayerManager : MonoBehaviour
     }
     public void Death()
     {
+        if (StateManager.instance.Faze2) SoundManager.instance.StopBG2();
+        else SoundManager.instance.StopBG();
         SceneManager.LoadScene("DeathScene");
     }
 }

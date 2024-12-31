@@ -38,7 +38,7 @@ public class TutorialBtn : MonoBehaviour
             HeartObjPos.Add(HeartObjPosArray[i]);
         }
 
-        if (PlayerPrefs.GetInt("BetrayalFaze2") == 1)
+        if (PlayerPrefs.GetInt("bf") == 1)
         {
             Debug.Log("특수 튜토리얼 해방!");
             Sprites[4].Btn = LaserShield;
