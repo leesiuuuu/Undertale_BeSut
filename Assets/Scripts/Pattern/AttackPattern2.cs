@@ -12,8 +12,6 @@ public class AttackPattern2 : AttackPattern2M
     protected int dir;
     private float time;
     public float EndTime;
-    //빌드 할 때와 디버깅 할 때와 속도가 약 3~4배 차이남.
-    //ex) 40 -> 150
     public float Speed;
     private Vector3 direction;
     private void Start()
@@ -52,7 +50,7 @@ public class AttackPattern2 : AttackPattern2M
         }
 
         if (time < ttime)
-            transform.position += direction * 0.001f * Speed;
+            transform.position += direction * Time.deltaTime * Speed;
         else
         {
             Destroy(gameObject);

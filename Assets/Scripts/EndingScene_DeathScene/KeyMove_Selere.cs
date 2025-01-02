@@ -15,25 +15,27 @@ public class KeyMove_Selere : MonoBehaviour
     bool Moveable = true;
 
     bool flag = false;
-    private void Start()
+    bool flagSeleted = false;
+    private void Awake()
     {
         if (StateManager.instance.Last) StartCoroutine(AchievementManager.instance.AchiUIAppearence(5));
         flag = false;
+        flagSeleted = false;
     }
     // Update is called once per frame
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.DownArrow) && !GM.TryGetComponent(out Transition_TMP tt) && Moveable)
         {
-            if (!flag) flag = true;
+            if (!flag) { flag = true; flagSeleted = true; }
             flagUpdate();
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow) && !GM.TryGetComponent(out Transition_TMP Tt) && Moveable)
         {
-            if(flag) flag = false;
+            if (flag) { flag = false; flagSeleted = true; }
             flagUpdate();
         }
-        else if (Input.GetKeyDown(KeyCode.Z) && !GM.TryGetComponent(out Transition_TMP tT) && Moveable)
+        else if (Input.GetKeyDown(KeyCode.Z) && !GM.TryGetComponent(out Transition_TMP tT) && Moveable && flagSeleted)
         {
             CheckFlag();
         }

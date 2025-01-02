@@ -101,7 +101,7 @@ MonoBehaviour:
   AttackObject: {fileID: 1334566506059042031}
   UC: {fileID: 0}
   EndTime: 2
-  Speed: 150
+  Speed: 10
 --- !u!68 &8157434062957543185
 EdgeCollider2D:
   m_ObjectHideFlags: 0

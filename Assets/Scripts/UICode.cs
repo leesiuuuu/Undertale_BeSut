@@ -155,7 +155,7 @@ public class UICode : MonoBehaviour
     private bool isOnce123 = false;
     private void Awake()
     {
-        SoundManager.instance.StopStartMenu();
+        //SoundManager.instance.StopStartMenu();
         StateManager.instance.GameDone = false;
         scalemove.enabled = true;
         //남아있는 요소 확인

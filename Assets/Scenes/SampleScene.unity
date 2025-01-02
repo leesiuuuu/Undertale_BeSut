@@ -4469,6 +4469,7 @@ MonoBehaviour:
   NormalBossNNN: {fileID: -660896121, guid: aa588d335c2ea10419f1ea5fad983d91, type: 3}
   bossBleedy: {fileID: -325247916, guid: aa588d335c2ea10419f1ea5fad983d91, type: 3}
   bossNNN: {fileID: -842871495, guid: aa588d335c2ea10419f1ea5fad983d91, type: 3}
+  healsfx: {fileID: 8300000, guid: b5bea697624338e4eb36730c8d2da959, type: 3}
 --- !u!1 &1592521500
 GameObject:
   m_ObjectHideFlags: 0

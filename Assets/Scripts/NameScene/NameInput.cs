@@ -6,10 +6,9 @@ public class NameInput : MonoBehaviour
     private TMP_InputField ip;
     private bool isActive = false;
 
-    private void Start()
+    private void Awake()
     {
         ip = GetComponent<TMP_InputField>();
-        ip.readOnly = true; // 기본적으로 마우스 입력 비활성화
     }
 
     private void Update()

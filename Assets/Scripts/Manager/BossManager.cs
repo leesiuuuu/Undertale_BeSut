@@ -37,6 +37,9 @@ public class BossManager : MonoBehaviour
     public Sprite bossBleedy;
     public Sprite bossNNN;
 
+    [Header("Sound")]
+    public AudioClip healsfx;
+
     private void Awake()
     {
         shakeing = false;
@@ -58,6 +61,7 @@ public class BossManager : MonoBehaviour
         DamageText.outlineColor = Color.green;
         DamageText.text = Cure.ToString();
         bossHP += Cure;
+        SoundManager.instance.SFXPlay("heal", healsfx);
         float HPDetail1 = bossHP / (float)MAX_BOSS_HP;
         BossUI.fillAmount = HPDetail1;
         Invoke("ReturnBoss", 0.8f);
