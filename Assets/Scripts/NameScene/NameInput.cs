@@ -3,42 +3,21 @@ using UnityEngine;
 
 public class NameInput : MonoBehaviour
 {
-    private TMP_InputField ip;
-    private bool isActive = false;
-
+    private int MAX_VALUE = 6;
+    private TMP_Text t;
     private void Awake()
     {
-        ip = GetComponent<TMP_InputField>();
+        t = GetComponent<TMP_Text>();
+        t.text = "";
     }
-
-    private void Update()
+    public void InputAlphabet(char id)
     {
-        // Z 키로 입력 필드 활성화
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            ActivateInputField();
-        }
-
-        // ESC 키로 입력 필드 비활성화
-        if (Input.GetKeyDown(KeyCode.Escape) && isActive)
-        {
-            DeactivateInputField();
-        }
+        if (t.text.Length >= MAX_VALUE) return;
+        t.text += id.ToString();
     }
-
-    private void ActivateInputField()
+    public void DeleteAlphabet()
     {
-        isActive = true;
-        ip.readOnly = false; // 입력 가능 상태로 변경
-        ip.text = "";        // 초기화 (선택 사항)
-        ip.caretPosition = 0;
-        ip.selectionStringFocusPosition = 0; // 커서 위치 초기화
-        ip.selectionStringAnchorPosition = 0;
-    }
-
-    private void DeactivateInputField()
-    {
-        isActive = false;
-        ip.readOnly = true; // 다시 입력 불가능 상태로 설정
+        if (t.text.Length <= 0) return;
+        t.text = t.text.Remove(t.text.Length-1);
     }
 }

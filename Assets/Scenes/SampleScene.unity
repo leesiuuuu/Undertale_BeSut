@@ -4586,6 +4586,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c55361047963a294abc121d0d1d57c49, type: 2}
   - {fileID: 11400000, guid: bf26c3b2dbc4eea47b08fbe1b4b324f5, type: 2}
   - {fileID: 11400000, guid: ab92c186632c1704eac9f93977c82b61, type: 2}
+  - {fileID: 11400000, guid: f08edec901dfb5a40981fd868c4eba26, type: 2}
   UIClear: {fileID: 6795044073812341216, guid: c97101c3fcd6fff4ab2892506c763e80, type: 3}
   UICanvas: {fileID: 4178909523733917836, guid: 22dedbe862420324eb64b88f58457f24, type: 3}
 --- !u!4 &1644951218

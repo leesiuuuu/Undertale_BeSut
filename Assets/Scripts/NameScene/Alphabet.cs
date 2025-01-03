@@ -32,9 +32,8 @@ public class Alphabet : MonoBehaviour
     public void SetSelete(bool value)
     {
         Selete = value;
-        SetSeleteCheck();
     }
-    private void SetSeleteCheck()
+    public void SetSeleteCheck()
     {
         if (Selete)
         {
@@ -45,16 +44,29 @@ public class Alphabet : MonoBehaviour
             _this.GetComponent<TMP_Text>().color = Color.white;
         }
     }
-    public void InputAlphabet(TMP_Text NameText)
-    {
-        NameText.text += id.ToString();
-    }
-    public void DeleteAlphabet(TMP_Text NameText)
-    {
-        NameText.text = NameText.text.Remove(NameText.text.Length);
-    }
     public int GetID()
     {
         return id;
+    }
+    public bool GetSelete()
+    {
+        return Selete;
+    }
+    public void AlphabetChange(bool Big)
+    {
+        //대문자 -> 소문자
+        if (Big)
+        {
+            id = (char)(id + 32);
+        }
+        //소문자 -> 대문자
+        else
+        {
+            id = (char)(id - 32);
+        }
+    }
+    public void UpdateAlphabet()
+    {
+        _this.GetComponent<TMP_Text>().text = id.ToString();
     }
 }

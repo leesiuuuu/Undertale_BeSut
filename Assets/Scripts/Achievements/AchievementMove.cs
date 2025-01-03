@@ -1,14 +1,13 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class AchievementMove : MonoBehaviour
 {
     private AchievementUI[] AchiUIs;
     int index = 0;
     int before = 0;
-    int MAX_INDEX_NUM = 11;
+    int MAX_INDEX_NUM = 12;
     bool once = false;
     void Start()
     {
@@ -27,15 +26,15 @@ public class AchievementMove : MonoBehaviour
         }
         if (Input.GetKeyDown(KeyCode.DownArrow) && !Input.GetKeyDown(KeyCode.UpArrow))
         {
-            y = Mathf.Clamp(y+=3f, 0, 30f);
+            y = Mathf.Clamp(y+=3f, 0, 33f);
             index = Mathf.Clamp(++index, 0, MAX_INDEX_NUM);
         }
         else if (Input.GetKeyDown(KeyCode.UpArrow) && !Input.GetKeyDown(KeyCode.DownArrow))
         {
-            y = Mathf.Clamp(y-=3f, 0, 30f);
+            y = Mathf.Clamp(y-=3f, 0, 33f);
             index = Mathf.Clamp(--index, 0, MAX_INDEX_NUM); 
         }
-        else if (Input.GetKeyDown(KeyCode.Z) && index == 11)
+        else if (Input.GetKeyDown(KeyCode.Z) && index == 12)
         {
             SceneManager.LoadScene("StartScene");
         }
