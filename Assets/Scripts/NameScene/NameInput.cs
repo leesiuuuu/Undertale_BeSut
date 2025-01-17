@@ -20,4 +20,8 @@ public class NameInput : MonoBehaviour
         if (t.text.Length <= 0) return;
         t.text = t.text.Remove(t.text.Length-1);
     }
+    public string GetNameField()
+    {
+        return t.text;
+    }
 }

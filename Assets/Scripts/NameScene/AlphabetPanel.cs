@@ -3,6 +3,7 @@ using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Experimental.GraphView;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UIElements;
 
 public class AlphabetPanel : MonoBehaviour
@@ -175,7 +176,9 @@ public class AlphabetPanel : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Z))
         {
-            //æ¿ ¿Ãµø
+            PlayerPrefs.SetString("name", _InputField.GetNameField());
+            PlayerPrefs.Save();
+            SceneManager.LoadScene("SureThisNameScene");
         }
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
