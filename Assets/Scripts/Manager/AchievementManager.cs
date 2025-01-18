@@ -12,15 +12,21 @@ public class AchievementState
     }
 }
 
+
+
 public class AchievementManager : MonoBehaviour
 {
     public static AchievementManager instance;
-    private AchievementState[] achievementStates = new AchievementState[11];
+    private AchievementState[] achievementStates = new AchievementState[12];
 
     public AchievementSO[] achievementSOs;
 
     public GameObject UIClear;
     public GameObject UICanvas;
+    private void Start()
+    {
+        InitAchi();
+    }
 
     private void Awake()
     {

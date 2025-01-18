@@ -31,6 +31,10 @@ public class NameSet : MonoBehaviour
         {
             Selete();
         }
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            SceneManager.LoadScene("StartScene");
+        }
     }
     private void StateCheck()
     {
