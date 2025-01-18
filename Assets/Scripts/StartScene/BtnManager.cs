@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,8 +19,15 @@ public class BtnManager : MonoBehaviour
     public void StartGame() 
     {
         Debug.Log("Game Start!");
-        //씬 이동 로직 추가;
-        SceneManager.LoadScene("NameSettingScene");
+        //씬 이동 로직 추가
+        if (PlayerPrefs.HasKey("name"))
+        {
+            SceneManager.LoadScene("NameSetScene");
+        }
+        else
+        {
+            SceneManager.LoadScene("NameSettingScene");
+        }
     }
     public void TutorialGame() 
     {

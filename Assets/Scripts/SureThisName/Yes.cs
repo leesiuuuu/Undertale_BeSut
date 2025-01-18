@@ -1,8 +1,19 @@
+using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Yes : MonoBehaviour
 {
+    [SerializeField]
+    private SpriteRenderer White;
+    [SerializeField]
+    private FadeAsync FA;
+    [SerializeField]
+    private float Duration;
+
+    private Color white = new Color(1f, 1f, 1f, 1f);
+    private Color none = new Color(1f, 1f, 1f, 0f);
     private TMP_Text T;
     bool trueToggle = false;
     private void Awake()
@@ -18,7 +29,7 @@ public class Yes : MonoBehaviour
             if (trueToggle)
             {
                 T.color = Color.white;
-                //하얀 화면 페이드 인
+                StartCoroutine(FA.fade(White, Duration, none, white));
             }
             else
             {

@@ -18,7 +18,7 @@ public class UIAppear : MonoBehaviour
     private RectTransform RT;
     private Vector3 EndRT;
     private Vector3 StartRT;
-    void Start()
+    void Awake()
     {
         Title.text = ASO.Title;
         Description.text = ASO.Description;

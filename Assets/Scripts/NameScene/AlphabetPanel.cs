@@ -1,10 +1,6 @@
-using System.Xml;
 using TMPro;
-using Unity.VisualScripting;
-using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UIElements;
 
 public class AlphabetPanel : MonoBehaviour
 {

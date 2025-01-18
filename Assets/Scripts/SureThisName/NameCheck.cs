@@ -16,7 +16,7 @@ public class NameCheck : MonoBehaviour
             PlayerPrefs.GetString("name") == "leesiu")
         {
             text.text = "이 이름은 개발자의 이름입니다.";
-            //StartCoroutine(AchievementManager.instance.AchiUIAppearence(3));
+            StartCoroutine(AchievementManager.instance.AchiUIAppearence(3));
         }
         else
         {
