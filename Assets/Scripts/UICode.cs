@@ -36,6 +36,7 @@ public class UICode : MonoBehaviour
     [Header("Text")]
     public TMP_Text Ttext;
     public Text ExitText;
+    public TMP_Text nameInput;
     [Header("Sprite")]
     public GameObject Heart;
     public GameObject TalkBalloon;
@@ -156,6 +157,7 @@ public class UICode : MonoBehaviour
     private void Awake()
     {
         //SoundManager.instance.StopStartMenu();
+        nameInput.text = PlayerPrefs.GetString("name");
         StateManager.instance.GameDone = false;
         scalemove.enabled = true;
         //남아있는 요소 확인

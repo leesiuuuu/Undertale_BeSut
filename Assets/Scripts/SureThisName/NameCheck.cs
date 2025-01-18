@@ -8,8 +8,6 @@ public class NameCheck : MonoBehaviour
     private TMP_Text text;
     [SerializeField]
     private TMP_Text nameField;
-    [SerializeField]
-    private Vector3 MaxScale;
     private void Awake()
     {
         text = GetComponent<TMP_Text>();
@@ -18,7 +16,7 @@ public class NameCheck : MonoBehaviour
             PlayerPrefs.GetString("name") == "leesiu")
         {
             text.text = "이 이름은 개발자의 이름입니다.";
-            StartCoroutine(AchievementManager.instance.AchiUIAppearence(3));
+            //StartCoroutine(AchievementManager.instance.AchiUIAppearence(3));
         }
         else
         {

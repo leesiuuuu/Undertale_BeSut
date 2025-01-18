@@ -174,7 +174,7 @@ public class AlphabetPanel : MonoBehaviour
     }
     private void Confirm_()
     {
-        if (Input.GetKeyDown(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Z) && _InputField.GetNameField().Length > 0)
         {
             PlayerPrefs.SetString("name", _InputField.GetNameField());
             PlayerPrefs.Save();

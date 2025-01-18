@@ -4470,6 +4470,7 @@ MonoBehaviour:
   bossBleedy: {fileID: -325247916, guid: aa588d335c2ea10419f1ea5fad983d91, type: 3}
   bossNNN: {fileID: -842871495, guid: aa588d335c2ea10419f1ea5fad983d91, type: 3}
   healsfx: {fileID: 8300000, guid: b5bea697624338e4eb36730c8d2da959, type: 3}
+  bossDisappear: {fileID: 0}
 --- !u!1 &1592521500
 GameObject:
   m_ObjectHideFlags: 0
@@ -5631,6 +5632,7 @@ MonoBehaviour:
   DamagedSound: {fileID: 8300000, guid: d6319ec4585ad3746afe802f9102b1f0, type: 3}
   Ttext: {fileID: 1677406523}
   ExitText: {fileID: 1858041180}
+  nameInput: {fileID: 1122035377}
   Heart: {fileID: 1706545559}
   TalkBalloon: {fileID: 250121119}
   TalkBalloonText: {fileID: 1534476194}

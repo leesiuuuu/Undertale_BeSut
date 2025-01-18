@@ -39,6 +39,7 @@ public class BossManager : MonoBehaviour
 
     [Header("Sound")]
     public AudioClip healsfx;
+    public AudioClip bossDisappear;
 
     private void Awake()
     {
@@ -175,6 +176,7 @@ public class BossManager : MonoBehaviour
     }
     public void BossDisappear()
     {
+        SoundManager.instance.SFXPlay("BossDisappear", bossDisappear);
         Transition t = Boss.AddComponent<Transition>();
         t.FadeIn = false;
         t.Duration = 1f;

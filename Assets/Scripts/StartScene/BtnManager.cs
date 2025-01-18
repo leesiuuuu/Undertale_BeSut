@@ -22,7 +22,7 @@ public class BtnManager : MonoBehaviour
     {
         Debug.Log("Game Start!");
         //씬 이동 로직 추가;
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("NameSettingScene");
     }
     public void TutorialGame() 
     {
