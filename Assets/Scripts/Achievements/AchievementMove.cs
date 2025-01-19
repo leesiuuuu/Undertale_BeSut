@@ -15,6 +15,13 @@ public class AchievementMove : MonoBehaviour
         AchiUIs = new AchievementUI[MAX_INDEX_NUM];
         AchiUIs = GetComponentsInChildren<AchievementUI>();
     }
+    private void Awake()
+    {
+        if (AchievementManager.instance.AchiAllClear())
+        {
+            StartCoroutine(AchievementManager.instance.AchiUIAppearence(0));
+        }
+    }
 
     float y = 0;
     void Update()

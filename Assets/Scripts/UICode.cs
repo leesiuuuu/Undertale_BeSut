@@ -799,7 +799,27 @@ public class UICode : MonoBehaviour
         {
             Ttext.text = "";
             Ttext.color = new Color(255, 255, 255);
-            if(StateManager.instance.Last) Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 128xp와 999골드를 얻었다!");
+            if (StateManager.instance.Last)
+            {
+                Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 128xp와 999골드를 얻었다!");
+                if (!PlayerPrefs.HasKey("killCount"))
+                {
+                    PlayerPrefs.SetInt("killCount", 1);
+                    PlayerPrefs.Save();
+                }
+                else
+                {
+                    int temp = PlayerPrefs.GetInt("killCount");
+                    temp += 1;
+                    PlayerPrefs.SetInt("killCount", temp);
+                    PlayerPrefs.Save();
+                }
+                
+                if(PlayerPrefs.GetInt("killCount") == 2)
+                {
+                    StartCoroutine(AchievementManager.instance.AchiUIAppearence(9));
+                }
+            }
             else Ttext.gameObject.GetComponent<TalkBox>().Talk(0, "* 전투 종료!\n* 당신은 0xp와 0골드를 얻었다!");
             StateManager.instance.GameDone = false;
             GameDoneLogAdd = true;

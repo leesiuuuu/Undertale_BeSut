@@ -11,12 +11,18 @@ public class NameCheck : MonoBehaviour
     private void Awake()
     {
         text = GetComponent<TMP_Text>();
-        if(PlayerPrefs.GetString("name") == "Leesiu" ||
-            PlayerPrefs.GetString("name") == "LEESIU" ||
-            PlayerPrefs.GetString("name") == "leesiu")
+        if(PlayerPrefs.GetString("name").Equals("Leesiu")||
+            PlayerPrefs.GetString("name").Equals("LEESIU") ||
+            PlayerPrefs.GetString("name").Equals("leesiu"))
         {
             text.text = "이 이름은 개발자의 이름입니다.";
             StartCoroutine(AchievementManager.instance.AchiUIAppearence(3));
+        }
+        else if (PlayerPrefs.GetString("name").Equals("UIIAII") ||
+            PlayerPrefs.GetString("name").Equals("uiiaii"))
+        {
+            text.text = "U I I A I I";
+            StartCoroutine(AchievementManager.instance.AchiUIAppearence(11));
         }
         else
         {

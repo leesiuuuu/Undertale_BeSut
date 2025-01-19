@@ -23,6 +23,7 @@ public class AchievementManager : MonoBehaviour
 
     public GameObject UIClear;
     public GameObject UICanvas;
+
     private void Start()
     {
         InitAchi();
@@ -60,6 +61,16 @@ public class AchievementManager : MonoBehaviour
         yield return new WaitForSeconds(9);
         Destroy(canvas);
         yield break;
+    }
+    public bool AchiAllClear()
+    {
+        for(int i = 0; i < achievementSOs.Length; i++)
+        {
+            if (PlayerPrefs.GetInt(achievementSOs[0].key) == 0 && i == 0) continue;
+            else if (PlayerPrefs.GetInt(achievementSOs[i].key) == 1) continue;
+            else return false;
+        }
+        return true;
     }
     //업적을 달성했을 때 업적을 저장해줌.
     //클리어가 1이면 업적 클리어, 그렇지 않으면 업적 클리어 X
