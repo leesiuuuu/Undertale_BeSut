@@ -25,8 +25,14 @@ public class AlphabetPanel : MonoBehaviour
 
     private KeyCode _key;
 
+    private Vector3 BasicPos = new Vector3(42.495f, 200.23f, -4320f);
+    //x 추가 50, y 추가 -70
+
+    private Vector3 CurPos = Vector3.zero;
+
     private void Awake()
     {
+        CurPos = BasicPos;
         int n = 0;
         //객체 생성
         for(int i = 0; i < 3; i++)
@@ -40,8 +46,13 @@ public class AlphabetPanel : MonoBehaviour
                 a.CreateAlphabet(gameObject, Clone);
                 alphabets[j, i] = a;
                 if (i == 0 && j == 0) alphabets[i, j].SetSelete(true);
+                Clone.GetComponent<RectTransform>().anchoredPosition = Vector3.zero;
+                Clone.GetComponent<RectTransform>().anchoredPosition = CurPos;
                 n++;
+                CurPos.x += 50f;
             }
+            CurPos.x = BasicPos.x;
+            CurPos.y -= 70f;
         }
     }
     private void Update()
@@ -134,7 +145,14 @@ public class AlphabetPanel : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.X))
         {
-            _InputField.DeleteAlphabet();
+            if(_InputField.GetNameField().Length == 0)
+            {
+                SceneManager.LoadScene("StartScene");
+            }
+            else
+            {
+                _InputField.DeleteAlphabet();
+            }
         }
     }
     private void ChangeAlpha()
