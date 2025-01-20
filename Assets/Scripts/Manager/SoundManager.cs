@@ -10,6 +10,7 @@ public class SoundManager : MonoBehaviour
     public AudioClip BG_2;
     public AudioClip StartMenu;
     public AudioClip DeathMenu;
+    public AudioClip StoryBGM;
 
     [HideInInspector]
     public AudioSource b1;
@@ -19,6 +20,8 @@ public class SoundManager : MonoBehaviour
     public AudioSource sm;
     [HideInInspector]
     public AudioSource dm;
+    [HideInInspector]
+    public AudioSource sb;
     void Awake()
     {
         if (instance == null)
@@ -90,9 +93,20 @@ public class SoundManager : MonoBehaviour
         dm.volume = 1f;
         dm.Play();
     }
+    public void StoryBGMPlay()
+    {
+        GameObject S1 = new GameObject("StoryBGM");
+        DontDestroyOnLoad(S1);
+        sb = S1.AddComponent<AudioSource>();
+        SoundUpdate sb_1 = S1.AddComponent<SoundUpdate>();
+        sb.outputAudioMixerGroup = audioMixer.FindMatchingGroups("BGSound")[0];
+        sb.clip = StoryBGM;
+        sb.loop = true;
+        sb.volume = 1f;
+        sb.Play();
+    }
     public void Volume(float val)
     {
-        Debug.Log("»£√‚µ ");
         audioMixer.SetFloat("Master", Mathf.Log10(val) * 20);
     }
     public void StopBG()
@@ -114,6 +128,11 @@ public class SoundManager : MonoBehaviour
     {
         dm.Stop();
         Destroy(dm.gameObject);
+    }
+    public void StopStoryBGM()
+    {
+        sb.Stop();
+        Destroy(sb.gameObject);
     }
     public IEnumerator SoundFadeOut(AudioSource AS, float Duration)
     {

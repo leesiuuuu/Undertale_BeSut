@@ -25,14 +25,18 @@ public class AlphabetPanel : MonoBehaviour
 
     private KeyCode _key;
 
-    private Vector3 BasicPos = new Vector3(42.495f, 200.23f, -4320f);
+    [SerializeField]
+    private GameObject AlphabetStartPos;
+
+    private Vector3 curpos;
     //x 추가 50, y 추가 -70
 
     private Vector3 CurPos = Vector3.zero;
 
     private void Awake()
     {
-        CurPos = BasicPos;
+        CurPos = AlphabetStartPos.GetComponent<RectTransform>().anchoredPosition;
+        curpos = CurPos;
         int n = 0;
         //객체 생성
         for(int i = 0; i < 3; i++)
@@ -51,8 +55,8 @@ public class AlphabetPanel : MonoBehaviour
                 n++;
                 CurPos.x += 50f;
             }
-            CurPos.x = BasicPos.x;
             CurPos.y -= 70f;
+            CurPos.x = curpos.x;
         }
     }
     private void Update()

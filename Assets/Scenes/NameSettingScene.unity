@@ -123,6 +123,50 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &167024849
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 167024850}
+  - component: {fileID: 167024851}
+  m_Layer: 5
+  m_Name: alphabetStartPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &167024850
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167024849}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1616454876}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 85, y: 209}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &167024851
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 167024849}
+  m_CullTransparentMesh: 1
 --- !u!1 &231357375
 GameObject:
   m_ObjectHideFlags: 0
@@ -381,10 +425,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1616454876}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: -21}
-  m_SizeDelta: {x: -369.01, y: -189.53998}
+  m_SizeDelta: {x: 552.04004, y: 290.46002}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &620547223
 CanvasRenderer:
@@ -410,6 +454,7 @@ MonoBehaviour:
   _InputField: {fileID: 1254165420}
   _Confirm: {fileID: 1943246708}
   _ChangeAlphbet: {fileID: 237353347}
+  AlphabetStartPos: {fileID: 167024849}
 --- !u!1 &1254165416
 GameObject:
   m_ObjectHideFlags: 0
@@ -654,6 +699,7 @@ RectTransform:
   - {fileID: 1951630494}
   - {fileID: 1254165417}
   - {fileID: 620547222}
+  - {fileID: 167024850}
   - {fileID: 237353346}
   - {fileID: 1943246707}
   m_Father: {fileID: 0}

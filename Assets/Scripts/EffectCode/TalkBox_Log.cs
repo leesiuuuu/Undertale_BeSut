@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TalkBox_Log : MonoBehaviour
 {
@@ -10,24 +11,32 @@ public class TalkBox_Log : MonoBehaviour
     public TMP_Text TMPtext;
     public AudioClip Log;
     public string[] logs;
-    public int n = 0;
+
+    public Sprite[] images;
+    public Image Image;
+
     void Start()
     {
-        Talk(Delay, logs[n]);
+        SoundManager.instance.StoryBGMPlay();
+        Talk(Delay, logs);
     }
-    public void Talk(float DelayTime, string dialogue1)
+    public void Talk(float DelayTime, string[] dialogue1)
     {
-        StartCoroutine(TalkStart(dialogue1, talkWaitTime, DelayTime));
+        StartCoroutine(TalkStart(talkWaitTime, DelayTime, dialogue1));
     }
-    IEnumerator TalkStart(string dialogue, float talkWaitTime, float Delay = 0f)
+    IEnumerator TalkStart(float talkWaitTime, float Delay = 0f, params string[] dialogue)
     {
-        yield return new WaitForSeconds(Delay);
-        TMPtext.text = null;
-        for(int i = 0; i < dialogue.Length; i++)
+        for(int j = 0; j < dialogue.Length; j++)
         {
-            TMPtext.text += dialogue[i];
-            SoundManager.instance.SFXPlay("Log", Log);
-            yield return new WaitForSeconds(talkWaitTime);
+            TMPtext.text = null;
+            Image.sprite = images[j];
+            for (int i = 0; i < dialogue[j].Length; i++)
+            {
+                TMPtext.text += dialogue[j][i];
+                SoundManager.instance.SFXPlay("Log", Log);
+                yield return new WaitForSeconds(talkWaitTime);
+            }
+            yield return new WaitForSeconds(Delay);
         }
     }
 }
