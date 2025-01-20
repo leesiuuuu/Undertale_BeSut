@@ -196,6 +196,8 @@ MonoBehaviour:
   LaserUnexpandingDelay: 0
   XYCheck: 0
   damageInterval: 0.5
+  LaserReady: {fileID: 8300000, guid: 6f9947bb8985ac74f9f44e8dc4bc6de6, type: 3}
+  LaserBoom: {fileID: 8300000, guid: 6d3aa66dea94cbc40b70e676e6830a56, type: 3}
 --- !u!1 &6688029586169097288
 GameObject:
   m_ObjectHideFlags: 0

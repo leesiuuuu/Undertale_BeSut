@@ -16,6 +16,9 @@ public class AttackPatternA10M : MonoBehaviour
     [SerializeField]
     private GameObject VKey;
 
+    [SerializeField]
+    private AudioClip BBing;
+
     private void OnEnable()
     {
         _camera = _Camera.GetComponent<Camera>();
@@ -55,7 +58,7 @@ public class AttackPatternA10M : MonoBehaviour
 
             yield return null; // 다음 프레임까지 대기
         }
-        yield return new WaitForSeconds(1.02f);
+        yield return new WaitForSeconds(1.005f);
         SetTimeScale(0.001f);
         StartCoroutine(SoundManager.instance.SoundSlow(SoundManager.instance.b2, 0.5f));
         StateManager.instance._10Ptn = true;
@@ -67,6 +70,7 @@ public class AttackPatternA10M : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.V))
             {
                 SetTimeScale(1);
+                SoundManager.instance.SFXPlay("BBing", BBing);
                 StartCoroutine(SoundManager.instance.SoundSlow(SoundManager.instance.b2, 0.5f, false));
                 VKey.SetActive(false);
                 Destroy(VKey);

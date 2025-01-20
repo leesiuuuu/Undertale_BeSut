@@ -1825,6 +1825,7 @@ MonoBehaviour:
   Player: {fileID: 1706545559}
   _Camera: {fileID: 519420028}
   VKey: {fileID: 2051196852}
+  BBing: {fileID: 8300000, guid: 0f65bb1c6f1b7e04e8f738fa3812eaa9, type: 3}
 --- !u!114 &566701219
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2117,8 +2118,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PatternCount: 0
-  PatternCountFaze2: 0
-  Before: 0
+  PatternCountFaze2: 8
+  Before: 7
   AtkPtn2M: {fileID: 566701203}
   AtkPtn3M: {fileID: 566701205}
   AtkPtn1M: {fileID: 566701206}
@@ -4622,8 +4623,8 @@ MonoBehaviour:
   NoLieStack: 0
   TurnCount: 1
   NoKill: 0
-  Faze2: 0
-  NormalFaze2: 0
+  Faze2: 1
+  NormalFaze2: 1
   BetrayalFaze2: 0
   MercyEnd: 0
   GameDone: 0

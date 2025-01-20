@@ -33,8 +33,14 @@ public class Laser_Ex : MonoBehaviour
     public float damageInterval = 0.05f; // 데미지를 줄 간격
     private float damageTimer = 0f; // 현재 데미지 쿨다운 상태
 
+    public AudioClip LaserReady;
+    public AudioClip LaserBoom;
+
+    private bool once = false;
+
     private void Start()
     {
+        SoundManager.instance.SFXPlay("LaserReady", LaserReady);
         m_LR.positionCount = segmentCount * 2; // 각 세그먼트의 시작과 끝 점
         Player = GameObject.Find("Heart");
         HM_Player = Player.GetComponent<HeartMove>();
@@ -59,6 +65,11 @@ public class Laser_Ex : MonoBehaviour
 
     void ShootLaser()
     {
+        if (!once)
+        {
+            SoundManager.instance.SFXPlay("LaserBoom", LaserBoom);
+            once = true;
+        }
         // 레이저가 증가 중이면 증가시키고, 아니면 감소시킴
         if (isLaserExpanding)
         {
